@@ -1,6 +1,6 @@
 # 只因 API 教程网站
 
-仓库：<https://github.com/aa960806/myDoc>。`preview/` 是网页发布目录；部署方案与检查步骤见 [DEPLOYMENT.md](DEPLOYMENT.md)。本地可运行 `npm start` 预览、`npm run check` 检查页面，无需安装依赖。原始私人截图和网络采集保留在本地 `research/`，不上传仓库或网站。
+线上网站：<https://docs.yydsapi.uno/>。仓库：<https://github.com/aa960806/myDoc>。`preview/` 是网页发布目录；部署方案与检查步骤见 [DEPLOYMENT.md](DEPLOYMENT.md)。本地可运行 `npm start` 预览、`npm run check` 检查页面，无需安装依赖。原始私人截图和网络采集保留在本地 `research/`，不上传仓库或网站。
 
 当前阶段：「认识网站」、GPT / Claude / DeepSeek 对话入门、使用 GPT Image 2 在 Canvas 生图、本站视频站文生视频首课、Agent 共用首课与六款工具课、费用与账户，以及连接与报错 FAQ 已细化。主站源项目为 `F:\MySub2\sub2api`；教程工作在此目录内独立进行。
 
