@@ -1,0 +1,13 @@
+{
+  "name": "zhiyin-api-tutorial",
+  "version": "0.8.0",
+  "private": true,
+  "description": "只因 API 新手教程：对话、图片、视频、Agent 与账户费用",
+  "scripts": {
+    "start": "node serve-preview.mjs",
+    "check": "node scripts/validate-pages.cjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

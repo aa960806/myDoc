@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="只因 API 新手指南：从第一次对话到图片、视频和 Agent 工具。">
+  <title>新手指南 · 只因 API</title>
+  <link rel="icon" href="assets/brand.jpg">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="lesson-site.css">
+  <link rel="stylesheet" href="lesson-gpt.css">
+  <link rel="stylesheet" href="lesson-chat.css">
+  <link rel="stylesheet" href="lesson-image.css">
+  <link rel="stylesheet" href="lesson-video.css">
+  <link rel="stylesheet" href="lesson-help.css">
+  <link rel="stylesheet" href="lesson-agent.css">
+  <link rel="stylesheet" href="lesson-billing.css">
+  <script src="lesson-site.js" defer></script>
+  <script src="lesson-gpt.js" defer></script>
+  <script src="lesson-chat.js" defer></script>
+  <script src="lesson-image.js" defer></script>
+  <script src="lesson-video.js" defer></script>
+  <script src="lesson-help.js" defer></script>
+  <script src="lesson-agent.js" defer></script>
+  <script src="lesson-agent-codex.js" defer></script>
+  <script src="lesson-agent-zcode-harness.js" defer></script>
+  <script src="lesson-agent-desktop.js" defer></script>
+  <script src="lesson-billing.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <div class="rain-backdrop" aria-hidden="true"></div>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="只因 API 教程首页"><img src="assets/brand.jpg" alt=""><span>只因<span class="accent">API</span></span><span class="brand-divider"></span><span class="guide-label">新手指南</span></a>
+      <div class="header-actions">
+        <a class="main-site" href="https://www.yydsapi.uno/home" target="_blank" rel="noopener noreferrer">返回主站 <span aria-hidden="true">↗</span></a>
+        <button class="icon-button" id="theme-toggle" aria-label="切换到浅色模式"></button>
+        <a class="console-link" href="https://www.yydsapi.uno/login" target="_blank" rel="noopener noreferrer">进入控制台 <span aria-hidden="true">↗</span></a>
+        <button class="icon-button mobile-menu" id="menu-toggle" aria-label="打开教程导航" aria-controls="sidebar" aria-expanded="false"></button>
+      </div>
+    </header>
+    <div class="workspace">
+      <aside class="sidebar" id="sidebar">
+        <nav aria-label="教程导航">
+          <div class="nav-label">开始学习</div>
+          <a data-nav="home" href="#home"><span data-icon="grid"></span>教程首页</a>
+          <a data-nav="start" href="#start"><span data-icon="compass"></span>认识网站</a>
+          <div class="nav-label spaced">选择你的方向</div>
+          <a data-nav="chat" href="#track/chat"><span data-icon="chat"></span>对话与写作</a>
+          <a data-nav="image" href="#track/image"><span data-icon="image"></span>图片生成</a>
+          <a data-nav="video" href="#track/video"><span data-icon="video"></span>视频生成</a>
+          <a data-nav="tools" href="#tools"><span data-icon="agent"></span>Agent 与工具<span class="nav-new">新</span></a>
+          <div class="nav-label spaced">随时查阅</div>
+          <a data-nav="billing" href="#track/billing"><span data-icon="wallet"></span>费用与账户</a>
+          <a data-nav="help" href="#track/help"><span data-icon="help"></span>常见问题</a>
+        </nav>
+        <div class="sidebar-tip"><span data-icon="sprout"></span><strong>从一个小任务开始</strong><p>不用先懂所有术语。<br>选一条路线，跟着步骤走。</p><a href="#start">认识本站 <span aria-hidden="true">→</span></a></div>
+        <div class="sidebar-foot">只因 API · 学习中心</div>
+      </aside>
+      <main id="main" tabindex="-1"></main>
+    </div>
+    <footer class="site-footer"><span>让第一次使用，简单一点。</span><span>只因 API 新手指南</span></footer>
+  </div>
+</body>
+</html>

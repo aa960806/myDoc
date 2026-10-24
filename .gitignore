@@ -1,0 +1,14 @@
+# Local research includes original account screenshots and captured site data.
+/research/
+/.deploy/
+node_modules/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+*.log
+.DS_Store
+Thumbs.db
