@@ -8,6 +8,8 @@
 
 完成 Codex 首次任务后，可以继续阅读 [CLI 常用命令与会话管理](09-Codex-CLI常用命令与会话管理.md) 和 [桌面端与多对话协作](10-Codex桌面端与多对话协作.md)。两篇专题于 2026-11-04 核对官方文档，网页入口分别为 `#tool/codex?part=cli`、`#tool/codex?part=desktop`；本篇原有工具资料日期保持不变。
 
+Claude 两款工具也有独立的详细专题：`#tool/claude-desktop` 从开发者模式与第三方推理配置开始，继续学习 Chat、Cowork、Code，文稿见 [Claude 桌面端配置与 Cowork / Code 实操](12-Claude桌面端配置与Cowork-Code实操.md)；`#tool/claude-code` 学习 CLI 常用指令、会话管理和任务协作，文稿见 [Claude CLI 常用命令与任务协作](11-Claude-CLI常用命令与任务协作.md)。新版资料核对日期为 2026-11-04；以下原有首课仍可作为简版流程参考，旧章节链接会定位到相应新章节。
+
 ## 一、共用首课：从一句要求，到电脑里的一份文件
 
 ### 第 1 步：先认识工具、模型与工作区

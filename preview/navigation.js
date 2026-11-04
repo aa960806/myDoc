@@ -34,8 +34,22 @@ const tutorialNavigation = (() => {
     ['Codex：发起子代理并汇总', 'Agent 与工具', '拆出独立任务，检查子代理返回的结果。', '#tool/codex?part=desktop&section=codex-desktop-subagents', 'codex subagent agent 子代理 并行 多代理'],
     ['Codex：让已有对话相互配合', 'Agent 与工具', '明确发消息的对象、任务范围与汇总位置。', '#tool/codex?part=desktop&section=codex-desktop-coordinate', 'codex 协作 配合 对话 消息 协调 汇总'],
     ['Codex：目录隔离与工作树', 'Agent 与工具', '安排写入分工，需要独立改动时使用 worktree。', '#tool/codex?part=desktop&section=codex-desktop-worktrees', 'codex worktree 工作树 目录 隔离 冲突 并行'],
-    ['Claude Code：下载、连接与使用', 'Agent 与工具', '准备工作区，用 Claude Code 完成练习。', '#tool/claude-code', 'claude code agent 下载 安装 终端 编程'],
-    ['Claude 桌面端：下载与使用', 'Agent 与工具', '了解桌面工具的接入方式和文件任务。', '#tool/claude-desktop', 'claude desktop 桌面端 客户端 下载 安装'],
+    ['Claude CLI：下载、连接与使用', 'Agent 与工具', '准备工作区，用 Claude Code 的常用指令推进任务。', '#tool/claude-code', 'claude code cli agent 下载 安装 终端 编程'],
+    ['Claude CLI：用 /model 切换模型', 'Agent 与工具', '核对当前模型、接入状态与权限，再开始任务。', '#tool/claude-code?section=claude-cli-model', 'claude code cli /model /status /permissions 切换 模型 权限'],
+    ['Claude CLI：常用指令速查', 'Agent 与工具', '按场景查找并复制 Claude Code 的命令。', '#tool/claude-code?section=claude-cli-commands', 'claude code cli 命令 指令 slash help clear compact context cost usage 速查'],
+    ['Claude CLI：恢复与分叉会话', 'Agent 与工具', '分清恢复、清空、分支与后台会话的用途。', '#tool/claude-code?section=claude-cli-sessions', 'claude code cli /resume /rename /branch /fork 恢复 分叉 分支 会话'],
+    ['Claude CLI：计划、差异与恢复检查点', 'Agent 与工具', '先规划再修改，通过差异与检查点核对结果。', '#tool/claude-code?section=claude-cli-review', 'claude code cli /plan /diff /review /rewind 检查点 撤销 回退 计划 审查'],
+    ['Claude CLI：文件、记忆、技能与 MCP', 'Agent 与工具', '用文件引用补充材料，了解 CLAUDE.md、技能和工具连接。', '#tool/claude-code?section=claude-cli-context', 'claude code cli @ CLAUDE.md /memory /skills /mcp 文件 引用 记忆 技能'],
+    ['Claude CLI：子代理与任务协作', 'Agent 与工具', '拆出独立检查任务，等待结果并由主会话汇总。', '#tool/claude-code?section=claude-cli-agents', 'claude code cli /agents /subtask subagent 子代理 协作 并行 任务'],
+    ['Claude CLI：完整练习与常见卡点', 'Agent 与工具', '完成文件任务、检查成果，再退出并恢复会话。', '#tool/claude-code?section=claude-cli-practice', 'claude code cli 练习 第一次 任务 文件 消费 排错'],
+    ['Claude 桌面端：配置与使用', 'Agent 与工具', '连接本站后，按任务选择 Chat、Cowork 或 Code。', '#tool/claude-desktop', 'claude desktop desk 桌面端 客户端 下载 安装'],
+    ['Claude 桌面端：配置第三方推理', 'Agent 与工具', '启用开发者模式，填写本站 URL 和自己的 API Key，保存并重启。', '#tool/claude-desktop?section=claude-desktop-connect', 'claude desktop desk 配置 第三方 推理 开发者 帮助 故障排查 url api key gateway'],
+    ['Claude 桌面端：Chat、Cowork、Code 怎么选', 'Agent 与工具', '按文字讨论、资料整理和项目修改选择工作方式。', '#tool/claude-desktop?section=claude-desktop-modes', 'claude desktop desk chat cowork code 模式 区别 选择'],
+    ['Claude 桌面端：Chat 对话技巧', 'Agent 与工具', '交代目标与材料，分轮追问并检查回答。', '#tool/claude-desktop?section=claude-desktop-chat', 'claude desktop desk chat 对话 写作 提问 提示词'],
+    ['Claude Cowork：整理资料与交付文件', 'Agent 与工具', '选定资料范围，核对计划，再检查保存的成果。', '#tool/claude-desktop?section=claude-desktop-cowork', 'claude desktop desk cowork 文件 资料 整理 文档 目录 计划'],
+    ['Claude Code 桌面：本地项目与修改检查', 'Agent 与工具', '选择本地目录和权限，从计划走到实际文件修改。', '#tool/claude-desktop?section=claude-desktop-code', 'claude desktop desk code local 本地 项目 权限 plan diff review 审查'],
+    ['Claude 桌面端：多任务与并行协作', 'Agent 与工具', '拆分任务范围，明确文件位置，再统一检查结果。', '#tool/claude-desktop?section=claude-desktop-workflow', 'claude desktop desk 协作 并行 多任务 会话 工作树 worktree'],
+    ['Claude 桌面端：配置与运行排错', 'Agent 与工具', '按菜单入口、网关连接或任务执行的问题逐项检查。', '#tool/claude-desktop?section=claude-desktop-help', 'claude desktop desk cowork code 报错 连接 401 开发者 无法启动'],
     ['ZCode：下载与使用', 'Agent 与工具', '跟着工具指南准备项目并完成第一次任务。', '#tool/zcode', 'zcode z.ai 智谱 glm agent 下载 安装'],
     ['DeepSeek Harness：下载与使用', 'Agent 与工具', '在工作区中完成创建、检查与修改。', '#tool/deepseek-harness', 'deepseek harness 哈内斯 深度求索 agent 下载 安装'],
     ['CC Switch：管理客户端配置', 'Agent 与工具', '管理并切换客户端的供应商配置。', '#tool/ccswitch', 'cc switch ccswitch 配置 管理 供应商 切换 下载 安装'],
@@ -149,7 +163,8 @@ const tutorialNavigation = (() => {
         queueTracking();
         return;
       }
-      const target = document.getElementById(section);
+      const route = parseHash(location.hash).route;
+      const target = document.getElementById(agentGuideSection(route, section));
       if (!target || !main?.contains(target)) return;
       // An explicit search result may be outside the FAQ's current local filter.
       if (target.matches('.faq-item[hidden]') || target.closest('[data-faq-group][hidden]')) {

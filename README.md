@@ -4,6 +4,16 @@
 
 当前阶段：「认识网站」、GPT / Claude / DeepSeek 对话入门、使用 GPT Image 2 在 Canvas 生图、本站视频站文生视频首课、Agent 共用首课与六款工具课、费用与账户，以及连接与报错 FAQ 已细化。主站源项目为 `F:\MySub2\sub2api`；教程工作在此目录内独立进行。
 
+## 2026-11-04 · Claude 桌面与 CLI 专题
+
+Claude 继续使用工具库内的两个入口：`#tool/claude-desktop` 从官方下载、启用开发者模式、配置第三方推理开始，介绍 Chat、Cowork、Code 的用途、资料任务与本地项目操作；`#tool/claude-code` 按使用场景讲常用指令、模型切换、会话恢复与分支、修改检查和任务协作。两篇课程互相直达，均有准备、操作顺序、完成标准、章节目录和可复制示例。
+
+- `preview/lesson-claude-desktop.js`、`lesson-claude-cli.js`：两篇扩展课程；文稿为 `content/11-Claude-CLI常用命令与任务协作.md` 和 `content/12-Claude桌面端配置与Cowork-Code实操.md`。
+- `preview/claude-workbench.js`、`claude-workbench.css`：Claude 课程切换、配置路径与工作流程示意。
+- `preview/lesson-agent.js`、`navigation.js`：专题入口、课程渲染、搜索和旧章节深链接兼容。
+
+旧 `#tool/claude-desktop?section=agent-*` 和 `#tool/claude-code?section=agent-*` 链接继续定位到相应新章节；`#claude`、`#deepseek` 接入准备课保持原入口。官方资料核对日期为 2026-11-04，资料链接与适用条件保留在各课末尾；配置图是明确标注的教学示意，未安装客户端、填入真实密钥或发起本站付费模型任务。客户端提供的功能、第三方网关兼容性与本站实际调用验证分别说明。本轮更新用于本地预览，不代表已经部署线上。
+
 ## 2026-11-04 · Codex 桌面与 CLI 专题
 
 Codex 工具指南分为三篇，同属「Agent 与工具」：`#tool/codex?part=start` 保留首次文件任务，`#tool/codex?part=desktop` 讲桌面操作、对话分叉、深度链接、临时旁支、子代理与已有对话协作，`#tool/codex?part=cli` 讲输入位置、`/model` 等常用命令、会话恢复、差异与审查。三篇均有准备、完成标准、章节目录和可复制练习。

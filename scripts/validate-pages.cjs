@@ -91,10 +91,27 @@ const codexRequiredIds = {
   desktop: ['codex-desktop-workspace', 'codex-desktop-fork', 'codex-desktop-links', 'codex-desktop-side', 'codex-desktop-subagents', 'codex-desktop-coordinate', 'codex-desktop-worktrees', 'codex-desktop-practice'],
   cli: ['codex-cli-start', 'codex-cli-model', 'codex-cli-commands', 'codex-cli-sessions', 'codex-cli-review', 'codex-cli-context', 'codex-cli-practice'],
 };
+const claudeCases = [
+  { route: 'tool/claude-code', expectedClaudeCourse: 'cli', kind: 'claude-course' },
+  { route: 'tool/claude-desktop', expectedClaudeCourse: 'desktop', kind: 'claude-course' },
+  ...['claude-code', 'claude-desktop'].flatMap(tool => ['download', 'connect', 'workspace', 'task', 'check', 'help'].map(section => ({
+    route: `tool/${tool}?section=agent-${section}`,
+    expectedClaudeCourse: tool === 'claude-code' ? 'cli' : 'desktop',
+    legacySection: `agent-${section}`,
+    kind: 'claude-legacy-section',
+  }))),
+  { route: 'tool/claude-desktop?section=claude-desktop-cowork', expectedClaudeCourse: 'desktop', kind: 'claude-direct-section' },
+  { route: 'tool/claude-code?section=claude-cli-model', expectedClaudeCourse: 'cli', kind: 'claude-direct-section' },
+];
+const claudeRequiredIds = {
+  cli: ['claude-cli-start', 'claude-cli-model', 'claude-cli-commands', 'claude-cli-sessions', 'claude-cli-review', 'claude-cli-context', 'claude-cli-agents', 'claude-cli-practice'],
+  desktop: ['claude-desktop-install', 'claude-desktop-connect', 'claude-desktop-modes', 'claude-desktop-chat', 'claude-desktop-cowork', 'claude-desktop-code', 'claude-desktop-workflow', 'claude-desktop-help'],
+};
 const targets = [
   ...legacyRoutes.map(route => ({ route, kind: 'legacy' })),
   ...billingCases,
   ...codexCases,
+  ...claudeCases,
 ];
 const pages = new Map();
 function render(route) {
@@ -106,6 +123,7 @@ function render(route) {
   return html;
 }
 const idsIn = html => [...html.matchAll(/\sid=(['"])(.*?)\1/g)].map(match => match[2]);
+const resolvedSection = (route, section) => vm.runInContext(`agentGuideSection(${JSON.stringify(route)}, ${JSON.stringify(section)})`, context);
 const panelExpectations = {
   api: { title: '去「使用记录」查模型调用', url: 'https://www.yydsapi.uno/usage' },
   image: { title: '外部生图 Canvas，也查「使用记录」', url: 'https://www.yydsapi.uno/usage' },
@@ -137,7 +155,7 @@ for (const target of targets) {
     const destination = match[2].slice(1).replaceAll('&amp;', '&');
     const [route, query = ''] = destination.split('?');
     const section = new URLSearchParams(query).get('section');
-    if (section && !idsIn(render(destination)).includes(section)) brokenAnchors.push(match[2]);
+    if (section && !idsIn(render(destination)).includes(resolvedSection(route, section))) brokenAnchors.push(match[2]);
   }
   const ariaMissing = [];
   for (const match of html.matchAll(/\saria-(?:controls|labelledby)=(['"])(.*?)\1/g)) {
@@ -162,6 +180,21 @@ for (const target of targets) {
     }
   }
   if (target.expectedGptAlias && (!ids.includes('gpt-config') || html.includes('data-codex-part='))) pageIssues.push('Legacy Codex GPT link must still render the GPT configuration lesson.');
+  if (target.expectedClaudeCourse) {
+    const course = target.expectedClaudeCourse;
+    if (!html.includes(`data-claude-course="${course}"`)) pageIssues.push(`Expected Claude course ${course}.`);
+    const missing = claudeRequiredIds[course].filter(id => !ids.includes(id));
+    if (missing.length) pageIssues.push(`Missing Claude course sections: ${missing.join(', ')}.`);
+    for (const destination of ['claude-code', 'claude-desktop']) {
+      if (!html.includes(`href="#tool/${destination}"`)) pageIssues.push(`Missing Claude ${destination} course link.`);
+    }
+    const route = target.route.split('?')[0];
+    const section = new URLSearchParams(target.route.split('?')[1] || '').get('section');
+    if (section && !ids.includes(resolvedSection(route, section))) pageIssues.push(`Claude section does not resolve: ${section}.`);
+    if (target.legacySection && resolvedSection(route, target.legacySection) === target.legacySection) pageIssues.push(`Legacy Claude section was not mapped: ${target.legacySection}.`);
+    if (resolvedSection(route, '__proto__') !== '__proto__') pageIssues.push('Claude section aliases must ignore inherited object properties.');
+    if (!html.includes('class="lesson-brief"')) pageIssues.push('Claude course must include a lesson brief.');
+  }
   if (target.selected) {
     const buttons = [...html.matchAll(/<button\b[^>]*\sdata-billing-record=(['"])(.*?)\1[^>]*>/g)].map(match => ({
       id: match[2], pressed: attr(match[0], 'aria-pressed'),
@@ -188,14 +221,14 @@ for (const target of targets) {
 const summary = {
   checkedAt: new Date().toISOString(),
   scope: 'Static VM render only; no browser layout, clicks, network, login or payment validation.',
-  scripts, legacyRoutes: legacyRoutes.length, billingCases: billingCases.length, codexCases: codexCases.length,
+  scripts, legacyRoutes: legacyRoutes.length, billingCases: billingCases.length, codexCases: codexCases.length, claudeCases: claudeCases.length,
   setupIssues, pages: report,
   issues: report.filter(entry => !entry.passed),
 };
 fs.writeFileSync(reportPath, `${JSON.stringify(summary, null, 2)}\n`);
 console.log(JSON.stringify({
   scripts: scripts.length, legacyRoutes: legacyRoutes.length,
-  billingCases: billingCases.length, codexCases: codexCases.length, checkedPages: report.length,
+  billingCases: billingCases.length, codexCases: codexCases.length, claudeCases: claudeCases.length, checkedPages: report.length,
   setupIssues, issueCount: summary.issues.length, reportPath,
   issues: summary.issues,
 }, null, 2));
