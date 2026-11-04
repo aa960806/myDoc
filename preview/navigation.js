@@ -9,7 +9,7 @@ const tutorialNavigation = (() => {
     ['DeepSeek：在 Claude Code 中使用', '对话与写作', '用本站支持的 DeepSeek 模型完成练习。', '#deepseek', 'deepseek claude code 深度求索 配置 接入'],
     ['第一张图片：连接 Canvas', '图片生成', '使用图片服务地址，在画布中配置 gpt-image-2。', '#track/image?section=image-connect', '图片 生图 gpt-image-2 canvas modelaryx image.yydsapi.uno api key 配置'],
     ['视频站专用密钥怎么创建？', '视频生成', '在本站准备画布 Key，再到视频站登录。', '#track/video?section=video-key', '视频 画布 key 专用 密钥 canvas 登录 共用额度'],
-    ['选择一款 Agent 工具', 'Agent 与工具', '查看六款工具的下载、连接与任务指南。', '#tools?section=agent-tool-library', 'agent 工具 下载 客户端 编程 桌面'],
+    ['选择一款 Agent 工具', 'Agent 与工具', '按 GPT、Claude、DeepSeek Harness、ZCode 与 CC Switch 查找教程。', '#tools?section=agent-tool-library', 'agent 工具 下载 客户端 编程 桌面'],
     ['GPT：命令行安装', '对话与写作', '选择 Codex CLI 路线，准备终端工具。', '#gpt?mode=cli&section=gpt-install', 'gpt codex cli 命令行 终端 powershell npm node 安装'],
     ['GPT：桌面端安装', '对话与写作', '选择 Codex 桌面路线，跟着界面操作。', '#gpt?mode=desktop&section=gpt-install', 'gpt codex desktop 桌面 客户端 下载 安装'],
     ['GPT：第一条任务与追问', '对话与写作', '发送练习提示，再让模型调整结果。', '#gpt?section=gpt-task', 'gpt 提问 追问 提示词 第一次 对话'],

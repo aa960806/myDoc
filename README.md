@@ -2,7 +2,13 @@
 
 线上网站：<https://docs.yydsapi.uno/>。仓库：<https://github.com/aa960806/myDoc>。`preview/` 是网页发布目录；部署方案与检查步骤见 [DEPLOYMENT.md](DEPLOYMENT.md)。本地可运行 `npm start` 预览、`npm run check` 检查页面，无需安装依赖。原始私人截图和网络采集保留在本地 `research/`，不上传仓库或网站。
 
-当前阶段：「认识网站」、GPT / Claude / DeepSeek 对话入门、使用 GPT Image 2 在 Canvas 生图、本站视频站文生视频首课、Agent 共用首课与六款工具课、费用与账户，以及连接与报错 FAQ 已细化。主站源项目为 `F:\MySub2\sub2api`；教程工作在此目录内独立进行。
+当前阶段：「认识网站」、GPT / Claude / DeepSeek 对话入门、使用 GPT Image 2 在 Canvas 生图、本站视频站文生视频首课、Agent 共用首课与五类工具教程、费用与账户，以及连接与报错 FAQ 已细化。主站源项目为 `F:\MySub2\sub2api`；教程工作在此目录内独立进行。
+
+## 2026-11-04 · Agent 工具目录整理
+
+`#tools` 收为 GPT、Claude、DeepSeek Harness、ZCode、CC Switch 五个入口。GPT 内含 Codex 入门、桌面端、CLI；Claude 内含桌面端和 Claude Code CLI，其余三类各进入对应指南。移除重复专题、首屏成果展示及用途过滤，基础首课保留为顶部辅助入口。
+
+`preview/lesson-agent.js` 中的 `agentToolCategories` 统一驱动工具目录、首页快捷入口和首课工具选择；`preview/agent-directory.css` 负责分类卡片。原工具详情、课程参数和 `#tools?section=agent-tool-library` 深链接继续可用；分类也可通过 `agent-category-*` 定位。网页内容保留在原文章中，本轮仅整理入口与层级。
 
 ## 2026-11-04 · Claude 桌面与 CLI 专题
 
@@ -34,7 +40,7 @@ Codex 工具指南分为三篇，同属「Agent 与工具」：`#tool/codex?part
 
 导航整理包括顶部本地教程搜索（Ctrl/Cmd+K）、移动端吸顶导航、随滚动更新的页内目录，以及同一课内只切换章节时保留已填写内容。搜索根据教程索引在本地查找，不读取账户数据。同课内改变客户端路线等选项、跳到另一课或刷新页面，不属于输入保留范围。
 
-- `preview/lesson-home.js`：三步起点、四条结果路线、六款工具与常用帮助入口。
+- `preview/lesson-home.js`：三步起点、四条结果路线、五类工具与常用帮助入口。
 - `preview/refinement.css`：共享阅读层级、首页版式、深浅色与移动端适配。
 - `preview/navigation.js`：全站教程搜索、章节定位与目录状态。
 
@@ -58,7 +64,7 @@ Codex 工具指南分为三篇，同属「Agent 与工具」：`#tool/codex?part
 
 主要页面：`#home` 首页、`#tools` Agent 学习入口与工具库、`#agent` 第一次 Agent 任务、`#start` 认识网站第一课、`#track/chat` 对话与写作（三模型目录）、`#gpt` GPT 接入入门、`#tool/codex` Codex Agent 实操、`#claude` Claude Code 使用 Claude、`#deepseek` Claude Code 使用 DeepSeek。第一课支持 `#start?section=features&feature=keys` 等功能直达链接。
 
-工具库有搜索、用途筛选、官方来源链接；全站支持深浅色和移动导航。六款工具已有分步指南，其文档支持、配置入口和实际调用验证分别说明；更深入的技能、MCP 和自动化留作后续内容。
+Agent 工具目录按 GPT、Claude、DeepSeek Harness、ZCode、CC Switch 五类展示，同一家工具的桌面端与 CLI 放在同一卡片下。首页与共用首课复用相同分类；查找具体命令可用全站搜索。各篇教程保留下载与来源链接、深浅色和移动端支持。
 
 常见问题已接入 `#track/help`：10 个 HTTP 状态码条目（含两类 429）与 2 类流式报错，支持搜索、分类筛选和展开步骤。各条目包含用户自查和折叠的站方排查；补充 Nginx / SSE 维护参考与可复制的脱敏求助模板。可用 `#track/help?section=faq-ping` 等链接直达具体报错。
 

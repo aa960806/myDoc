@@ -1,5 +1,8 @@
 # Agent 入门与工具使用
 
+> 2026-11-04 目录整理：工具入口统一为 GPT、Claude、DeepSeek Harness、ZCode、CC Switch 五类。GPT 收录 Codex 入门、桌面端与 CLI；Claude 收录桌面端与 Claude Code CLI。原有分步教程仍使用各自链接，以下按实际客户端讲解。
+
+
 归属：Agent 与工具。工具目录入口：`#tools`；共用首课入口：`#agent`。面向第一次使用的普通用户，以 Windows 操作为主，资料核对日期：2026-10-24。
 
 本课目标：选一款工具，在电脑“文档”中的 `agent-practice` 练习文件夹创建 `learning-plan.md`，打开检查，再只修改它的标题。使用本站模型时，还要找到对应的使用记录。
