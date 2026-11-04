@@ -6,6 +6,8 @@
 
 正文依据当前网页的 `lesson-agent.js`、`lesson-agent-codex.js`、`lesson-agent-desktop.js`、`lesson-agent-zcode-harness.js` 整理。下载配图为官方网站公开页面实拍，不是本机安装后完成付费任务的截图。
 
+完成 Codex 首次任务后，可以继续阅读 [CLI 常用命令与会话管理](09-Codex-CLI常用命令与会话管理.md) 和 [桌面端与多对话协作](10-Codex桌面端与多对话协作.md)。两篇专题于 2026-11-04 核对官方文档，网页入口分别为 `#tool/codex?part=cli`、`#tool/codex?part=desktop`；本篇原有工具资料日期保持不变。
+
 ## 一、共用首课：从一句要求，到电脑里的一份文件
 
 ### 第 1 步：先认识工具、模型与工作区

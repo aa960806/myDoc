@@ -24,6 +24,16 @@ const tutorialNavigation = (() => {
     ['视频：下载与保存', '视频生成', '确认作品后下载视频。', '#track/video?section=video-download', '视频 下载 保存 导出'],
     ['第一次 Agent 任务', 'Agent 与工具', '在练习文件夹里创建、检查并修改一份文件。', '#agent', 'agent 入门 第一次 任务 工作区 learning-plan.md'],
     ['Codex：下载、连接与使用', 'Agent 与工具', '用 Codex 完成一个可以检查的文件任务。', '#tool/codex', 'codex openai agent 下载 安装 命令行 桌面 客户端'],
+    ['Codex CLI：用 /model 切换模型', 'Agent 与工具', '在 Codex 输入区选择模型，再检查当前配置和权限。', '#tool/codex?part=cli&section=codex-cli-model', 'codex cli /model /status /permissions 切换 模型 权限'],
+    ['Codex CLI：常用指令速查', 'Agent 与工具', '按场景查找可以直接复制的斜杠命令。', '#tool/codex?part=cli&section=codex-cli-commands', 'codex cli 命令 指令 slash 速查'],
+    ['Codex CLI：新建、恢复和分叉', 'Agent 与工具', '分清 /new、/resume 与 /fork 的作用。', '#tool/codex?part=cli&section=codex-cli-sessions', 'codex cli new resume fork compact 恢复 分叉 会话'],
+    ['Codex CLI：计划、差异与审查', 'Agent 与工具', '用 /plan、/diff 和 /review 检查工作。', '#tool/codex?part=cli&section=codex-cli-review', 'codex cli plan diff review 计划 差异 审查 git'],
+    ['Codex 桌面：继续、新建与分叉', 'Agent 与工具', '保留原方案，用 /fork 探索另一种做法。', '#tool/codex?part=desktop&section=codex-desktop-fork', 'codex 桌面 fork 分叉 分支 新建 对话'],
+    ['Codex 桌面：复制对话深度链接', 'Agent 与工具', '复制能定位当前聊天的链接，方便回到上下文。', '#tool/codex?part=desktop&section=codex-desktop-links', 'codex 深度链接 deep link ctrl alt l 复制 对话链接'],
+    ['Codex 桌面：临时子对话 /side', 'Agent 与工具', '在旁支讨论细节，再回到主任务继续。', '#tool/codex?part=desktop&section=codex-desktop-side', 'codex side 旁支 子对话 临时'],
+    ['Codex：发起子代理并汇总', 'Agent 与工具', '拆出独立任务，检查子代理返回的结果。', '#tool/codex?part=desktop&section=codex-desktop-subagents', 'codex subagent agent 子代理 并行 多代理'],
+    ['Codex：让已有对话相互配合', 'Agent 与工具', '明确发消息的对象、任务范围与汇总位置。', '#tool/codex?part=desktop&section=codex-desktop-coordinate', 'codex 协作 配合 对话 消息 协调 汇总'],
+    ['Codex：目录隔离与工作树', 'Agent 与工具', '安排写入分工，需要独立改动时使用 worktree。', '#tool/codex?part=desktop&section=codex-desktop-worktrees', 'codex worktree 工作树 目录 隔离 冲突 并行'],
     ['Claude Code：下载、连接与使用', 'Agent 与工具', '准备工作区，用 Claude Code 完成练习。', '#tool/claude-code', 'claude code agent 下载 安装 终端 编程'],
     ['Claude 桌面端：下载与使用', 'Agent 与工具', '了解桌面工具的接入方式和文件任务。', '#tool/claude-desktop', 'claude desktop 桌面端 客户端 下载 安装'],
     ['ZCode：下载与使用', 'Agent 与工具', '跟着工具指南准备项目并完成第一次任务。', '#tool/zcode', 'zcode z.ai 智谱 glm agent 下载 安装'],
@@ -79,13 +89,15 @@ const tutorialNavigation = (() => {
   }
 
   function identity(state) {
-    // The old Codex URL can point to either the GPT lesson or the Agent lesson.
-    return state.route === 'tool/codex' && (state.params.get('section') || '').startsWith('gpt-')
-      ? 'tool/codex:gpt' : state.route;
+    if (state.route !== 'tool/codex') return state.route;
+    // Old GPT links remain a separate lesson; new Codex courses share one route.
+    if ((state.params.get('section') || '').startsWith('gpt-')) return 'tool/codex:gpt';
+    return `tool/codex:${codexGuidePart(state.params)}`;
   }
 
   function optionsKey(state) {
     const params = new URLSearchParams(state.params);
+    if (state.route === 'tool/codex' && identity(state) !== 'tool/codex:gpt') params.set('part', codexGuidePart(state.params));
     // The GPT lesson renders CLI when mode is omitted; its TOC writes it explicitly.
     if ((identity(state) === 'gpt' || identity(state) === 'tool/codex:gpt') && !params.has('mode')) params.set('mode', 'cli');
     return JSON.stringify([...params].filter(([key]) => key !== 'section').sort(([ak, av], [bk, bv]) => ak.localeCompare(bk) || av.localeCompare(bv)));
@@ -104,10 +116,13 @@ const tutorialNavigation = (() => {
     scrollFrame = 0;
     const visible = tocItems.filter(({ target }) => target.isConnected && target.getClientRects().length > 0);
     if (!visible.length) return;
-    const header = document.querySelector('.site-header');
-    const threshold = Math.max(96, (header ? header.getBoundingClientRect().bottom : 0) + 36);
+    const scrollRoot = document.scrollingElement || document.documentElement;
+    const scrollPadding = parseFloat(window.getComputedStyle(scrollRoot).scrollPaddingTop) || 0;
     let current = visible[0];
     for (const item of visible) {
+      // Match scrollIntoView's CSS offsets, including per-heading scroll margins.
+      const scrollMargin = parseFloat(window.getComputedStyle(item.target).scrollMarginTop) || 0;
+      const threshold = scrollPadding + scrollMargin + 3;
       if (item.target.getBoundingClientRect().top > threshold) break;
       current = item;
     }

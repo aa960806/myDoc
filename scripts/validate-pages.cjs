@@ -76,9 +76,25 @@ const billingCases = [
     kind: 'invalid-record-fallback',
   })),
 ];
+const codexCases = [
+  { route: 'tool/codex?part=desktop', expectedCodexPart: 'desktop', kind: 'codex-course' },
+  { route: 'tool/codex?part=cli', expectedCodexPart: 'cli', kind: 'codex-course' },
+  { route: 'tool/codex?part=invalid', expectedCodexPart: 'start', kind: 'codex-part-fallback' },
+  { route: 'tool/codex?part=__proto__', expectedCodexPart: 'start', kind: 'codex-part-fallback' },
+  { route: 'tool/codex?section=codex-cli-model', expectedCodexPart: 'cli', kind: 'codex-section-inference' },
+  { route: 'tool/codex?section=codex-desktop-links', expectedCodexPart: 'desktop', kind: 'codex-section-inference' },
+  { route: 'tool/codex?part=start&section=agent-task', expectedCodexPart: 'start', kind: 'codex-start-section' },
+  { route: 'tool/codex?section=gpt-config&mode=desktop', expectedGptAlias: true, kind: 'codex-legacy-gpt' },
+];
+const codexRequiredIds = {
+  start: ['agent-download', 'agent-connect', 'agent-workspace', 'agent-task', 'agent-check', 'agent-help'],
+  desktop: ['codex-desktop-workspace', 'codex-desktop-fork', 'codex-desktop-links', 'codex-desktop-side', 'codex-desktop-subagents', 'codex-desktop-coordinate', 'codex-desktop-worktrees', 'codex-desktop-practice'],
+  cli: ['codex-cli-start', 'codex-cli-model', 'codex-cli-commands', 'codex-cli-sessions', 'codex-cli-review', 'codex-cli-context', 'codex-cli-practice'],
+};
 const targets = [
   ...legacyRoutes.map(route => ({ route, kind: 'legacy' })),
   ...billingCases,
+  ...codexCases,
 ];
 const pages = new Map();
 function render(route) {
@@ -132,6 +148,20 @@ for (const target of targets) {
   const pageIssues = [];
   if (!/<h1\b/i.test(html)) pageIssues.push('Missing main page heading.');
   if (html.includes('这个页面还没有准备好')) pageIssues.push('Route rendered the not-found page.');
+  if (target.expectedCodexPart) {
+    const part = target.expectedCodexPart;
+    if (!html.includes(`data-codex-part="${part}"`)) pageIssues.push(`Expected Codex course ${part}.`);
+    const missing = codexRequiredIds[part].filter(id => !ids.includes(id));
+    if (missing.length) pageIssues.push(`Missing Codex course sections: ${missing.join(', ')}.`);
+    for (const destination of ['start', 'desktop', 'cli']) {
+      if (!html.includes(`href="#tool/codex?part=${destination}"`)) pageIssues.push(`Missing Codex ${destination} course link.`);
+    }
+    const guideToc = html.match(/<aside class="toc"[^>]*>([\s\S]*?)<\/aside>/)?.[1] || '';
+    for (const section of codexRequiredIds[part]) {
+      if (!guideToc.includes(`href="#tool/codex?part=${part}&section=${section}"`)) pageIssues.push(`Codex TOC must retain part for ${section}.`);
+    }
+  }
+  if (target.expectedGptAlias && (!ids.includes('gpt-config') || html.includes('data-codex-part='))) pageIssues.push('Legacy Codex GPT link must still render the GPT configuration lesson.');
   if (target.selected) {
     const buttons = [...html.matchAll(/<button\b[^>]*\sdata-billing-record=(['"])(.*?)\1[^>]*>/g)].map(match => ({
       id: match[2], pressed: attr(match[0], 'aria-pressed'),
@@ -158,14 +188,14 @@ for (const target of targets) {
 const summary = {
   checkedAt: new Date().toISOString(),
   scope: 'Static VM render only; no browser layout, clicks, network, login or payment validation.',
-  scripts, legacyRoutes: legacyRoutes.length, billingCases: billingCases.length,
+  scripts, legacyRoutes: legacyRoutes.length, billingCases: billingCases.length, codexCases: codexCases.length,
   setupIssues, pages: report,
   issues: report.filter(entry => !entry.passed),
 };
 fs.writeFileSync(reportPath, `${JSON.stringify(summary, null, 2)}\n`);
 console.log(JSON.stringify({
   scripts: scripts.length, legacyRoutes: legacyRoutes.length,
-  billingCases: billingCases.length, checkedPages: report.length,
+  billingCases: billingCases.length, codexCases: codexCases.length, checkedPages: report.length,
   setupIssues, issueCount: summary.issues.length, reportPath,
   issues: summary.issues,
 }, null, 2));
