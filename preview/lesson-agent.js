@@ -23,13 +23,13 @@ const agentToolCategories = [
     ['Claude Code CLI', '常用指令、会话恢复与子代理协作', '#tool/claude-code']
   ]},
   {id:'deepseek-harness', name:'DeepSeek Harness', toolId:'deepseek-harness', toolIds:['deepseek-harness'], description:'在工作区整理资料，让 Agent 完成一个具体任务。', summary:'配置模型与工作区', lessons:[
-    ['开始 Harness 教程', '下载、连接模型与第一次任务', '#tool/deepseek-harness']
+    ['开始 Harness 教程', '模型配置、会话管理与自动任务', '#tool/deepseek-harness']
   ]},
   {id:'zcode', name:'ZCode', toolId:'zcode', toolIds:['zcode'], description:'用图形界面打开项目，规划任务并检查修改结果。', summary:'图形界面与项目任务', lessons:[
-    ['开始 ZCode 教程', '安装、自定义供应商与工作区', '#tool/zcode']
+    ['开始 ZCode 教程', '配置、项目修改与任务协作', '#tool/zcode']
   ]},
   {id:'ccswitch', name:'CC Switch', toolId:'ccswitch', toolIds:['ccswitch'], description:'集中管理 API 配置，在不同客户端间切换供应商。', summary:'管理与切换接入配置', lessons:[
-    ['开始 CC Switch 教程', '导入配置、启用供应商与切换客户端', '#tool/ccswitch']
+    ['开始 CC Switch 教程', '导入、切换、备份与桌面端接入', '#tool/ccswitch']
   ]}
 ];
 function agentCategoryHref(category) { return `#tools?section=agent-category-${category.id}`; }
@@ -86,7 +86,7 @@ function agentGuideSection(route, section) {
   return map && Object.prototype.hasOwnProperty.call(map, section) ? map[section] : section;
 }
 function agentToolGuidePage(id) {
-  const guides = {...agentCodexGuides, ...agentZcodeHarnessGuides, ...agentDesktopGuides};
+  const guides = {...agentCodexGuides, zcode:zcodeGuide, 'deepseek-harness':deepseekHarnessGuide, ccswitch:ccSwitchGuide};
   const part = id === 'codex' ? codexGuidePart() : '';
   const guide = id === 'codex'
     ? part === 'desktop' ? codexDesktopGuide : part === 'cli' ? codexCliGuide : guides.codex
@@ -95,7 +95,7 @@ function agentToolGuidePage(id) {
   if (!guide || !tool) return notFound();
   const isCodex = id === 'codex';
   const claudeCourse = id === 'claude-code' ? 'cli' : id === 'claude-desktop' ? 'desktop' : '';
-  const isExpanded = isCodex || !!claudeCourse;
+  const isExpanded = isCodex || !!claudeCourse || Boolean(guide.prepare);
   const brief = isExpanded
     ? `<div class="lesson-brief" aria-label="开始前看这里"><div><span>准备</span><p>${escapeHTML(guide.prepare || '已安装 Codex，并完成 GPT 准备课的本站连接。准备一个空练习文件夹。')}</p></div><div><span>完成后</span><p>${guide.completion.map(escapeHTML).join('；')}。</p></div><div><span>操作顺序</span><p>${escapeHTML(guide.sequence || '打开工具 → 确认连接与目录 → 创建和修改文件 → 检查成果与消费。')}</p></div></div>`
     : `<div class="lesson-objectives"><strong>${icon('sprout')}这一课的完成标准</strong>${guide.completion.map(x => `<span>${escapeHTML(x)}</span>`).join('')}</div>`;
@@ -109,7 +109,7 @@ function agentToolGuidePage(id) {
       ? `<a href="#tool/codex?part=cli">继续学习 CLI 指令 ${icon('arrow')}</a>`
       : `<a href="#tool/codex?part=desktop">继续学习桌面使用 ${icon('arrow')}</a>`;
   const category = agentToolCategories.find(item => item.toolIds.includes(id));
-  return `${breadcrumb('<a href="#tools">Agent 与工具</a>', ...(category && (category.id === 'gpt' || category.toolIds.length > 1) ? [`<a href="${agentCategoryHref(category)}">${category.name}</a>`] : []), tool.name)}<div class="article-layout introduction-layout"><article class="article site-introduction gpt-lesson agent-lesson${isExpanded ? ' codex-course' : ''}${claudeCourse ? ' claude-course' : ''}"${isCodex ? ` data-codex-part="${part}"` : claudeCourse ? ` data-claude-course="${claudeCourse}"` : ''}><div class="tool-topline">${mark(tool)}<span class="mini-badge">${escapeHTML(guide.tag)}</span></div>${isCodex ? codexCourseNavigation(part) : claudeCourse ? claudeCourseNavigation(claudeCourse) : ''}<h1 class="page-title">${escapeHTML(guide.title)}</h1><p class="lead">${escapeHTML(guide.lead)}</p><div class="article-meta"><span>${isCodex && part !== 'start' ? '适合：已完成 Codex 首次任务' : `适合：第一次使用 ${escapeHTML(tool.name)}`}</span><span>资料核对：${escapeHTML(guide.updated || '2026.10.24')}</span></div>${brief}${isExpanded ? '' : '<div class="agent-before-start">本课可以直接跟做。想先了解工作区与权限，可读 <a href="#agent">Agent 基础练习</a>。</div>'}${isCodex ? codexGuideToc(guide.toc, part, true) : agentMobileToc(guide.toc, `tool/${id}`)}${guide.body()}<details class="gpt-details agent-sources"><summary>本课的资料与核验说明</summary><p>${escapeHTML(guide.verification)}</p><ul>${guide.sources.map(source => `<li>${officialLink(source.url, escapeHTML(source.label))}</li>`).join('')}</ul><p>${(isCodex && part !== 'start') || claudeCourse ? '操作图用于说明工作流程，图注已标明示意性质；不代表已在教学账户执行这些任务。' : '配图来自公开官方网页，用于定位下载和文档入口；并非本机安装或完成任务的截图。'}</p></details><div class="lesson-next-grid"><a href="#tools">返回工具目录 ${icon('arrow')}</a>${related}</div></article>${isCodex ? codexGuideToc(guide.toc, part) : toc(guide.toc)}</div>${ccScreenshotDialog()}`;
+  return `${breadcrumb('<a href="#tools">Agent 与工具</a>', ...(category && (category.id === 'gpt' || category.toolIds.length > 1) ? [`<a href="${agentCategoryHref(category)}">${category.name}</a>`] : []), tool.name)}<div class="article-layout introduction-layout"><article class="article site-introduction gpt-lesson agent-lesson${isExpanded ? ' codex-course' : ''}${claudeCourse ? ' claude-course' : ''}"${isCodex ? ` data-codex-part="${part}"` : claudeCourse ? ` data-claude-course="${claudeCourse}"` : ''}><div class="tool-topline">${mark(tool)}<span class="mini-badge">${escapeHTML(guide.tag)}</span></div>${isCodex ? codexCourseNavigation(part) : claudeCourse ? claudeCourseNavigation(claudeCourse) : ''}<h1 class="page-title">${escapeHTML(guide.title)}</h1><p class="lead">${escapeHTML(guide.lead)}</p><div class="article-meta"><span>${isCodex && part !== 'start' ? '适合：已完成 Codex 首次任务' : `适合：第一次使用 ${escapeHTML(tool.name)}`}</span><span>资料核对：${escapeHTML(guide.updated || '2026.10.24')}</span></div>${brief}${isExpanded ? '' : '<div class="agent-before-start">本课可以直接跟做。想先了解工作区与权限，可读 <a href="#agent">Agent 基础练习</a>。</div>'}${isCodex ? codexGuideToc(guide.toc, part, true) : agentMobileToc(guide.toc, `tool/${id}`)}${guide.body()}<details class="gpt-details agent-sources"><summary>本课的资料与核验说明</summary><p>${escapeHTML(guide.verification)}</p><ul>${guide.sources.map(source => `<li>${officialLink(source.url, escapeHTML(source.label))}</li>`).join('')}</ul><p>${isExpanded && !(isCodex && part === 'start') ? '配图按图注区分官方页面与教学示意；不代表已在教学账户执行这些任务。' : '配图来自公开官方网页，用于定位下载和文档入口；并非本机安装或完成任务的截图。'}</p></details><div class="lesson-next-grid"><a href="#tools">返回工具目录 ${icon('arrow')}</a>${related}</div></article>${isCodex ? codexGuideToc(guide.toc, part) : toc(guide.toc)}</div>${ccScreenshotDialog()}`;
 }
 function agentFirstLessonPage(){const contents=[['agent-understand','Agent、工具与模型'],['agent-choose','选一款工具并连接'],['agent-workspace','准备练习文件夹'],['agent-permission','确认目录与权限'],['agent-task','创建文件，再修改'],['agent-check','检查成果与消费'],['agent-help','常见卡点与下一步']];return `${breadcrumb('<a href="#tools">Agent 与工具</a>','第一次 Agent 任务')}<div class="article-layout introduction-layout"><article class="article site-introduction gpt-lesson agent-lesson"><div class="eyebrow">Agent 共用首课 · 零基础跟做</div><h1 class="page-title">从一句要求，<br><span class="agent-title-accent">到电脑里的一份文件。</span></h1><p class="lead">先让 Agent 在练习文件夹里创建一份学习计划，再只修改标题。学会告诉它做什么，也学会自己检查结果。</p><div class="article-meta"><span>适用：本栏目可处理本地文件的 Agent</span><span>练习文件：learning-plan.md</span><span>更新于 2026.10.24</span></div><div class="lesson-objectives"><strong>${icon('sprout')}这一课，做成三件事</strong><span>选对练习文件夹</span><span>创建并打开计划文件</span><span>修改标题并核对消费</span></div><div class="agent-first-outcome"><span>${icon('agent')}</span><div><strong>一个文件夹，一份计划，一次修改</strong><p>示例成果：<code>agent-practice / learning-plan.md</code>。Markdown 是一种纯文本格式，本课用记事本也能检查。</p></div></div>${agentMobileToc(contents,'agent')}
 <section aria-labelledby="agent-understand"><h2 id="agent-understand"><span>01</span>先分清 Agent、工具和模型</h2><p>普通对话由你输入问题、阅读回答。使用 Agent 时，你还可以给它一个目标，让它在允许的范围内查看文件、执行操作、保存结果，再继续修改。</p><div class="gpt-concepts"><div><small>你操作的界面</small><strong>工具 / 客户端</strong><p>例如 Codex、ZCode、Harness，负责组织任务与使用工具。</p></div><div><small>理解和生成内容</small><strong>模型</strong><p>例如 GPT、Claude、DeepSeek，按所选供应商提供推理能力。</p></div><div><small>本次处理的位置</small><strong>工作区 / 文件夹</strong><p>Agent 读取和保存文件的地方，本课只用专门的练习目录。</p></div></div><p><strong>CC Switch</strong> 用于管理接入配置。完成配置后，要到目标客户端里执行本课任务。</p></section>

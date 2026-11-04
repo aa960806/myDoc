@@ -7,7 +7,9 @@
 
 本课目标：选一款工具，在电脑“文档”中的 `agent-practice` 练习文件夹创建 `learning-plan.md`，打开检查，再只修改它的标题。使用本站模型时，还要找到对应的使用记录。
 
-正文依据当前网页的 `lesson-agent.js`、`lesson-agent-codex.js`、`lesson-agent-desktop.js`、`lesson-agent-zcode-harness.js` 整理。下载配图为官方网站公开页面实拍，不是本机安装后完成付费任务的截图。
+本篇保留共用首课与各工具最初的简版流程。当前网页由 `lesson-agent.js`、`lesson-agent-codex.js` 及各工具独立详细课程模块渲染，详细用法请以下列专题为准。下载配图为官方网站公开页面实拍，不是本机安装后完成付费任务的截图。
+
+2026-11-04 新增三篇详细专题，每篇 10 节并保留旧章节链接：[DeepSeek Harness 详细使用](13-DeepSeek-Harness详细使用.md) 介绍配置、计划、分叉、子代理与自动化；[ZCode 详细使用](14-ZCode详细使用.md) 介绍文件任务、辅助对话、修改审阅与撤销；[CC Switch 配置管理与切换](15-CC-Switch配置管理与切换.md) 介绍导入、手动配置、连接模式、备份与恢复。对应网页入口仍为 `#tool/deepseek-harness`、`#tool/zcode`、`#tool/ccswitch`，加入官方界面图和操作流程示意，未进行真实模型付费调用。
 
 完成 Codex 首次任务后，可以继续阅读 [CLI 常用命令与会话管理](09-Codex-CLI常用命令与会话管理.md) 和 [桌面端与多对话协作](10-Codex桌面端与多对话协作.md)。两篇专题于 2026-11-04 核对官方文档，网页入口分别为 `#tool/codex?part=cli`、`#tool/codex?part=desktop`；本篇原有工具资料日期保持不变。
 

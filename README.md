@@ -4,6 +4,16 @@
 
 当前阶段：「认识网站」、GPT / Claude / DeepSeek 对话入门、使用 GPT Image 2 在 Canvas 生图、本站视频站文生视频首课、Agent 共用首课与五类工具教程、费用与账户，以及连接与报错 FAQ 已细化。主站源项目为 `F:\MySub2\sub2api`；教程工作在此目录内独立进行。
 
+## 2026-11-04 · Harness、ZCode 与 CC Switch 详细教程
+
+五类工具目录继续保持简洁，三款工具的详情各扩展为 10 节。DeepSeek Harness 讲模型连接、工作区、计划模式、分叉、子代理、扩展和一次性自动化；ZCode 讲模型配置、文件练习、辅助对话、分叉、修改审阅与撤销、子智能体及扩展；CC Switch 讲原配置备份、本站导入、手动添加、直连 / 路由 / 聚合、Claude Desktop、客户端验证与恢复。
+
+- `preview/lesson-harness-detailed.js`、`lesson-zcode-detailed.js`、`lesson-ccswitch-detailed.js`：三篇新课程，替换原有简版模块，保留工具路由和旧 `agent-*` 章节。
+- `preview/agent-workbench.js`、`agent-workbench.css`：可点击流程示意和折叠官方界面图；配图来自官方文档，图注明确示例性质。
+- `content/13-DeepSeek-Harness详细使用.md`、`14-ZCode详细使用.md`、`15-CC-Switch配置管理与切换.md`：可编辑文稿。
+
+每课提供准备、操作顺序、可复制练习、完成检查与排错。全站搜索新增会话、撤销、自动化和配置切换等章节。资料按 2026-11-04 实际读取的官方文档核对；未安装客户端、写入真实凭据或进行付费调用。此次更新用于本地预览。
+
 ## 2026-11-04 · Agent 工具目录整理
 
 `#tools` 收为 GPT、Claude、DeepSeek Harness、ZCode、CC Switch 五个入口。GPT 内含 Codex 入门、桌面端、CLI；Claude 内含桌面端和 Claude Code CLI，其余三类各进入对应指南。移除重复专题、首屏成果展示及用途过滤，基础首课保留为顶部辅助入口。
@@ -105,8 +115,8 @@ Agent 入口：`#tools`；共用首课：`#agent`。首课从「文档」里的�
 
 - `preview/lesson-agent.js`、`lesson-agent.css`：学习入口、共用首课、共用练习与官方配图放大。
 - `preview/lesson-agent-codex.js`：Codex 桌面 / CLI、Claude Code 两篇操作课，引用既有 GPT / Claude / DeepSeek 接入教程。
-- `preview/lesson-agent-zcode-harness.js`：ZCode 自定义供应商与 DeepSeek Harness 自定义模型 API、练习工作区和首次任务。
-- `preview/lesson-agent-desktop.js`：Claude Desktop 独立 3P Gateway 模式；CC Switch 下载、主站导入、启用、Desktop 独立配置和恢复。
+- `preview/lesson-harness-detailed.js`、`lesson-zcode-detailed.js`：自定义供应商、工作区、文件任务、会话协作和进阶能力。
+- `preview/lesson-claude-desktop.js`、`lesson-ccswitch-detailed.js`：Claude Desktop 3P 配置与实操；CC Switch 配置导入、切换、扩展和恢复。
 - `preview/assets/agent-tools/`：6 张公开官方网页配图，只用于定位下载 / 文档入口，不冒充安装后界面。
 - `content/07-Agent入门与工具使用.md`：可编辑教学文稿。
 - `research/agent-tools/`：官方资料、本站导入分支、三份专项核验、页面检查、静态检查结果和深浅色 / 手机预览。

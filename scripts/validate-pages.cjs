@@ -107,11 +107,25 @@ const claudeRequiredIds = {
   cli: ['claude-cli-start', 'claude-cli-model', 'claude-cli-commands', 'claude-cli-sessions', 'claude-cli-review', 'claude-cli-context', 'claude-cli-agents', 'claude-cli-practice'],
   desktop: ['claude-desktop-install', 'claude-desktop-connect', 'claude-desktop-modes', 'claude-desktop-chat', 'claude-desktop-cowork', 'claude-desktop-code', 'claude-desktop-workflow', 'claude-desktop-help'],
 };
+const detailedToolSections = {
+  'tool/deepseek-harness': ['agent-fit', 'agent-download', 'agent-connect', 'agent-workspace', 'agent-task', 'harness-sessions', 'harness-extensions', 'harness-automation', 'agent-check', 'agent-help'],
+  'tool/zcode': ['agent-fit', 'agent-download', 'agent-connect', 'agent-workspace', 'agent-task', 'zcode-sessions', 'zcode-review', 'zcode-extensions', 'agent-check', 'agent-help'],
+  'tool/ccswitch': ['agent-download', 'ccswitch-baseline', 'agent-connect', 'ccswitch-manual', 'ccswitch-switch', 'agent-workspace', 'agent-task', 'agent-check', 'ccswitch-extensions', 'agent-help'],
+};
+const detailedToolCases = [
+  { route: 'tool/deepseek-harness?section=harness-sessions', kind: 'detailed-tool-section' },
+  { route: 'tool/deepseek-harness?section=harness-automation', kind: 'detailed-tool-section' },
+  { route: 'tool/zcode?section=zcode-review', kind: 'detailed-tool-section' },
+  { route: 'tool/zcode?section=zcode-extensions', kind: 'detailed-tool-section' },
+  { route: 'tool/ccswitch?section=ccswitch-switch', kind: 'detailed-tool-section' },
+  { route: 'tool/ccswitch?section=ccswitch-manual', kind: 'detailed-tool-section' },
+];
 const targets = [
   ...legacyRoutes.map(route => ({ route, kind: 'legacy' })),
   ...billingCases,
   ...codexCases,
   ...claudeCases,
+  ...detailedToolCases,
 ];
 const pages = new Map();
 function render(route) {
@@ -166,6 +180,15 @@ for (const target of targets) {
   const pageIssues = [];
   if (!/<h1\b/i.test(html)) pageIssues.push('Missing main page heading.');
   if (html.includes('这个页面还没有准备好')) pageIssues.push('Route rendered the not-found page.');
+  const detailedRoute = target.route.split('?')[0];
+  if (Object.hasOwn(detailedToolSections, detailedRoute)) {
+    const missing = detailedToolSections[detailedRoute].filter(id => !ids.includes(id));
+    if (missing.length) pageIssues.push(`Missing detailed tool sections: ${missing.join(', ')}.`);
+    if (!html.includes('class="lesson-brief"')) pageIssues.push('Detailed tool course must include a lesson brief.');
+    if (!html.includes('data-workflow-map=')) pageIssues.push('Detailed tool course must include its workflow diagram.');
+    const section = new URLSearchParams(target.route.split('?')[1] || '').get('section');
+    if (section && !ids.includes(section)) pageIssues.push(`Detailed tool section does not exist: ${section}.`);
+  }
   if (target.expectedCodexPart) {
     const part = target.expectedCodexPart;
     if (!html.includes(`data-codex-part="${part}"`)) pageIssues.push(`Expected Codex course ${part}.`);
@@ -221,14 +244,14 @@ for (const target of targets) {
 const summary = {
   checkedAt: new Date().toISOString(),
   scope: 'Static VM render only; no browser layout, clicks, network, login or payment validation.',
-  scripts, legacyRoutes: legacyRoutes.length, billingCases: billingCases.length, codexCases: codexCases.length, claudeCases: claudeCases.length,
+  scripts, legacyRoutes: legacyRoutes.length, billingCases: billingCases.length, codexCases: codexCases.length, claudeCases: claudeCases.length, detailedToolCases: detailedToolCases.length,
   setupIssues, pages: report,
   issues: report.filter(entry => !entry.passed),
 };
 fs.writeFileSync(reportPath, `${JSON.stringify(summary, null, 2)}\n`);
 console.log(JSON.stringify({
   scripts: scripts.length, legacyRoutes: legacyRoutes.length,
-  billingCases: billingCases.length, codexCases: codexCases.length, claudeCases: claudeCases.length, checkedPages: report.length,
+  billingCases: billingCases.length, codexCases: codexCases.length, claudeCases: claudeCases.length, detailedToolCases: detailedToolCases.length, checkedPages: report.length,
   setupIssues, issueCount: summary.issues.length, reportPath,
   issues: summary.issues,
 }, null, 2));
