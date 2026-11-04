@@ -29,6 +29,8 @@ npm start
 
 提交后可以导出只包含网页的发布包：
 
+发布前先运行 `npm run prepare:release`，按脚本与样式内容更新 `index.html` 的 `?v=` 版本号，并完成页面检查；将更新后的首页一并提交。这样新版首页会请求对应版本的资源，避免 Cloudflare 或浏览器尚存的旧缓存造成页面混用。发布验证需使用首页实际引用的完整资源 URL。
+
 ```powershell
 New-Item -ItemType Directory -Force .deploy
 git archive --format=tar.gz --output=.deploy/site.tar.gz HEAD:preview

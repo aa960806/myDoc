@@ -40,7 +40,7 @@ const attr = (tag, name) => {
 };
 const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const scriptTags = [...index.matchAll(/<script\b[^>]*\bsrc=(['"])(.*?)\1[^>]*>\s*<\/script>/gi)];
-const scripts = scriptTags.map(match => match[2]);
+const scripts = scriptTags.map(match => match[2].split(/[?#]/)[0]);
 const setupIssues = [];
 if (!scripts.length) setupIssues.push('No external scripts found in index.html.');
 if (scripts.filter(file => file === 'lesson-billing.js').length !== 1) setupIssues.push('Expected one lesson-billing.js script.');
@@ -48,7 +48,7 @@ if (scripts.filter(file => file === 'app.js').length !== 1) setupIssues.push('Ex
 if (scripts.indexOf('lesson-billing.js') >= scripts.indexOf('app.js')) setupIssues.push('Billing lesson must load before app.js.');
 for (const match of scriptTags) {
   if (!/\bdefer\b/i.test(match[0])) setupIssues.push(`Script is not deferred: ${match[2]}`);
-  const filename = path.resolve(root, match[2]);
+  const filename = path.resolve(root, match[2].split(/[?#]/)[0]);
   if (!fs.existsSync(filename)) {
     setupIssues.push(`Missing script: ${match[2]}`);
     continue;
