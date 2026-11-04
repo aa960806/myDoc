@@ -2,7 +2,15 @@
 
 所属分类：对话与写作。网页入口为 [Claude](http://127.0.0.1:4177/#claude) 和 [DeepSeek](http://127.0.0.1:4177/#deepseek)。主线环境为 Windows PowerShell，资料核对日期为 2026-10-24。
 
-本课目标：收到一份改写后的通知，继续调整一次语气，核对本站使用记录。Claude Code 是工具；Claude 和 DeepSeek 是本次使用的模型。Claude 桌面端、DeepSeek Harness 为其他产品，另行教学。
+在 Claude Code 中连接本站 Claude 或 DeepSeek 模型。把同一段通知改写两次，学会描述要求、继续调整和检查结果。
+
+开始前看这里：
+
+| 准备 | 完成后 | 操作顺序 |
+| --- | --- | --- |
+| Windows 电脑与本站账户；按第 1 步准备所选厂商的文字分组 Key。 | 得到一段改写后的通知，调整一次语气，并查到本站记录。 | 准备密钥 → 安装 Claude Code → 填配置 → 改写通知。 |
+
+Claude Code 是工具；Claude 和 DeepSeek 是本次使用的模型。Claude 桌面端、DeepSeek Harness 为其他产品，另行教学。本站消费与厂商官方会员分别计费。
 
 ## 1. 准备对应分组的本站密钥
 

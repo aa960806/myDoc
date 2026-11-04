@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="lesson-help.css">
   <link rel="stylesheet" href="lesson-agent.css">
   <link rel="stylesheet" href="lesson-billing.css">
+  <link rel="stylesheet" href="refinement.css">
   <script src="lesson-site.js" defer></script>
   <script src="lesson-gpt.js" defer></script>
   <script src="lesson-chat.js" defer></script>
@@ -27,6 +28,8 @@
   <script src="lesson-agent-zcode-harness.js" defer></script>
   <script src="lesson-agent-desktop.js" defer></script>
   <script src="lesson-billing.js" defer></script>
+  <script src="lesson-home.js" defer></script>
+  <script src="navigation.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -36,6 +39,7 @@
     <header class="site-header">
       <a class="brand" href="#home" aria-label="只因 API 教程首页"><img src="assets/brand.jpg" alt=""><span>只因<span class="accent">API</span></span><span class="brand-divider"></span><span class="guide-label">新手指南</span></a>
       <div class="header-actions">
+        <button class="header-search" type="button" data-open-search aria-label="搜索教程（Ctrl 或 Command + K）"><span data-icon="search"></span><span>搜索教程</span><kbd>Ctrl K</kbd></button>
         <a class="main-site" href="https://www.yydsapi.uno/home" target="_blank" rel="noopener noreferrer">返回主站 <span aria-hidden="true">↗</span></a>
         <button class="icon-button" id="theme-toggle" aria-label="切换到浅色模式"></button>
         <a class="console-link" href="https://www.yydsapi.uno/login" target="_blank" rel="noopener noreferrer">进入控制台 <span aria-hidden="true">↗</span></a>
@@ -52,7 +56,7 @@
           <a data-nav="chat" href="#track/chat"><span data-icon="chat"></span>对话与写作</a>
           <a data-nav="image" href="#track/image"><span data-icon="image"></span>图片生成</a>
           <a data-nav="video" href="#track/video"><span data-icon="video"></span>视频生成</a>
-          <a data-nav="tools" href="#tools"><span data-icon="agent"></span>Agent 与工具<span class="nav-new">新</span></a>
+          <a data-nav="tools" href="#tools"><span data-icon="agent"></span>Agent 与工具</a>
           <div class="nav-label spaced">随时查阅</div>
           <a data-nav="billing" href="#track/billing"><span data-icon="wallet"></span>费用与账户</a>
           <a data-nav="help" href="#track/help"><span data-icon="help"></span>常见问题</a>

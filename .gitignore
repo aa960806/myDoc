@@ -1,6 +1,8 @@
 # Local research includes original account screenshots and captured site data.
 /research/
 /.deploy/
+/.playwright-cli/
+/.playwright/
 node_modules/
 .env
 .env.*
