@@ -4,6 +4,18 @@
 
 线上入口：<https://docs.yydsapi.uno/>。网站是纯静态 HTML、CSS、JavaScript，无数据库、无后台服务，也不需要在服务器运行 Node.js。`preview/` 是唯一网页发布目录；仓库根目录和 `research/` 不作为网站目录。
 
+## 2026-11-04 更新记录
+
+北京时间 2026-11-04 23:55 发布网页版本 `d1187573b3b7432800a34f44b51af6b38cabc2e7`，包含本轮首页与阅读优化、五类 Agent 目录、Codex / Claude 专题，以及 Harness、ZCode、CC Switch 详细教程。
+
+- 98 个发布文件已逐一核对公网内容与 MIME；首页仅允许现有 Cloudflare Analytics 注入。36 个脚本与样式使用内容版本参数，验证使用首页实际引用的 URL。
+- 本地 57 个页面场景通过；线上 55 项工具交互检查通过，另外 14 个主要课程入口正常。覆盖搜索、旧章节链接、复制、官方配图、手机目录及深浅色布局。
+- HTTP 返回 301 到 HTTPS；主站健康与画布首页返回 200。仓库、研究与部署说明不在公开目录内。
+- 原子切换 `/srv/mydoc/current`，原版本 `259176f66569ad643e7434e3fec846a8d6897494` 保留。最终切换前后 Nginx 配置与容器运行标识一致，无需重载或重启服务。
+- 本地网页归档 SHA-256：`e4f7140b5611e1f04b1b40726b96e9d64373c4775efe48982301d80d23649fe0`。与 GitHub 完整仓库归档中的 `preview/` 逐文件一致；两种归档容器本身的 SHA 不要求相同。
+
+发布与验收证据保存在本地 `.deploy/release-20261104/` 和服务器 `/srv/mydoc/evidence/`。后续仅更新本说明不改变网页发布版本。
+
 ## 首次上线记录
 
 北京时间 2026-10-24 23:00 完成公网资源核对。网页发布版本为 `259176f66569ad643e7434e3fec846a8d6897494`，发布包包含 78 个文件，SHA-256 为 `f87a1bb3f06fa75376ff06bd812a5043f255758971f1eb5e056fb6d5fa3761db`。
@@ -33,11 +45,13 @@ npm start
 
 ```powershell
 New-Item -ItemType Directory -Force .deploy
-git archive --format=tar.gz --output=.deploy/site.tar.gz HEAD:preview
+git -c core.autocrlf=false archive --format=tar.gz --output=.deploy/site.tar.gz HEAD:preview
 Get-FileHash -Algorithm SHA256 .deploy/site.tar.gz
 ```
 
 GitHub 上传范围包括网页、脱敏教学配图、教学文稿、规范及部署文件。原始截图、网络采集、私人资料和本地发布证据由 `.gitignore` 排除。
+
+Windows 导出子目录时显式关闭 `core.autocrlf`，保证归档与仓库原始 LF 内容一致，避免跨平台哈希不一致。
 
 ## 服务器布局
 
