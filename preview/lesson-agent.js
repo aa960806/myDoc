@@ -33,10 +33,10 @@ const agentToolCategories = [
   ]}
 ];
 function agentCategoryHref(category) { return `#tools?section=agent-category-${category.id}`; }
-function agentCategoryCard(category, index) {
+function agentCategoryCard(category) {
   const tool = tools.find(item => item.id === category.toolId);
   return `<article class="agent-category-card" id="agent-category-${category.id}" aria-labelledby="agent-category-title-${category.id}">
-    <div class="agent-category-head">${mark(tool)}<h2 id="agent-category-title-${category.id}">${category.name}</h2><span aria-hidden="true">${String(index + 1).padStart(2, '0')}</span></div>
+    <div class="agent-category-head">${mark(tool)}<h2 id="agent-category-title-${category.id}">${category.name}</h2></div>
     <p class="agent-category-description">${category.description}</p>
     <nav class="agent-category-lessons" aria-label="${category.name} 教程">${category.lessons.map(([label, description, href]) => `<a href="${href}"><strong>${label}</strong><small>${description}</small>${icon('arrow')}</a>`).join('')}</nav>
   </article>`;
