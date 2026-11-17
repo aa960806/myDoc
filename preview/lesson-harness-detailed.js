@@ -2,8 +2,8 @@ const deepseekHarnessGuide = {
   title: '把 DeepSeek Harness 用顺手',
   tag: '桌面端 / 本机 Web UI · 从连接到协作',
   lead: '先连上本站模型，在练习文件夹中完成一份学习计划；再学会审阅计划、分叉会话、让子代理协作，以及设置一次定时任务。',
-  updated: '2026.11.04',
-  prepare: '准备普通 Claude 分组 API Key、一个空的 agent-practice 文件夹，并安装 Harness 桌面端或启动官方本机 Web UI。',
+  updated: '2026.11.17（接入流程）',
+  prepare: '准备本站 DeepSeek 分组普通 API Key、一个空的 agent-practice 文件夹，并安装 Harness 桌面端或启动官方本机 Web UI。',
   sequence: '安装 → 配置模型 → 选工作区 → 先计划再执行 → 检查文件；会话、扩展和自动化按需继续。',
   completion: ['选中本站模型并完成一次真实请求', '创建、修改并找到 learning-plan.md', '会管理会话，并检查协作与定时任务的结果'],
   toc: [
@@ -22,7 +22,7 @@ const deepseekHarnessGuide = {
     <section aria-labelledby="agent-fit">
       <h2 id="agent-fit"><span>01</span>从一句要求，到一个可以打开的文件</h2>
       <p>DeepSeek Harness 是 DeepSeek 开源的 Agent 工具，有桌面端，也能在自己电脑上启动网页界面。它把模型、文件夹和工具放在一起，可以读材料、提出计划、修改文件，再让你检查成果。</p>
-      <p>工具名包含 DeepSeek，也可以接入其他厂商模型。本课沿用 <strong>本站 Claude 分组 API Key + Anthropic Messages</strong> 路线，先做出一份学习计划。</p>
+      <p>工具名包含 DeepSeek，也可以接入其他厂商模型。本课沿用 <strong>本站 DeepSeek 分组 API Key + OpenAI Responses</strong> 路线，先做出一份学习计划。</p>
       <div class="gpt-concepts"><div><small>模型服务</small><strong>负责理解与生成</strong><p>配置供应商、协议、Key 和模型。</p></div><div><small>工作区</small><strong>文件存放的位置</strong><p>选择电脑上的练习文件夹。</p></div><div><small>会话</small><strong>一件事情的上下文</strong><p>保留要求、过程与后续修改。</p></div></div>
       ${agentWorkflowMap('harness', '本课先完成这四步', [
         {label:'连接', title:'选好模型', description:'保存本站供应商，再在会话里选中模型。', href:'#tool/deepseek-harness?section=agent-connect'},
@@ -37,7 +37,7 @@ const deepseekHarnessGuide = {
       <h2 id="agent-download"><span>02</span>先安装桌面端，打开设置</h2>
       ${gptStep('1', '从官网下载适合电脑的版本', `<p>打开官网，展开下载选项。当前提供 <strong>Windows 64 位（Windows 10+）</strong>和 <strong>macOS Apple 芯片（macOS 13+）</strong> 入口；按下载页当前支持范围选择。</p><div class="section-action">${officialLink('https://www.deepseek.com/harness/', '打开 DeepSeek Harness 官网', 'button primary')}</div>`)}
       ${agentSourceFigure('harness', '官方网站下载入口 · 2026.10.24 采集，用于辨认产品与下载位置；安装选项以当前官网为准')}
-      ${gptStep('2', '完成安装，进入模型设置', '<p>运行下载的安装包，按安装器提示完成。打开 DeepSeek Harness，找到 <strong>设置 → 模型</strong>。下一节添加本站服务，暂时不用安装额外插件。</p>')}
+      ${gptStep('2', '完成安装，进入模型设置', '<p>运行下载的安装包，按安装器提示完成。打开 DeepSeek Harness，点击左下角 <strong>更多 → 设置</strong>，再进入 <strong>模型</strong>。下一节添加本站服务，暂时不用安装额外插件。</p>')}
       <details class="gpt-details"><summary>想用浏览器操作：启动官方本机 Web UI</summary>
         <p>先安装 Node.js，在电脑“文档”中新建 <code>agent-practice</code>，从这个目录打开 PowerShell，再运行下面的命令。首次运行按 npm 提示获取官方包。</p>
         ${gptCode('harness-detailed-web', 'PowerShell · 启动官方 Web UI', 'npx.cmd @deepseek-ai/dsh web')}
@@ -50,20 +50,10 @@ const deepseekHarnessGuide = {
 
     <section aria-labelledby="agent-connect">
       <h2 id="agent-connect"><span>03</span>添加“自定义模型 API”，连接本站</h2>
-      ${gptStep('1', '准备普通 Claude 分组 API Key', `<p>到本站 <strong>API 密钥</strong>页准备一把有效、额度可用的普通 Claude 分组 Key，并在可用模型中核对 <code>claude-sonnet-4-6</code>。如果你的分组提供其他模型，使用对应的精确模型 ID。</p><div class="section-action">${officialLink('https://www.yydsapi.uno/keys', '打开本站 API 密钥', 'button')}${officialLink('https://www.yydsapi.uno/model-plaza', '查看模型广场', 'button')}</div><p>这把 Key 填在你自己的 Harness 设置中。视频站专用 Key 用于视频站登录，不能代替本课的普通模型 Key。</p>`)}
-      ${gptStep('2', '选择自定义提供商，填写连接信息', `<p>打开 <strong>设置 → 模型 → 添加模型提供商</strong>。将默认的“第三方模型提供商”切换为 <strong>自定义模型 API</strong>，按下表填写。</p>${agentFieldTable([
-        ['Provider ID', 'rainapi（小写，保存后作为固定标识）'],
-        ['显示名称', '只因 API · Claude'],
-        ['API 地址 / 基础 URL', 'https://www.yydsapi.uno'],
-        ['API 协议', 'Anthropic Messages'],
-        ['API 密钥', '粘贴自己的完整普通 Claude 分组 API Key'],
-        ['模型 ID', 'claude-sonnet-4-6（以这把 Key 的可用模型为准）']
-      ])}${gptCode('harness-detailed-base-url', '复制本站基础地址', 'https://www.yydsapi.uno')}<p>地址填到域名即可，不追加 <code>/v1/messages</code>。Provider ID 是固定标识，显示名称可以后续调整。</p>`)}
-      ${agentReferenceFigure('harness-provider')}
-      ${gptStep('3', '添加模型，保存提供商', '<p>在模型目录中手动添加精确的模型 ID，至少保留一个模型后保存。也可以选择 <strong>获取可用模型 → 勾选目标模型 → 更新列表</strong>；列表为空或获取失败时，仍可手动录入已确认可用的模型。</p>')}
-      ${gptStep('4', '回到会话，选中本站通道', '<p>打开会话的模型选择器，选择 <strong>只因 API · Claude</strong> 下的目标模型。设置变更会在下一次请求时生效；旧会话可能保留自己上次使用的模型，每次切换都看一眼当前选择。</p>')}
-      <details class="gpt-details"><summary>如果要换成 GPT 或 DeepSeek</summary><p>一起核对 <strong>分组 Key、协议、基础地址、模型 ID</strong>。官方提供 OpenAI Chat Completions、OpenAI Responses、Anthropic Messages 三种协议；一个提供商使用一种协议。</p><p>本站 Chat Completions 路线可使用 <code>https://www.yydsapi.uno/v1</code> 和相应分组 Key。Responses 要显式选择 OpenAI Responses。DeepSeek 也要按本站该通道支持的协议配置，不能只改模型名称。</p></details>
-      <p class="small-explanation">保存配置或获取模型列表成功，还不能确认实际调用。下一节在练习目录里发送短任务，再用本站使用记录核对连接。</p>
+      <p>准备本站 DeepSeek 分组普通 Key 与可用额度，按下面五张实机图操作。API 地址使用 <code>https://www.yydsapi.uno</code>，协议选 <strong>OpenAI Responses</strong>。</p>
+      ${harnessConnectionSteps('harness-detailed')}
+      <h3>回到会话，选择 zhiyin 下的模型</h3><p>创建后回到主界面，选择工作区，点击输入框上方的模型名称，选中 <strong>zhiyin</strong> 下的目标 DeepSeek 模型。旧会话可能保留原来的模型，每次切换都核对当前选择。</p>
+      <details class="gpt-details"><summary>想接入其他厂商模型？</summary><p>Harness 支持自定义模型 API。换服务时需要一起核对分组 Key、协议、基础地址和模型 ID；不要把本课 DeepSeek 的配置直接当作其他通道的配置。保留已有提供商，另建对应供应商，按其接入说明填写。</p></details>
       ${gptCheck('提供商已保存；当前会话显示本站通道和你的目标模型。')}
     </section>
 
@@ -147,7 +137,7 @@ const deepseekHarnessGuide = {
         <details><summary>输入框不可用，或找不到当前模型</summary><p>先选工作区，再选一个已保存的有效提供商和模型。旧会话可能保留已删除的模型配置，重新选择后再试；必要时新建会话。</p></details>
         <details><summary>MISSING_CREDENTIAL、401 或没有权限</summary><p>回到对应自定义提供商，重新保存完整 Key，检查首尾空格、分组、额度及模型权限。确认是普通模型 Key，并按表单提示理解已保存密钥的脱敏显示。</p></details>
         <details><summary>UNKNOWN_MODEL 或获取模型列表失败</summary><p>模型显示名称与 ID 是两回事。把本站确认可用的精确 ID 加进模型目录，然后在会话选择它。获取列表依赖网关返回格式；手动录入不要求模型列表探测成功。</p></details>
-        <details><summary>400 / 404，地址与 Key 看着都正确</summary><p>核对协议与基础地址：本课 Anthropic Messages 使用本站根地址；不要填完整的 /v1/messages。Chat Completions 和 Responses 必须选择对应协议。模型设置在下一次请求生效，不需要靠反复重启解决协议错误。</p></details>
+        <details><summary>400 / 404，地址与 Key 看着都正确</summary><p>核对协议与基础地址：本课使用本站根地址 https://www.yydsapi.uno 与 OpenAI Responses，不追加 /v1 或 /responses。模型设置在下一次请求生效，不需要靠反复重启解决协议错误。</p></details>
         <details><summary>没有 /plan、技能、子代理或自动化入口</summary><p>这些功能由当前应用版本、插件和预设提供。先检查本机启用的能力；缺少时可以先让主会话按顺序规划和检查，完成基础文件任务，再按官方说明补充扩展。</p></details>
         <details><summary>点了分叉，却还停留在原会话</summary><p>当前行为是创建后保留原来的选择。到侧栏找到新建的分叉会话，点开并重命名。没有已完成回合的空会话不能据此分叉。</p></details>
         <details><summary>Agent 说完成了，但文件或自动化结果找不到</summary><p>文件先核对工作区与完整保存路径；自动化先打开关联会话。工具记录、计划卡片或投递记录都不能代替实际内容。确认有没有等待审批、未完成子代理或尚未执行的消息。</p></details>
@@ -167,5 +157,5 @@ const deepseekHarnessGuide = {
     {url:'https://deepseek-harness.github.io/deepseek-harness/guide/plugin-market', label:'官方指南：插件与扩展配置'},
     {url:'https://deepseek-harness.github.io/deepseek-harness/guide/schedule', label:'官方指南：定时任务、投递与结果检查'}
   ],
-  verification: '依据官方产品页、指南及开源仓库的界面文档整理，核对日期：2026.11.04。未安装或运行 Harness，未使用本站 Key 发起付费调用，本站连接配置尚待实际客户端验证。官网配图采集于 2026.10.24，模型表单图来自官方文档；流程图为教学示意，不是客户端截图。'
+  verification: '2026.11.17 按用户提供的五张实机截图更新模型接入流程：DeepSeek 分组、本站根地址、OpenAI Responses、获取模型并创建 zhiyin 提供商。密钥区域已遮挡。工作区、会话协作、扩展与自动化沿用 2026.11.04 核对的官方资料；本轮未代用户执行付费模型调用。官网配图与教学示意仍按各自图注区分。'
 };

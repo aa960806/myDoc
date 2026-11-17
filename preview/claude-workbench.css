@@ -45,3 +45,5 @@
   .claude-mode-panel { padding: 18px 15px; }
   .claude-mode-panel dl > div { grid-template-columns: 1fr; gap: 3px; }
 }
+
+.claude-setup-enlarged { display: block; max-width: none; height: auto; margin-inline: auto; }

@@ -2,6 +2,8 @@
 
 > 2026-11-04 目录整理：工具入口统一为 GPT、Claude、DeepSeek Harness、ZCode、CC Switch 五类。GPT 收录 Codex 入门、桌面端与 CLI；Claude 收录桌面端与 Claude Code CLI。原有分步教程仍使用各自链接，以下按实际客户端讲解。
 
+> 2026-11-17 路线更新：「模型入门 → DeepSeek」改用 Harness。连接步骤按用户提供的五张实机图更新为 DeepSeek 分组 Key、本站根地址与 OpenAI Responses；见 [DeepSeek Harness 模型入门](16-DeepSeek-Harness模型入门.md)。
+
 
 归属：Agent 与工具。工具目录入口：`#tools`；共用首课入口：`#agent`。面向第一次使用的普通用户，以 Windows 操作为主，资料核对日期：2026-10-24。
 
@@ -44,7 +46,7 @@ CC Switch 管理客户端的接入配置。配置好后，需要回到 Codex、C
 
 使用本站模型时，在[本站 API 密钥](https://www.yydsapi.uno/keys)准备与模型分组对应的**普通 API Key**。视频生成课中的画布专用 Key 用于视频站登录，本课需要普通 API 凭据。密钥只填写到自己的客户端，不写进提示词或教学截图。
 
-具体地址、协议和模型按工具指南填写。GPT 准备课为 `#gpt`；Claude 与 DeepSeek 在 Claude Code 中的配置课分别为 `#claude`、`#deepseek`。配置完成后回到 `#agent` 继续。
+具体地址、协议和模型按工具指南填写。GPT 准备课为 `#gpt`；Claude Code 配置课为 `#claude`；DeepSeek Harness 配置课为 `#deepseek`。配置完成后回到 `#agent` 继续。
 
 ### 第 3 步：在“文档”新建练习文件夹
 
@@ -215,7 +217,7 @@ Claude Desktop 的网关路由由独立 3P 配置管理。Claude Code CLI 的 `~
 
 ![Claude 桌面端官方下载页](../preview/assets/agent-tools/claude-download.jpg)
 
-### 3. Claude Code：命令行中使用 Claude 或 DeepSeek
+### 3. Claude Code：命令行中使用 Claude
 
 网页入口：`#tool/claude-code`。
 
@@ -227,26 +229,44 @@ irm https://claude.ai/install.ps1 | iex
 
 安装后重新打开 PowerShell，运行 `claude --version`。出现版本号后再进行本站配置。Git for Windows 是官方建议的 Bash 工具支持，具体系统要求以当次官方说明为准。
 
-**连接。** 同一工具可选择不同模型，但分组与设置需配套：
+**连接。** 按 Agent 与工具中的 Claude Code 配置课填写本站地址与凭据：
 
-- Claude 路线：`#claude?section=cc-config`，使用本站 Claude / Anthropic 文字分组 Key。
-- DeepSeek 路线：`#deepseek?section=cc-config`，使用本站 DeepSeek 文字分组 Key，并按该课一起设置主模型、别名与辅助模型。
+- Claude 路线：`#tool/claude-code-setup?section=cc-config`，使用本站 Claude / Anthropic 文字分组 Key。
+- DeepSeek 当前入门路线使用 Harness：`#deepseek?section=deepseek-connect`，按图在 Harness 中添加本站提供商。
 
-这里不重复旧密钥模板。保存配置后退出旧会话，再从练习目录启动。当前两条准备课使用本站根地址及 `ANTHROPIC_AUTH_TOKEN`，完整设置以所选准备课为准。CLI 配置也不能当作 Claude 网页或 Desktop 官方账户登录方式。
+这里不重复旧密钥模板。保存配置后退出旧会话，再从练习目录启动。Claude 准备课使用本站根地址及 `ANTHROPIC_AUTH_TOKEN`，完整设置以该课为准。CLI 配置也不能当作 Claude 网页或 Desktop 官方账户登录方式。旧 DeepSeek / Claude Code 配置保存在历史文稿中，不是当前新手路线。
 
 **工作区与任务。** 在“文档”新建 `agent-practice`，从文件夹地址栏输入 `powershell` 打开终端，运行 `Get-Location` 核对目录，再运行 `claude`。进入 Claude Code 输入区后，用 `/status` 核对地址与认证来源，用 `/model` 核对模型，用 `/permissions` 查看规则。保留 Manual 模式，确认练习路径后依次发送三段共用提示词。
 
 **成果与费用。** 在目录里用记事本打开 `learning-plan.md`，检查标题修改和正文保留情况；按任务时间、Key 和模型检查本站记录。辅助处理也可能产生请求，客户端估算不等于本站实际费用。
 
-**卡点。** `claude` 无法识别先重开 PowerShell，再检查官方 PATH / 安装说明。切到 DeepSeek 后仍请求 Claude，核对主模型、别名、辅助模型以及分组 Key，重开会话再看 `/status` 与 `/model`。普通聊天可用但文件工具报错时，还要核对具体模型和客户端工具兼容性。
+**卡点。** `claude` 无法识别先重开 PowerShell，再检查官方 PATH / 安装说明。实际请求模型不符合选择时，核对主模型、别名、辅助模型以及分组 Key，重开会话再看 `/status` 与 `/model`。普通聊天可用但文件工具报错时，还要核对具体模型和客户端工具兼容性。
 
 ![Claude Code 官方快速入门](../preview/assets/agent-tools/claude-code-start.jpg)
 
-### 4. ZCode：自定义 Anthropic 供应商
+### 4. ZCode：使用 Grok 与 Responses
 
-网页入口：`#tool/zcode`。
+网页入口：`#tool/zcode`。2026-11-17 起主线改为 Grok / Responses，按用户实机图配置。首次对话见 [在 ZCode 中使用 Grok](18-在ZCode中使用Grok.md)（`#grok`），完整文件任务与协作见 [ZCode 详细使用教程](14-ZCode详细使用.md)。
 
 **下载。** 从[官方安装页](https://zcode.z.ai/cn/docs/install)选择 Windows x64 / ARM64、macOS Apple Silicon / Intel，或 Linux 对应安装包。安装后点击“开始使用 ZCode”，可先跳过数据迁移。
+
+**配置。** 点击左下角齿轮 → 模型设置 → 添加供应商 → 创建自定义供应商，按 Grok 路线填写：
+
+| 项目 | 填写值 |
+| --- | --- |
+| Base URL | `https://www.yydsapi.uno` |
+| API 格式 | `Responses (/responses)` |
+| API Key | 自己的本站普通 Key，需有 Grok 权限与可用额度 |
+| 添加模型 → 模型 ID | 开启智能配置，输入 `grok-4.7`，匹配后保存 |
+
+本课按图使用根地址，不把 `/responses` 再拼到 Base URL 后面。上下文和最大输出先保留智能配置默认值，截图数值不代表网关实际限制。回到模型行点击连接测试图标，检查自己的结果，再从任务模型选择器选中本站供应商下的 `grok-4.7`。五步配图与详细字段见上方两篇教程。
+
+测试连接和正式提问都可能计费。用户提供的图中显示“连接成功”，不代表本轮代理执行了测试，也不代替自己的任务和本站记录核对。
+
+<details>
+<summary>可选参考：原 Claude / Anthropic 配置</summary>
+
+拥有对应 Claude 分组 Key 的读者可沿用以下路线。它与 Grok / Responses 分别配置，不混用协议和权限。
 
 **配置。** 初次没有模型时点左下角“连接使用 → 使用 API Key”；已进入应用则点对话中的模型名称 → 管理模型 → 设置 → 模型设置。在供应商列表底部点“添加供应商”，按本课的 Claude 路线填写：
 
@@ -260,6 +280,8 @@ irm https://claude.ai/install.ps1 | iex
 保存供应商，添加精确模型 ID，开启“启用”，再从对话模型选择器选中本站通道。基础地址不粘贴完整 `/v1/messages`。
 
 官方支持 Anthropic / OpenAI 兼容自定义供应商；不同字段的基础地址约定不完全相同。换 GPT 或 DeepSeek 时，要一起核对分组、协议、地址和模型，不能只换名称，也不要把所有地址统一增删 `/v1`。
+
+</details>
 
 **工作区与任务。** 选择“文档”里的 `agent-practice`，也可从左侧顶部搜索入口找到“打开文件夹”。保留默认“变更前确认”，依次发送共用三段要求。完成后点击工作区卡片的“文件树图标 / 查看文件”，单击 `learning-plan.md` 在右侧预览，再到电脑目录确认。
 
@@ -281,24 +303,26 @@ irm https://claude.ai/install.ps1 | iex
 npx.cmd @deepseek-ai/dsh web
 ```
 
-按 npm 提示获取官方包，打开终端打印的地址，默认 `http://127.0.0.1:3080`。使用期间保留终端运行。下面字段以官方 Web UI 文档为依据，桌面版需按当前界面对照。
+按 npm 提示获取官方包，打开终端打印的地址，默认 `http://127.0.0.1:3080`。使用期间保留终端运行。下面的桌面配置字段已按 2026-11-17 用户提供的实机图更新；五张分步图片见 [Harness 详细教程](13-DeepSeek-Harness详细使用.md)。
 
-**配置。** 打开“设置 → 模型 → 添加模型提供商”，从默认“第三方模型提供商”切到 **自定义模型 API**：
+**配置。** 点击左下角“更多 → 设置 → 模型 → 添加模型提供商”，切到 **自定义模型 API**：
 
 | 字段 | 填写值 |
 | --- | --- |
-| Provider ID | `rainapi`，小写固定标识 |
-| 显示名称 | 只因 API · Claude |
+| Provider ID | `zhiyin`，使用小写；已存在时编辑原提供商 |
+| 显示名称 | `zhiyin` |
 | API 地址 / 基础 URL | `https://www.yydsapi.uno` |
-| API 协议 | Anthropic Messages |
-| API 密钥 | 自己的普通 Claude 分组 Key |
-| 模型 ID | `claude-sonnet-4-6`，以这把 Key 实际权限为准 |
+| API 协议 | OpenAI Responses |
+| API 密钥 | 自己的本站 DeepSeek 分组普通 Key |
+| 模型 ID | 图中为 `deepseek-v4-pro`、`deepseek-v4.1-flash`，以这把 Key 实际权限为准 |
 
-至少添加一个模型再保存。Provider ID 用于会话与模型引用，后续不要随意改名。保存后回会话模型选择器选中本站模型。
+根地址不追加 `/v1` 或 `/responses`。填好后点击**获取可用模型**，核对模型目录，再点**创建提供商**。回到会话，从模型选择器选中 **zhiyin** 下的 DeepSeek 模型，第一次用**标准模式**。
 
 “获取可用模型”可用于获取目录，失败或空列表时可以手动添加精确模型 ID。保存配置、认证状态变绿或获取到列表，不代表已经实际完成推理请求。
 
-协议选项有 OpenAI Chat Completions、OpenAI Responses、Anthropic Messages。一个提供商只用一种协议；使用本站 Chat Completions 路线时，网页示例基础地址为 `https://www.yydsapi.uno/v1`，配套对应分组与模型。需要 Responses 时显式选该协议。工具名含 DeepSeek，不代表本站 Key 应填在默认官方 DeepSeek 卡片。
+协议选项有 OpenAI Chat Completions、OpenAI Responses、Anthropic Messages。一个提供商只用一种协议；本课明确选择 OpenAI Responses。接入其他模型时另建对应提供商，按其接入说明一起核对分组、地址、协议与模型。
+
+![填写 zhiyin、本站根地址与 OpenAI Responses，密钥已遮挡](../preview/assets/deepseek-harness/04-connection-fields.jpg)
 
 **工作区与任务。** 点“选择工作区”，添加并选中“文档”里的 `agent-practice`，再新建会话。即使 Web UI 从该目录启动，全新的界面仍需显式选择工作区；未选工作区或模型时输入框可能不可用。依次发送三段共用要求，按当前策略检查写入确认。
 
@@ -361,6 +385,6 @@ npx.cmd @deepseek-ai/dsh web
 
 当前教程已核对官方入口、文档字段及本站相关配置 / 导入源码；复用前面 GPT、Claude、DeepSeek 的配置课。官方文档支持自定义 API，不等于本轮已经完成本站客户端联调。
 
-本课没有安装这些客户端、将真实 Key 写入配置、执行启动安装命令或发起付费 Agent 文件任务。下载图是官方网站公开页面实拍；首页的成果卡片和文件结构图是教学目标示意。Harness 配置步骤按官方 Web UI 文档整理，桌面版仍需逐项对照当前界面。
+本课没有代用户安装这些客户端、将真实 Key 写入配置、执行启动安装命令或发起付费 Agent 文件任务。下载图是官方网站公开页面实拍；首页的成果卡片和文件结构图是教学目标示意。Harness 模型配置已按 2026-11-17 用户实机图更新，图片中的密钥区域已遮挡；其他进阶内容沿用各自资料核对日期。
 
 工具版本、系统条件、分组权限、模型工具能力与费用可能变化。实际验收需记录工具版本与系统，核对脱敏后的地址、协议和模型，完成真实文件创建 / 修改，并用对应服务的使用记录确认调用。保留既有成果，密钥始终在用户自己的客户端填写。

@@ -4,7 +4,8 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 
 const root = path.resolve(__dirname, '../preview');
-const indexPath = path.join(root, 'index.html');
+for (const page of ['index.html', 'configure.html']) {
+const indexPath = path.join(root, page);
 const html = fs.readFileSync(indexPath, 'utf8');
 let count = 0;
 const versioned = html.replace(/\b(src|href)=(['"])([^'"?#]+\.(?:js|css))(?:\?[^'"#]*)?\2/g, (match, attr, quote, file) => {
@@ -16,4 +17,5 @@ const versioned = html.replace(/\b(src|href)=(['"])([^'"?#]+\.(?:js|css))(?:\?[^
   return `${attr}=${quote}${file}?v=${version}${quote}`;
 });
 if (versioned !== html) fs.writeFileSync(indexPath, versioned);
-console.log(`Versioned ${count} script and stylesheet references.`);
+console.log(`Versioned ${count} script and stylesheet references in ${page}.`);
+}

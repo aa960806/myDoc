@@ -4,17 +4,20 @@ const tutorialNavigation = (() => {
   const searchEntries = [
     ['认识网站，找到常用入口', '开始学习', '主站、控制台、模型广场与使用记录。', '#start', '新手 入门 首页 导航 仪表盘'],
     ['API 密钥在哪里？', '认识网站', '对照界面找到 API 密钥管理入口。', '#start?section=features&feature=keys', 'key token 令牌 sk 创建 密钥 分组'],
-    ['GPT：配置 Codex', '对话与写作', '填写模型、本站地址与 config.toml。', '#gpt?section=gpt-config', 'gpt codex config.toml 配置 responses base url'],
-    ['Claude：在 Claude Code 中使用', '对话与写作', '安装工具，连接本站并完成第一次对话。', '#claude', 'claude code anthropic 安装 配置 接入'],
-    ['DeepSeek：在 Claude Code 中使用', '对话与写作', '用本站支持的 DeepSeek 模型完成练习。', '#deepseek', 'deepseek claude code 深度求索 配置 接入'],
+    ['GPT：配置 Codex', '模型入门', '自动配置或手动填写 config.toml。', '#gpt?section=gpt-config', 'gpt codex config.toml 配置 自动配置 一键保存 key responses base url'],
+    ['Claude：桌面端入门', '模型入门', '安装桌面端，通过菜单连接本站，再提问与追问。', '#claude', 'claude desktop desk 桌面端 anthropic 安装 配置 接入'],
+    ['DeepSeek：在 Harness 中使用', '模型入门', '跟着五张图连接本站，开始第一次对话。', '#deepseek', 'deepseek harness 深度求索 配置 接入 responses zhiyin'],
+    ['Grok：在 ZCode 中使用', '模型入门', '按五张图添加 grok-4.7，使用 Responses 格式并测试连接。', '#grok', 'grok grok-4.7 xai zcode 桌面端 安装 配置 接入'],
+    ['Grok：添加模型与测试连接', '模型入门', '设置 → 模型设置 → 自定义供应商，填写本站根地址和 Key。', '#grok?section=grok-connect', 'grok zcode responses /responses 自定义供应商 智能配置 测试 连接 图片 key'],
     ['第一张图片：连接 Canvas', '图片生成', '使用图片服务地址，在画布中配置 gpt-image-2。', '#track/image?section=image-connect', '图片 生图 gpt-image-2 canvas modelaryx image.yydsapi.uno api key 配置'],
     ['视频站专用密钥怎么创建？', '视频生成', '在本站准备画布 Key，再到视频站登录。', '#track/video?section=video-key', '视频 画布 key 专用 密钥 canvas 登录 共用额度'],
     ['选择一款 Agent 工具', 'Agent 与工具', '按 GPT、Claude、DeepSeek Harness、ZCode 与 CC Switch 查找教程。', '#tools?section=agent-tool-library', 'agent 工具 下载 客户端 编程 桌面'],
-    ['GPT：命令行安装', '对话与写作', '选择 Codex CLI 路线，准备终端工具。', '#gpt?mode=cli&section=gpt-install', 'gpt codex cli 命令行 终端 powershell npm node 安装'],
-    ['GPT：桌面端安装', '对话与写作', '选择 Codex 桌面路线，跟着界面操作。', '#gpt?mode=desktop&section=gpt-install', 'gpt codex desktop 桌面 客户端 下载 安装'],
-    ['GPT：第一条任务与追问', '对话与写作', '发送练习提示，再让模型调整结果。', '#gpt?section=gpt-task', 'gpt 提问 追问 提示词 第一次 对话'],
-    ['Claude Code：Claude 接入配置', '对话与写作', '按本课填写 Claude 的连接配置。', '#claude?section=cc-config', 'claude code 配置 settings.json anthropic api key base url'],
-    ['Claude Code：DeepSeek 接入配置', '对话与写作', '按本课填写 DeepSeek 的连接配置。', '#deepseek?section=cc-config', 'deepseek claude code 配置 settings.json anthropic api key base url'],
+    ['GPT：命令行安装', '模型入门', '选择 Codex CLI 路线，准备终端工具。', '#gpt?mode=cli&section=gpt-install', 'gpt codex cli 命令行 终端 powershell npm node 安装'],
+    ['GPT：桌面端安装', '模型入门', '选择 Codex 桌面路线，跟着界面操作。', '#gpt?mode=desktop&section=gpt-install', 'gpt codex desktop 桌面 客户端 下载 安装'],
+    ['GPT：第一条任务与追问', '模型入门', '发送练习提示，再让模型调整结果。', '#gpt?section=gpt-task', 'gpt 提问 追问 提示词 第一次 对话'],
+    ['Claude：桌面端配置第三方推理', '模型入门', '启用开发者模式，填写本站地址与 Key，保存并重启。', '#claude?section=claude-connect', 'claude desktop desk 配置 第三方 推理 开发者 url api key gateway'],
+    ['Claude Code：安装与本站配置', 'Agent 与工具', '安装命令行，填写 settings.json 或使用自动配置。', '#tool/claude-code-setup?section=cc-config', 'claude code cli 安装 配置 settings.json anthropic api key base url'],
+    ['DeepSeek Harness：按图连接本站', '模型入门', '设置、添加自定义模型 API、获取模型并创建提供商。', '#deepseek?section=deepseek-connect', 'deepseek harness 配置 图片 设置 自定义模型 API OpenAI Responses zhiyin key'],
     ['图片：怎样写第一条提示词', '图片生成', '先说清主体、场景和你想要的效果。', '#track/image?section=image-prompt', '生图 图片 提示词 prompt gpt-image-2'],
     ['图片：保存生成结果', '图片生成', '检查图片，下载并保存自己的作品。', '#track/image?section=image-save', '图片 生图 保存 下载 导出'],
     ['视频：从主站进入视频站', '视频生成', '通过侧边栏的视频站入口进入画布。', '#track/video?section=video-entry', '视频站 入口 canvas.yydsapi.uno 画布'],
@@ -355,6 +358,7 @@ const tutorialNavigation = (() => {
 
   function enhance() {
     if (!inBrowser()) return;
+    enhanceSimpleReading();
     initialize();
     const state = parseHash(location.hash);
     renderedIdentity = identity(state);

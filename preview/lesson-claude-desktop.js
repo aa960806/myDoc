@@ -31,18 +31,7 @@ const claudeDesktopGuide = {
     <section aria-labelledby="claude-desktop-connect">
       <h2 id="claude-desktop-connect"><span>02</span>按这条菜单路径，连接只因 API</h2>
       <p>接下来都在 <strong>Claude 应用</strong>中操作。第三方推理配置用于接入本站；密钥填写在配置窗口中。</p>
-      ${claudeSetupMap()}
-      ${gptStep('1', '启用开发者模式', '<p>点击左上角 <strong>☰ 三个横杠 → 帮助 → 故障排查 → 启用开发者模式</strong>。</p><p class="small-explanation">英文菜单：Help → Troubleshooting → Enable Developer Mode。</p>')}
-      ${gptStep('2', '打开“配置第三方推理”', '<p>再次打开左上角 <strong>☰ → 开发者 → 配置第三方推理</strong>，进入配置窗口。</p><p class="small-explanation">英文菜单：Developer → Configure Third-Party Inference…。</p>')}
-      <details class="gpt-details"><summary>对照官方配置窗口图片</summary><figure class="site-figure"><a class="screenshot-button" href="assets/claude-desktop/official-in-app-configuration.png" target="_blank" rel="noopener noreferrer" aria-label="打开 Claude 官方配置窗口原图"><img src="assets/claude-desktop/official-in-app-configuration.png" alt="Claude 官方配置示例：左侧 Connection，右侧选择 Gateway，下面有网关地址和凭据类型；尚未填完。" width="1812" height="1462" loading="lazy"><span class="enlarge-hint">打开原图 ↗</span></a><figcaption><span class="capture-label">官方文档配图</span>用于辨认 Connection / Gateway 位置。图中为官方示例地址，凭据尚未选完；请按下表填写本站信息。来源：${officialLink('https://claude.com/docs/third-party/claude-desktop/in-app-configuration', 'Claude 官方配置说明')}，2026.11.04 读取。</figcaption></figure></details>
-      ${gptStep('3', '选择 Gateway，填写 URL 与自己的 API Key', `<p>在 <strong>Connection</strong> 中选择网关接入，按下表填写。先选择 <strong>Static API key</strong> 凭据类型，再填写显示出来的密钥字段；已有选项正确时保持即可。</p>${agentFieldTable([
-        ['Inference provider · 推理提供方', 'Gateway'],
-        ['Gateway base URL · 网关地址', 'https://www.yydsapi.uno'],
-        ['Credential kind · 凭据类型', 'Static API key'],
-        ['Gateway auth scheme · 认证方式', 'Bearer'],
-        ['Gateway API key · 网关密钥', '粘贴自己的本站普通 Claude 分组 API Key']
-      ])}${gptCode('claude-desktop-base-url', '复制本站根地址', 'https://www.yydsapi.uno')}<p>这里填根地址，不在后面追加 <code>/v1/messages</code>。密钥要完整复制，不带首尾空格。</p>`)}
-      ${gptStep('4', '保存配置并重启', '<p>点击 <strong>Apply Changes</strong>；出现确认窗口时点击 <strong>Save &amp; Restart</strong>。重启后按登录页提示，选择使用已保存的第三方配置进入。使用这条完整的 3P 配置路线，官方支持跳过 Anthropic 账户登录。</p><p>若第一次重启后 Developer 菜单消失，重新走一遍“帮助 → 故障排查 → 启用开发者模式”即可。</p>')}
+      ${claudeDesktopConfiguration('claude-desktop')}
       ${gptStep('5', '确认模型，发一条简单请求', `<p>在模型选择器中选择本站分组允许的 Claude 模型，发送下方测试。收到正常回复后，到本站记录确认这次调用的时间、模型和 Key。</p>${gptCode('claude-desktop-connect-test', 'Claude 输入框 · 第一次连通测试', '你好，请用一句话介绍你能怎样帮我整理学习资料。')}<p class="small-explanation">发送测试会调用模型并按本站规则计费。保存成功只说明配置已写入；收到回复且本站有对应记录，才能确认本次连接。</p>`)}
       <div class="callout"><strong>CLI 与桌面端分别配置；桌面内的 Code 继承这份配置</strong><p>在终端配置过 <code>ANTHROPIC_BASE_URL</code> 或 <code>~/.claude/settings.json</code>，仍需完成桌面端的上述步骤。通过桌面第三方模式启动的 Cowork / Code，会使用该配置的供应商、地址与凭据。</p></div>
       ${gptCheck('应用已用第三方配置打开；你收到了测试回复，并在本站使用记录里找到了对应调用。')}
@@ -147,5 +136,5 @@ const claudeDesktopGuide = {
     {url:'https://claude.com/docs/third-party/claude-desktop/code', label:'官方：桌面 Code 继承第三方配置及功能限制'},
     {url:'https://code.claude.com/docs/en/desktop', label:'官方：Code 文件面板、差异、旁支与多会话协作'}
   ],
-  verification: '菜单配置路线按站方提供的操作流程与 2026-11-04 实际读取的 Anthropic 官方文档整理。练习、流程图和字段示意用于教学；未安装或改写用户客户端配置，未使用真实 API Key 发起收费调用。第三方网关支持、可用模型、设备条件与应用版本需在实际使用时核对。'
+  verification: '菜单配置路线按站方提供的操作流程与 2026-11-04 实际读取的 Anthropic 官方文档整理。2026.11.17 加入用户提供的三张实机配置图，密钥区域已遮挡；第一张仅定位帮助与故障排查入口，未拍到启用开发者模式选项。练习和流程示意用于教学；配图不代表连接测试成功，未代用户执行收费调用。第三方网关支持、可用模型、设备条件与应用版本需在实际使用时核对。'
 };

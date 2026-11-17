@@ -65,6 +65,16 @@ function codexGuideToc(contents, part, mobile = false) {
 // Preserve bookmarks from the first six-chapter Claude tool guides.
 function agentGuideSection(route, section) {
   const aliases = {
+    'claude': {
+      'cc-prepare': 'claude-prepare', 'cc-install': 'claude-install',
+      'cc-config': 'claude-connect', 'cc-open': 'claude-task',
+      'cc-task': 'claude-task', 'cc-verify': 'claude-verify', 'cc-help': 'claude-help'
+    },
+    'deepseek': {
+      'cc-prepare': 'deepseek-prepare', 'cc-install': 'deepseek-install',
+      'cc-config': 'deepseek-connect', 'cc-open': 'deepseek-task',
+      'cc-task': 'deepseek-task', 'cc-verify': 'deepseek-verify', 'cc-help': 'deepseek-help'
+    },
     'tool/claude-code': {
       'agent-download': 'claude-cli-start',
       'agent-connect': 'claude-cli-start',

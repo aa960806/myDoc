@@ -1,8 +1,47 @@
 # 只因 API 教程网站
 
-线上网站：<https://docs.yydsapi.uno/>。仓库：<https://github.com/aa960806/myDoc>。`preview/` 是网页发布目录；部署方案与检查步骤见 [DEPLOYMENT.md](DEPLOYMENT.md)。本地可运行 `npm start` 预览、`npm run check` 检查页面，无需安装依赖。原始私人截图和网络采集保留在本地 `research/`，不上传仓库或网站。
+线上网站：<https://docs.yydsapi.uno/>。仓库：<https://github.com/aa960806/myDoc>。`preview/` 是网页发布目录；部署方案与检查步骤见 [DEPLOYMENT.md](DEPLOYMENT.md)。本地可直接运行 `npm start` 预览；构建与测试前先执行 `npm ci`，再运行 `npm run prepare:release`。原始私人截图和网络采集保留在本地 `research/`，不上传仓库或网站。
 
-当前阶段：「认识网站」、GPT / Claude / DeepSeek 对话入门、使用 GPT Image 2 在 Canvas 生图、本站视频站文生视频首课、Agent 共用首课与五类工具教程、费用与账户，以及连接与报错 FAQ 已细化。主站源项目为 `F:\MySub2\sub2api`；教程工作在此目录内独立进行。
+## 2026-11-17 · Grok 模型入门与 ZCode 实机配图
+
+「模型入门」现在提供 GPT、Claude、DeepSeek、Grok 四个入口。新增 `#grok`，从安装 ZCode 开始，按五张用户实机图完成设置 → 模型设置 → 添加自定义供应商，使用本站根地址 `https://www.yydsapi.uno`、`Responses (/responses)` 与有 Grok 权限的普通 API Key；开启智能配置添加 `grok-4.7`，在模型行测试连接，再选空练习工作区、变更前确认，完成通知改写并核对使用记录。
+
+文稿为 `content/18-在ZCode中使用Grok.md`。`#tool/zcode` 与 `content/14-ZCode详细使用.md` 同步采用此 Grok 配置主线，保留原 Claude / Anthropic 路线为可选参考，以及工作区、任务管理、分叉、审阅、子智能体和自动化等完整进阶内容。
+
+五图位于 `preview/assets/grok-zcode/`，网页支持点击放大。图1项目名称已隐藏，图3和图5隐藏 Key，图4聚焦添加模型弹窗；来源映射见同目录 `README.md`。图5的“连接成功”是用户提供的当次结果，不代表本轮代理执行了模型测试；上下文与最大输出截图值不作为网关实际限制承诺。测试连接与提问可能计费。本轮仅更新本地内容，未执行付费请求或部署。
+
+## 2026-11-17 · Claude 模型入门改用桌面端
+
+「模型入门 → Claude」（`#claude`）改为 Claude Desktop：下载安装 → 启用开发者模式 → 配置第三方推理 → 选择模型 → 改写通知与追问 → 核对本站记录。配置步骤使用用户提供的三张实机图，保留菜单流程示意与折叠的官方窗口参考图，文稿见 `content/17-Claude桌面端模型入门.md`。Cowork、Code 和协作进阶保留在 `#tool/claude-desktop`。
+
+三张实机图位于 `preview/assets/claude-desktop/`：Help → Troubleshooting、Developer → Configure Third-Party Inference、Gateway 字段配置。模型入门与桌面工具课复用同一组图，支持点击放大；前两张裁剪后聚焦菜单区域，第三张以不透明遮挡隐藏 Key。第一张没有拍到 Enable Developer Mode 选项，说明明确区分菜单入口与后续操作；已有 Developer 菜单的用户直接进入下一步。图片由用户于 2026-11-17 提供，官方资料仍沿用 2026-11-04 的核验日期，不把配置截图当作调用成功证明。来源映射见同目录 `README.md`。
+
+Claude Code CLI 的安装、settings.json 和浏览器授权配置保留在「Agent 与工具」：配置课入口 `#tool/claude-code-setup`，仍使用 `cc-*` 章节；常用命令与任务协作继续使用 `#tool/claude-code`。自动配置页的 Claude 选项只配置 CLI，返回链接指向 CLI 配置课，不用于桌面端。旧 `#claude?section=cc-*` 书签定位到新的桌面入门对应章节。
+
+本轮为本地内容与入口调整，沿用已有资料，没有代用户安装客户端或执行付费调用。
+
+## 2026-11-17 · 模型入门与 DeepSeek Harness 配图
+
+栏目统一改为「模型入门」，DeepSeek 首课改用 Harness。`preview/lesson-deepseek.js` 提供五步共享配置图文，同时用于 `#deepseek` 与 `#tool/deepseek-harness`：更多 → 设置 → 模型 → 添加模型提供商 → 自定义模型 API，填写 zhiyin、本站根地址、OpenAI Responses 和 DeepSeek 分组 Key，获取模型后创建提供商。
+
+五张用户实机截图保存在 `preview/assets/deepseek-harness/`，按步骤内嵌、支持点击放大，含密钥的区域已遮挡。文稿见 `content/16-DeepSeek-Harness模型入门.md` 与 `content/13-DeepSeek-Harness详细使用.md`；旧 Claude Code 集成知识保留为历史参考。旧 `#deepseek?section=cc-*` 章节链接自动定位到新课程。
+
+DeepSeek 不再使用写入 `.claude/settings.json` 的自动配置。旧 `configure.html?client=deepseek` 会跳到 Harness 配图步骤；Codex、Claude Code CLI 的浏览器授权配置继续保留。本轮仅更新本地版本，未代用户执行付费调用。
+
+## 2026-11-17 · 浏览器授权自动配置（本地版本）
+
+GPT 与 Agent 栏目中的 Claude Code CLI 配置课提供「自动配置」入口。独立页面 `configure.html?client=codex|claude` 接收 Key 与模型名，使用 File System Access API 让用户选择 `.codex` / `.claude` 文件夹并授权。默认模型沿用对应教程；页面不会安装客户端、自动测试模型或发起收费请求。
+
+- `src/configure/core.mjs`：配置校验、TOML/JSON 合并、原文件逐字节备份、并发修改检测、保存后回读校验。仅在用户选中的目录内写固定文件名。新文件无需备份，重复提交相同配置不再次写入。
+- `src/configure/main.mjs`、`preview/configure.html`、`configure.css`：表单、权限及错误提示。Key 不加入 URL、不发送网络请求、不存入浏览器存储；页面离开或成功保存后清空。独立页面 CSP 禁止网络连接、表单提交与第三方脚本，阻止教程站分析脚本在此加载。
+- Codex 使用独立 `zhiyin_api` 供应商，保留其他供应商、插件、项目等设置；TOML 重新序列化，注释保留在完整备份中。默认 profile、日期类型或无法无损往返的特殊值会停止合并。Claude Code 仅修改连接字段，并清理冲突认证/云服务选择项；其他 JSON 文本和值保留。Claude Desktop 不在此功能范围内。
+- `tests/configure.test.mjs`：模拟授权后的文件句柄测试及独立临时目录真实读写，包含备份失败、并发修改、格式错误、重复字段、异常编码和失败回读。测试使用虚构 Key，不接触当前用户的客户端配置。
+
+构建使用锁定版本的 `smol-toml`、`jsonc-parser`、`esbuild`，输出为本地静态 `preview/configure.js`，没有运行时 CDN 依赖；许可证在 `preview/licenses/`。执行 `npm run prepare:release` 会先构建，再更新两个 HTML 入口的资源版本并检查。
+
+需要桌面 Chrome / Edge 与 HTTPS（本地 localhost 也可）。用户必须完成系统文件夹选择与授权，无法静默写入；没有配置文件夹时需在用户目录中新建同名文件夹。文件保存并不等于模型连通，需重启客户端核对。自动化已检查表单与输入拦截，真实系统授权弹窗未完成自动验收：电脑控制工具因无法可靠确认 Windows 浏览器地址而停止操作。当前未部署线上。
+
+当前阶段：「认识网站」、GPT / Claude / DeepSeek / Grok 模型入门、使用 GPT Image 2 在 Canvas 生图、本站视频站文生视频首课、Agent 共用首课与五类工具教程、费用与账户，以及连接与报错 FAQ 已细化。主站源项目为 `F:\MySub2\sub2api`；教程工作在此目录内独立进行。
 
 ## 2026-11-04 · Harness、ZCode 与 CC Switch 详细教程
 
@@ -64,7 +103,7 @@ Codex 工具指南分为三篇，同属「Agent 与工具」：`#tool/codex?part
 - `content/01-认识网站.md`：第一课可编辑文稿；末尾编写记录仅供备课。
 - `preview/lesson-site.js`、`preview/lesson-site.css`：第一课图文、功能切换、图片放大和练习。
 - `preview/assets/site-introduction/`：8 张教学配图，账户身份、余额及密钥信息已遮挡。
-- `content/02-第一次使用GPT.md`：「对话与写作 → GPT」文稿，Windows 命令行与 Codex 桌面两条路线。
+- `content/02-第一次使用GPT.md`：「模型入门 → GPT」文稿，Windows 命令行与 Codex 桌面两条路线。
 - `preview/lesson-gpt.js`、`preview/lesson-gpt.css`：路线切换、配置联动、复制与排错。
 - `preview/assets/first-gpt/`：本站创建密钥表单真实截图；客户端位置示意由 HTML/CSS 绘制并标明来源性质。
 - `research/first-gpt/`：官方资料留存、教学审核、配置样本和页面检查。
@@ -72,7 +111,7 @@ Codex 工具指南分为三篇，同属「Agent 与工具」：`#tool/codex?part
 
 启动：在本目录运行 `node serve-preview.mjs`，浏览器打开 `http://127.0.0.1:4177`。可设置 `TUTORIAL_PREVIEW_PORT` 改变端口。
 
-主要页面：`#home` 首页、`#tools` Agent 学习入口与工具库、`#agent` 第一次 Agent 任务、`#start` 认识网站第一课、`#track/chat` 对话与写作（三模型目录）、`#gpt` GPT 接入入门、`#tool/codex` Codex Agent 实操、`#claude` Claude Code 使用 Claude、`#deepseek` Claude Code 使用 DeepSeek。第一课支持 `#start?section=features&feature=keys` 等功能直达链接。
+主要页面：`#home` 首页、`#tools` Agent 学习入口与工具库、`#agent` 第一次 Agent 任务、`#start` 认识网站第一课、`#track/chat` 模型入门（四模型目录）、`#gpt` GPT 接入入门、`#tool/codex` Codex Agent 实操、`#claude` Claude 桌面端入门、`#deepseek` DeepSeek Harness 入门、`#grok` ZCode 使用 Grok。第一课支持 `#start?section=features&feature=keys` 等功能直达链接。
 
 Agent 工具目录按 GPT、Claude、DeepSeek Harness、ZCode、CC Switch 五类展示，同一家工具的桌面端与 CLI 放在同一卡片下。首页与共用首课复用相同分类；查找具体命令可用全站搜索。各篇教程保留下载与来源链接、深浅色和移动端支持。
 
@@ -95,9 +134,9 @@ Agent 工具目录按 GPT、Claude、DeepSeek Harness、ZCode、CC Switch 五类
 
 第二课配置已按站方提供的现用配置改为单文件示例：custom 供应商、gpt-6-astra/xhigh、根地址和 experimental_bearer_token 占位文字；model_catalog_json 为可选说明。旧的 auth.json 两文件配置不再是本课主线。
 
-新增模型目录与 Claude Code 教程：`preview/lesson-chat.js`、`lesson-chat.css`；文稿见 `content/03-Claude与DeepSeek在Claude-Code中的使用.md`。GPT 不再有独立侧栏，三个模型页均归属「对话与写作」，保留原 GPT 深链接。Claude Code 工具页也能进入两篇新教程。
+历史版本新增模型目录与 Claude Code 教程：`preview/lesson-chat.js`、`lesson-chat.css`；文稿见 `content/03-Claude与DeepSeek在Claude-Code中的使用.md`。GPT 不再有独立侧栏，三个模型页均归属「模型入门」，保留原 GPT 深链接。当前入口已按上文迁移：Claude 桌面端与 DeepSeek Harness 属于模型入门，Claude Code CLI 配置保留在 Agent 栏目。
 
-Claude / DeepSeek 均使用本站根地址及各自分组 Key，主线是用户级 `.claude/settings.json` 的 env 配置；模型、别名与子任务保持一致，页面提供模型联动与复制、真实本站入口截图和标明性质的客户端示意。官方资料、配置样本与页面检查记录位于 `research/chat-models/`。实际付费调用尚未验证。
+历史版本中 Claude / DeepSeek 均使用用户级 `.claude/settings.json` 的 env 配置；当前 Claude Code CLI 在 Agent 栏目沿用此路线；模型入门的 Claude 已改用桌面端，DeepSeek 已迁移至 Harness 图文配置。旧路线资料留存用于参考：模型、别名与子任务保持一致，页面提供模型联动与复制、真实本站入口截图和标明性质的客户端示意。官方资料、配置样本与页面检查记录位于 `research/chat-models/`。实际付费调用尚未验证。
 
 
 视频首课入口：`#track/video`，可用 `#track/video?section=video-key` / `video-confirm` / `video-download` / `video-billing` 直达具体操作。路线为主站侧栏「视频站」→ 创建并复制画布专用 Key → 登录 `https://canvas.yydsapi.uno/` → QT渠道-Seedance 2.0 Pro（按秒）、16:9 / 5 秒 / 720p → 提示词与双确认报价 → 原任务核对 → 播放下载 → 主站视频消费记录。与本站共享现金余额，无需另转额度；普通 API Key 与画布专用 Key 用途隔离。
@@ -121,7 +160,7 @@ Agent 入口：`#tools`；共用首课：`#agent`。首课从「文档」里的�
 - `content/07-Agent入门与工具使用.md`：可编辑教学文稿。
 - `research/agent-tools/`：官方资料、本站导入分支、三份专项核验、页面检查、静态检查结果和深浅色 / 手机预览。
 
-工具路由：`#tool/codex`、`#tool/claude-code`、`#tool/claude-desktop`、`#tool/zcode`、`#tool/deepseek-harness`、`#tool/ccswitch`。工具课归属「Agent 与工具」；GPT / Claude / DeepSeek 的配置课仍归属「对话与写作」。旧 `#tool/codex?section=gpt-…` 深链接继续进入 GPT 配置课。
+工具路由：`#tool/codex`、`#tool/claude-code`（配置课 `#tool/claude-code-setup`）、`#tool/claude-desktop`、`#tool/zcode`、`#tool/deepseek-harness`、`#tool/ccswitch`。工具课归属「Agent 与工具」；GPT / Claude / DeepSeek / Grok 的配置课归属「模型入门」。旧 `#tool/codex?section=gpt-…` 深链接继续进入 GPT 配置课。
 
 本轮依据 OpenAI Docs、各工具官方文档与主站源码整理；完成网页与静态内容检查，未安装这些工具、实际导入密钥、改写用户配置或执行收费模型任务。客户端版本、本站分组模型权限和最终调用费用须在实际使用时核对。
 

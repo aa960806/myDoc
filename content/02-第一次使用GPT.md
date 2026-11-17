@@ -1,6 +1,6 @@
 # 开始使用 GPT：用 Codex 完成第一次对话
 
-所属分类：对话与写作 → GPT。分类页同时提供 Claude、DeepSeek 的 Claude Code 教程；GPT 不再占用独立侧栏。原 #gpt 及路线深链接保留。
+所属分类：模型入门 → GPT。分类页同时提供 Claude、DeepSeek 的 Claude Code 教程；GPT 不再占用独立侧栏。原 #gpt 及路线深链接保留。
 
 第二课 · Windows 新手教程 · 更新于 2026-10-24
 

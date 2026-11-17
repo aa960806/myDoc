@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="robots" content="noindex">
+  <title>自动配置 · 只因 API</title>
+  <link rel="icon" href="assets/brand.jpg">
+  <link rel="stylesheet" href="configure.css?v=9f22bf6ecaf3">
+  <script src="configure.js?v=76a596dc8a2c" defer></script>
+</head>
+<body>
+  <header><a href="./#home">只因 API <span>新手教程</span></a><a data-lesson-link href="./#gpt">返回教程 →</a></header>
+  <main>
+    <h1>自动配置</h1>
+    <p class="intro">填好 Key，选择配置文件夹。备份、合并和保存交给网页完成。</p>
+    <p id="unsupported" class="notice" hidden>当前浏览器不支持授权写入。请使用电脑上的最新版 Chrome 或 Edge 打开本站 HTTPS 页面；也可以<a data-lesson-link href="./#gpt">按教程手动配置</a>。</p>
+    <noscript><p class="notice">自动配置需要启用 JavaScript。你也可以返回教程手动填写配置。</p></noscript>
+    <form id="configure-form" autocomplete="off">
+      <label for="client">使用工具与模型</label>
+      <select id="client" name="client"><option value="codex">Codex · GPT</option><option value="claude">Claude Code · Claude</option></select>
+      <label for="api-key">API Key</label>
+      <input id="api-key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="粘贴本站对应分组的完整 Key" maxlength="512" required aria-describedby="key-help">
+      <div class="key-options"><span id="key-help">仅在本机处理，不上传、不存入浏览器。</span><label><input id="show-key" type="checkbox">显示 Key</label></div>
+      <label for="model">模型 ID</label>
+      <input id="model" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="100" required aria-describedby="model-help">
+      <p class="field-help" id="model-help">已填入教程示例。请确认你的 Key 分组支持该模型，可自行修改。</p>
+      <div class="destination"><strong>选择哪个文件夹？</strong><p>Windows：在文件选择窗口的地址栏粘贴</p><code id="config-path">%USERPROFILE%\.codex</code><p>选中 <b data-folder>.codex</b> 文件夹并允许写入。若还不存在，可在用户目录中新建同名文件夹。</p><small>将保存到 <span id="config-file">.codex/config.toml</span>。已有文件会先在原目录备份。</small></div>
+      <p id="claude-shared" class="field-help" hidden>这里配置 Claude Code。Claude 桌面端和 DeepSeek Harness 使用各自的设置界面。</p>
+      <p class="before-save">开始前请先安装并退出客户端，避免它同时修改配置。</p>
+      <button id="configure-submit" type="submit">选择文件夹并自动配置</button>
+      <p class="field-help">未弹出文件选择窗口时，请在电脑的 Chrome 或 Edge 中打开本页。</p>
+      <p id="configure-status" class="status" role="status" aria-live="polite" hidden></p>
+    </form>
+    <p class="field-help">使用 DeepSeek？<a href="./#deepseek?section=deepseek-connect">按图在 Harness 中配置 →</a></p>
+    <details class="more"><summary>保存范围、恢复方法与其他系统</summary><p>服务地址固定为 <code>https://www.yydsapi.uno</code>。本站仅处理你选中的配置文件，不安装工具、不修改系统环境变量，也不会自动发起收费请求。</p><p>更新连接地址、Key 和模型，保留其他设置。Claude Code 会清理同一文件中冲突的旧认证项与云服务选择；环境变量或项目级配置仍可能覆盖此文件，需要在客户端检查。</p><p id="codex-format">Codex 使用独立的 <code>zhiyin_api</code> 供应商，其他供应商、插件和项目设置保留。TOML 会重新排版，注释保留在备份文件中；已启用默认 profile 或特殊配置时会停止自动合并。</p><p>需要恢复时，先退出客户端，将同目录中的 <code>config.toml.backup-…</code> 或 <code>settings.json.backup-…</code> 复制回原文件名。备份也可能含有 Key，请保存在自己电脑上。</p><p>macOS / Linux 选择用户目录中的 <code data-folder>.codex</code> 文件夹。隐藏文件夹需在系统选择窗口中显示。自定义配置目录、WSL 或公司托管环境，请按客户端实际位置手动配置。</p><p>“保存成功”表示本机文件已写入并核对；模型权限、余额和实际连通性，需要重启客户端后验证。</p></details>
+  </main>
+</body>
+</html>

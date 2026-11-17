@@ -2,7 +2,9 @@
 
 所属栏目：Agent 与工具 → Claude 桌面端  
 页面入口：`#tool/claude-desktop`  
-资料核验日期：2026-11-04
+官方资料核验日期：2026-11-04；用户实机配图更新：2026-11-17
+
+只想先完成第一次对话？可先读 [模型入门 → Claude 桌面端](17-Claude桌面端模型入门.md)（`#claude`），再回本课学习 Cowork、Code 与协作。
 
 先通过菜单连接只因 API，再学会选用 Chat、Cowork 和 Code。从一段会议记录到一份周报，从一个文件夹到一次可检查的修改，每一步都能跟着完成。
 
@@ -29,7 +31,7 @@ Linux 有单独的 beta 安装路线，以官方说明提供的功能为准。�
 
 ## 02 按菜单路径连接只因 API
 
-接下来在 Claude 应用中操作。第三方推理配置用于接入本站，密钥填写在配置窗口中。
+接下来按三张实机图在 Claude 应用中操作。第三方推理配置用于接入本站，密钥填写在配置窗口中。
 
 ### 第一步：启用开发者模式
 
@@ -37,11 +39,21 @@ Linux 有单独的 beta 安装路线，以官方说明提供的功能为准。�
 
 英文菜单：**Help → Troubleshooting → Enable Developer Mode**。
 
+![Claude 左上角 Help → Troubleshooting 菜单入口](../preview/assets/claude-desktop/01-help-troubleshooting.jpg)
+
+用户提供的实机图，展示 Help → Troubleshooting 的位置；本图没有拍到 Enable Developer Mode 选项。若菜单中已经有 **Developer**，可直接进行下一步。
+
+
 ### 第二步：打开第三方推理配置
 
 再次打开左上角 **☰ → 开发者 → 配置第三方推理**。
 
 英文菜单：**Developer → Configure Third-Party Inference…**。
+
+![Claude Developer 菜单中的 Configure Third-Party Inference 入口](../preview/assets/claude-desktop/02-third-party-menu.jpg)
+
+用户提供的实机图，按标出的 **Configure Third-Party Inference…** 打开第三方推理配置。
+
 
 ### 第三步：选择 Gateway，填写 URL 与 API Key
 
@@ -63,7 +75,19 @@ https://www.yydsapi.uno
 
 填写根地址，不在后面追加 `/v1/messages`。密钥完整复制，不带首尾空格。
 
-网页配图采用 Anthropic 官方配置窗口示例，用于定位 Connection / Gateway 区域。图中示例域名不是本站地址，按本表填写。该图不作为本站已接通的证明。
+![Claude 第三方推理配置：Gateway、Static API key、本站根地址、bearer 与 Apply Changes；API Key 已隐藏](../preview/assets/claude-desktop/03-gateway-settings.jpg)
+
+用户提供的实机图，展示本站配置字段与 **Apply Changes** 按钮；API Key 区域已遮挡。保存后仍需发送一次消息验证连接。网页中的三张操作图均支持点击放大。
+
+<details>
+<summary>参考：官方配置窗口示例</summary>
+
+![Claude 官方配置窗口示例，显示 Connection、Gateway 和凭据类型的位置](../preview/assets/claude-desktop/official-in-app-configuration.png)
+
+官方文档配图，用于对照界面。图中为官方示例域名，凭据尚未选完，请按本文表格填写本站信息。来源：[Claude 官方应用内配置说明](https://claude.com/docs/third-party/claude-desktop/in-app-configuration)，2026-11-04 读取。
+
+</details>
+
 
 ### 第四步：保存并重启
 
@@ -374,6 +398,6 @@ Cowork、桌面 Code、终端 CLI 的配置来源并不完全相同，已有 CLI
 - [Code 本地定时任务](https://code.claude.com/docs/en/desktop-scheduled-tasks)
 - [3P 技能、插件与连接器](https://claude.com/docs/third-party/claude-desktop/extensions)
 
-菜单路线按站方提供的操作流程与 2026-11-04 实际读取的 Anthropic 官方文档整理。网页主实现位于 `preview/lesson-claude-desktop.js`。官方插图、教学流程图与字段示意各自标明性质，不作为本机客户端实拍或连接成功证明。
+菜单路线按站方提供的操作流程与 2026-11-04 实际读取的 Anthropic 官方文档整理，2026-11-17 加入用户提供的三张客户端实机图。第一张没有拍到 Enable Developer Mode 选项，菜单已出现 Developer 时可直接进入配置；第三张密钥区域已遮挡。网页主实现位于 `preview/lesson-claude-desktop.js`。用户实机图、官方参考图、教学流程图分别标注；这些配置图不代表连接测试成功。
 
 本轮未安装客户端、修改真实配置或使用真实 API Key 发起收费调用。实际网关兼容性、可用模型、设备条件、功能入口与最终扣费需在使用时核对。标准 Claude 官方订阅 Cowork 文档当前包含云端执行能力，本课始终以本站第三方推理与本机文件任务为主线。

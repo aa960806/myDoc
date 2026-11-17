@@ -8,41 +8,46 @@
   <title>新手指南 · 只因 API</title>
   <link rel="icon" href="assets/brand.jpg">
   <link rel="stylesheet" href="styles.css?v=fd9b58acdcec">
-  <link rel="stylesheet" href="lesson-site.css?v=dd4150071cbf">
-  <link rel="stylesheet" href="lesson-gpt.css?v=da25a6a37dc2">
-  <link rel="stylesheet" href="lesson-chat.css?v=c4b87b4e0439">
+  <link rel="stylesheet" href="lesson-site.css?v=7c586db9b50d">
+  <link rel="stylesheet" href="lesson-gpt.css?v=3085e7967897">
+  <link rel="stylesheet" href="lesson-chat.css?v=19390198afbe">
   <link rel="stylesheet" href="lesson-image.css?v=766f21fe1c6e">
   <link rel="stylesheet" href="lesson-video.css?v=39405f715f75">
   <link rel="stylesheet" href="lesson-help.css?v=26331fb31c9f">
   <link rel="stylesheet" href="lesson-agent.css?v=dc843fd0f214">
   <link rel="stylesheet" href="lesson-billing.css?v=4a8f8ae0ffd2">
   <link rel="stylesheet" href="codex-workbench.css?v=a91a14814650">
-  <link rel="stylesheet" href="claude-workbench.css?v=519831130ca5">
+  <link rel="stylesheet" href="claude-workbench.css?v=12dbd6d939b0">
   <link rel="stylesheet" href="agent-directory.css?v=f9ef84c50335">
   <link rel="stylesheet" href="agent-workbench.css?v=8b91c4c5b53b">
-  <link rel="stylesheet" href="refinement.css?v=c54b76a786b5">
-  <script src="lesson-site.js?v=0dce31b12dcc" defer></script>
-  <script src="lesson-gpt.js?v=a0a2adca86f9" defer></script>
-  <script src="lesson-chat.js?v=8c7f63efff4a" defer></script>
-  <script src="lesson-image.js?v=9bf7c676baea" defer></script>
+  <link rel="stylesheet" href="refinement.css?v=b3329455cdaf">
+  <link rel="stylesheet" href="simple-reading.css?v=8056a5bc00e6">
+  <script src="lesson-site.js?v=23376bc637f6" defer></script>
+  <script src="lesson-gpt.js?v=e3bd643801de" defer></script>
+  <script src="lesson-chat.js?v=feaab61f3bcb" defer></script>
+  <script src="lesson-deepseek.js?v=aaa9ea811c88" defer></script>
+  <script src="lesson-grok.js?v=a7fa23425308" defer></script>
+  <script src="lesson-image.js?v=da7d948f608d" defer></script>
   <script src="lesson-video.js?v=bfa823fd8e99" defer></script>
-  <script src="lesson-help.js?v=910eb5dac2d6" defer></script>
-  <script src="lesson-agent.js?v=be817b11a933" defer></script>
-  <script src="lesson-agent-codex.js?v=d323b476fa36" defer></script>
+  <script src="lesson-help.js?v=71166ff9de43" defer></script>
+  <script src="lesson-agent.js?v=88061442a6b0" defer></script>
+  <script src="lesson-agent-codex.js?v=ad60c0e60e35" defer></script>
   <script src="codex-workbench.js?v=3fdb0e2ea277" defer></script>
   <script src="lesson-codex-desktop.js?v=756952b09059" defer></script>
   <script src="lesson-codex-cli.js?v=43365924d220" defer></script>
-  <script src="agent-workbench.js?v=07d269752c6e" defer></script>
-  <script src="lesson-harness-detailed.js?v=72caea375eb4" defer></script>
-  <script src="lesson-zcode-detailed.js?v=e1a10d3fcf72" defer></script>
-  <script src="lesson-ccswitch-detailed.js?v=b2ff7e4f0abd" defer></script>
-  <script src="claude-workbench.js?v=f40f1541879f" defer></script>
-  <script src="lesson-claude-cli.js?v=32f745194212" defer></script>
-  <script src="lesson-claude-desktop.js?v=3d9039e888da" defer></script>
-  <script src="lesson-billing.js?v=424550f53923" defer></script>
-  <script src="lesson-home.js?v=b4c60c9dae5d" defer></script>
-  <script src="navigation.js?v=0bb16cb37f99" defer></script>
-  <script src="app.js?v=eff53a0abbab" defer></script>
+  <script src="agent-workbench.js?v=77120b90ee6c" defer></script>
+  <script src="lesson-harness-detailed.js?v=ab8a2afd3f15" defer></script>
+  <script src="lesson-zcode-detailed.js?v=9b7e7eeb0a3f" defer></script>
+  <script src="lesson-ccswitch-detailed.js?v=5773115e6786" defer></script>
+  <script src="claude-workbench.js?v=5bf75a5042ab" defer></script>
+  <script src="lesson-claude-cli.js?v=29294f2dd3d8" defer></script>
+  <script src="lesson-claude-desktop.js?v=ce163f38b9af" defer></script>
+  <script src="lesson-claude-intro.js?v=a9e0e62edecc" defer></script>
+  <script src="lesson-billing.js?v=0db305ac0551" defer></script>
+  <script src="lesson-home.js?v=070a3dd7694d" defer></script>
+  <script src="navigation.js?v=6574c5d896b9" defer></script>
+  <script src="simple-reading.js?v=4d8647cb06ea" defer></script>
+  <script src="app.js?v=9de7286f23fe" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">跳到正文</a>
@@ -64,7 +69,7 @@
           <a data-nav="home" href="#home"><span data-icon="grid"></span>教程首页</a>
           <a data-nav="start" href="#start"><span data-icon="compass"></span>认识网站</a>
           <div class="nav-label spaced">选择你的方向</div>
-          <a data-nav="chat" href="#track/chat"><span data-icon="chat"></span>对话与写作</a>
+          <a data-nav="chat" href="#track/chat"><span data-icon="chat"></span>模型入门</a>
           <a data-nav="image" href="#track/image"><span data-icon="image"></span>图片生成</a>
           <a data-nav="video" href="#track/video"><span data-icon="video"></span>视频生成</a>
           <a data-nav="tools" href="#tools"><span data-icon="agent"></span>Agent 与工具</a>

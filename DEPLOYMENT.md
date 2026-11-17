@@ -42,10 +42,11 @@
 
 ## 本地检查与发布包
 
-使用 Node.js 18 或更新版本，无需安装依赖：
+使用 Node.js 18 或更新版本。首次构建与测试先安装锁定的开发依赖；仅运行已有静态预览无需安装依赖：
 
 ```powershell
-npm run check
+npm ci
+npm run prepare:release
 npm start
 ```
 
@@ -53,7 +54,9 @@ npm start
 
 提交后可以导出只包含网页的发布包：
 
-发布前先运行 `npm run prepare:release`，按脚本与样式内容更新 `index.html` 的 `?v=` 版本号，并完成页面检查；将更新后的首页一并提交。这样新版首页会请求对应版本的资源，避免 Cloudflare 或浏览器尚存的旧缓存造成页面混用。发布验证需使用首页实际引用的完整资源 URL。
+发布前先运行 `npm run prepare:release`，构建独立自动配置页，并按脚本与样式内容更新 `index.html`、`configure.html` 的 `?v=` 版本号，完成页面及配置写入检查；将生成的静态文件一并提交。这样两个入口会请求对应版本的资源，避免 Cloudflare 或浏览器尚存的旧缓存造成页面混用。发布验证需使用入口实际引用的完整资源 URL。
+
+`configure.html` 含有专用 CSP：禁止网络连接、表单提交和第三方脚本，不加载统计代码。部署时须保留此策略并验证其生效；不要给自动配置页注入统计、会话回放或第三方脚本。文件写入要求 HTTPS 与浏览器用户授权。发布包仍只包含 `preview/`，无需部署 Node.js 或配置接收密钥的后端。
 
 ```powershell
 New-Item -ItemType Directory -Force .deploy

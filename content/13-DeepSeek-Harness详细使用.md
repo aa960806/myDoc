@@ -1,8 +1,8 @@
 # 把 DeepSeek Harness 用顺手
 
-更新：2026.11.04。面向第一次使用 Agent 的普通用户。网页入口：`#tool/deepseek-harness`。
+配置流程更新：2026.11.17；进阶内容资料核对：2026.11.04。面向第一次使用 Agent 的普通用户。网页入口：`#tool/deepseek-harness`。只想先发出第一条消息，可先读 [DeepSeek Harness 模型入门](16-DeepSeek-Harness模型入门.md)。
 
-准备普通 Claude 分组 API Key、一个空的 `agent-practice` 文件夹，并安装 Harness 桌面端或启动官方本机 Web UI。学习顺序：安装 → 配置模型 → 选工作区 → 先计划再执行 → 检查文件。会话协作、扩展和自动化在第一次成功后继续学习。
+准备本站 DeepSeek 分组普通 API Key、一个空的 `agent-practice` 文件夹，并安装 Harness 桌面端或启动官方本机 Web UI。学习顺序：安装 → 配置模型 → 选工作区 → 先计划再执行 → 检查文件。会话协作、扩展和自动化在第一次成功后继续学习。
 
 完成后，你应当能选中本站模型，创建并修改 `learning-plan.md`，在电脑中找到文件，并核对本站使用记录。
 
@@ -12,7 +12,7 @@
 
 DeepSeek Harness 是 DeepSeek 开源的 Agent 工具，有桌面端，也可以在自己的电脑上启动网页界面。它把模型、文件夹和工具放在一起，可以读取材料、提出计划、修改文件，再由你检查成果。
 
-工具名包含 DeepSeek，也能接入其他厂商模型。本课使用**本站 Claude 分组 API Key + Anthropic Messages** 路线。
+工具名包含 DeepSeek，也能接入其他厂商模型。本课使用**本站 DeepSeek 分组 API Key + OpenAI Responses** 路线。
 
 | 概念 | 作用 |
 | --- | --- |
@@ -28,7 +28,7 @@ DeepSeek Harness 是 DeepSeek 开源的 Agent 工具，有桌面端，也可以�
 
 1. 打开 [DeepSeek Harness 官网](https://www.deepseek.com/harness/)，展开下载选项。当前提供 Windows 64 位（Windows 10+）和 macOS Apple 芯片（macOS 13+）入口，以官网下载页当前支持范围为准。
 2. 运行安装包，按向导完成，打开应用。
-3. 找到**设置 → 模型**。下一节添加本站服务，暂时不用安装额外插件。
+3. 点击左下角**更多 → 设置 → 模型**。下一节添加本站服务，暂时不用安装额外插件。
 
 网页保留官网下载入口配图，采集日期为 2026.10.24。Harness 当前为预览版，按钮和可用功能可能随版本、插件和配置调整。
 
@@ -48,42 +48,57 @@ npx.cmd @deepseek-ai/dsh web
 
 锚点：`agent-connect`
 
-### 第一步：准备 Key 和可用模型
+准备本站 DeepSeek 分组普通 Key 与可用额度。以下五张图由用户提供，密钥区域已遮挡；网页中可以点击放大。
 
-到本站 [API 密钥](https://www.yydsapi.uno/keys)准备一把有效、额度可用的普通 Claude 分组 Key，确认它允许调用 `claude-sonnet-4-6`。若分组提供其他模型，使用对应的精确模型 ID。
+### 第一步：打开「更多 → 设置」
 
-Key 填在自己的 Harness 设置里。视频站专用 Key 用于视频站登录，不能代替普通模型 Key。
+打开 Harness，点击左下角**更多**，再点击**设置**。
 
-### 第二步：添加自定义提供商
+![左下角更多菜单中的设置入口](../preview/assets/deepseek-harness/01-open-settings.jpg)
 
-打开**设置 → 模型 → 添加模型提供商**，将默认的“第三方模型提供商”切换为**自定义模型 API**。
+### 第二步：模型 → 添加模型提供商
+
+在设置左侧选择**模型**，点击下方**添加模型提供商**。
+
+![模型设置中的添加模型提供商按钮](../preview/assets/deepseek-harness/02-add-provider.jpg)
+
+### 第三步：选择「自定义模型 API」
+
+在表单顶部切换到**自定义模型 API**。
+
+![自定义模型 API 配置表单](../preview/assets/deepseek-harness/03-custom-api.jpg)
+
+### 第四步：填写本站地址、协议与 Key
 
 | 字段 | 本课填写值 |
 | --- | --- |
-| Provider ID | `rainapi`，使用小写，保存后作为固定标识 |
-| 显示名称 | 只因 API · Claude |
+| Provider ID | `zhiyin`，使用小写；若已存在则编辑原提供商 |
+| 显示名称 | `zhiyin` |
 | API 地址 / 基础 URL | `https://www.yydsapi.uno` |
-| API 协议 | Anthropic Messages |
-| API 密钥 | 自己的完整普通 Claude 分组 API Key |
-| 模型 ID | `claude-sonnet-4-6`，以这把 Key 实际可用模型为准 |
+| API 协议 | OpenAI Responses |
+| API 密钥 | 自己的完整本站 DeepSeek 分组普通 API Key |
 
-地址填到域名，不追加 `/v1/messages`。Provider ID 是固定标识，显示名称可以后续调整。
+按图填写根地址，**不追加 `/v1` 或 `/responses`**。Key 只填在自己的 Harness 中，视频站专用 Key 不能代替普通模型 Key。填写后点击**获取可用模型**。
 
-网页提供折叠的官方中文模型表单图用于辨认字段。官方图默认展示的 OpenAI 协议与示例地址，必须按本课表格换为 Anthropic Messages 和本站根地址。
+![zhiyin、本站根地址与 OpenAI Responses 协议，密钥已遮挡](../preview/assets/deepseek-harness/04-connection-fields.jpg)
 
-图片来源：[官方中文表单原图](https://raw.githubusercontent.com/deepseek-ai/deepseek-harness/master/docs/user/guide/providers-custom-form.zh.png)。
+### 第五步：确认模型目录，创建提供商
 
-### 第三步：添加模型，保存并选中
+检查获取到的完整模型 ID。图中为 `deepseek-v4-pro` 和 `deepseek-v4.1-flash`，以自己的 Key 实际返回且有权限调用的模型为准。点击右下角**创建提供商**。
 
-在模型目录中手动添加精确模型 ID，至少保留一个模型后保存。也可以尝试**获取可用模型 → 勾选目标模型 → 更新列表**。列表为空或读取失败时，仍可手动录入已确认可用的模型。
+![获取模型目录后创建提供商，密钥已遮挡](../preview/assets/deepseek-harness/05-create-provider.jpg)
 
-回到会话的模型选择器，选择“只因 API · Claude”下的目标模型。模型设置在下一次请求生效。旧会话可能保留自己的历史模型选择，每次切换都看一眼当前选项。
+列表为空或读取失败时，可点**添加模型**，手动填写在本站确认可用的完整模型 ID，不要只写“DeepSeek”。
 
-### 可选：换成 GPT 或 DeepSeek
+### 回到会话，选择 zhiyin 下的模型
 
-需要一起核对分组 Key、协议、基础地址和模型 ID。官方提供 OpenAI Chat Completions、OpenAI Responses、Anthropic Messages 三种协议，一个提供商使用一种协议。
+回到主界面，选择工作区，再点击输入框上方的模型名称，选中 **zhiyin** 下的目标 DeepSeek 模型。第一次先使用**标准模式**。旧会话可能保留原模型，每次切换都核对当前选项；不要沿用第一张截图主界面中原本选中的其他模型。
 
-本站 Chat Completions 路线可使用 `https://www.yydsapi.uno/v1` 和相应分组 Key。Responses 要显式选 OpenAI Responses。DeepSeek 也要按本站通道支持的协议配置，不能只改模型名称。
+### 可选：接入其他厂商模型
+
+Harness 支持自定义模型 API。换服务时一起核对分组 Key、协议、基础地址和模型 ID；不要把本课 DeepSeek 的设置直接当作其他通道的设置。保留已有提供商，另建对应提供商，并按其接入说明填写。
+
+官方提供 OpenAI Chat Completions、OpenAI Responses、Anthropic Messages 等协议，一个提供商使用一种协议。原版 Claude / Anthropic 配置仅作为历史接入思路：普通 Claude 分组 Key、本站根地址、Anthropic Messages、该分组允许的完整 Claude 模型 ID；该历史路线不再是本课的新手主线。
 
 保存配置或获取模型列表成功，只能说明这一步完成；实际连接要通过短任务和本站使用记录验证。
 
@@ -286,7 +301,7 @@ Agent 一项任务可能多次读取、规划、执行与复查。子代理和�
 | MISSING_CREDENTIAL / 401 | 重新保存完整 Key，检查空格、分组、额度及模型权限。 |
 | UNKNOWN_MODEL | 模型 ID 与显示名称不同，添加精确 ID 后在会话选中。 |
 | 模型列表获取失败 | 可以手动录入本站确认可用的 ID，列表探测不等于实际调用。 |
-| 400 / 404 | 协议与基础地址。本课 Anthropic 使用根地址，不填完整 `/v1/messages`。 |
+| 400 / 404 | 本课使用本站根地址与 OpenAI Responses，不追加 `/v1` 或 `/responses`。 |
 | 缺少计划、技能、子代理或自动化入口 | 当前预设、插件与应用版本；先完成主会话基础任务。 |
 | 分叉后仍在原会话 | 创建不会自动切换，去侧栏选择新会话；须有已完成回合。 |
 | 说完成却找不到文件 | 核对实际工作区和完整路径，打开文件；检查是否等待审批。 |
@@ -307,4 +322,4 @@ Agent 一项任务可能多次读取、规划、执行与复查。子代理和�
 - [官方插件配置](https://deepseek-harness.github.io/deepseek-harness/guide/plugin-market)
 - [官方定时任务指南](https://deepseek-harness.github.io/deepseek-harness/guide/schedule)
 
-2026.11.04 核对官方产品页、指南与界面文档。未安装或运行 Harness，未使用本站 Key 发起付费调用，本站连接配置尚待实际客户端验证。官网图采集于 2026.10.24，模型表单图来自官方文档；流程图为教学示意。
+2026.11.17 按用户提供的五张实机截图更新模型接入流程：DeepSeek 分组、本站根地址、OpenAI Responses、获取模型并创建 zhiyin 提供商。密钥区域已遮挡。图片展示到创建提供商阶段，本轮未代用户执行付费模型调用。工作区、会话协作、扩展与自动化沿用 2026.11.04 核对的官方资料。官网下载图采集于 2026.10.24；流程图为教学示意。

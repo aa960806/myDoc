@@ -19,7 +19,7 @@ const agentReferenceFigures = {
     file:'harness-custom-provider.png', width:1128, height:1390,
     title:'对照 Harness 官方自定义模型表单',
     alt:'官方表单中的自定义模型 API、Provider ID、API 地址、协议、密钥与添加模型入口。',
-    caption:'官方空表单示例，图中默认显示 OpenAI Chat Completions。本课请按填写表选择 Anthropic Messages 和本站根地址。',
+    caption:'官方空表单示例，图中默认显示 OpenAI Chat Completions。当前 DeepSeek 教程按实机图选择 OpenAI Responses 和本站根地址。',
     source:'https://deepseek-harness.github.io/deepseek-harness/guide/providers'
   }
 };

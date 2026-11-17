@@ -1,6 +1,8 @@
 # Claude 与 DeepSeek：在 Claude Code 中完成第一次使用
 
-所属分类：对话与写作。网页入口为 [Claude](http://127.0.0.1:4177/#claude) 和 [DeepSeek](http://127.0.0.1:4177/#deepseek)。主线环境为 Windows PowerShell，资料核对日期为 2026-10-24。
+> 2026-11-17 路线更新：「模型入门 → Claude」已改为 [Claude 桌面端模型入门](17-Claude桌面端模型入门.md)。本文保留 Claude Code CLI 配置知识，当前网页位于「Agent 与工具」的 `#tool/claude-code-setup`；其中 **DeepSeek 在 Claude Code 中的步骤仅为历史参考**。当前「模型入门 → DeepSeek」已改为 [DeepSeek Harness 模型入门](16-DeepSeek-Harness模型入门.md)，按五张实机图配置；进阶内容见 [DeepSeek Harness 详细使用](13-DeepSeek-Harness详细使用.md)。无需为新的 DeepSeek 入门流程修改 Claude Code 的设置。
+
+所属分类：Agent 与工具 → Claude Code CLI 配置。当前 CLI 网页入口为 [Claude Code 安装与配置](http://127.0.0.1:4177/#tool/claude-code-setup)，仍使用 `cc-*` 章节锚点；[模型入门 Claude](http://127.0.0.1:4177/#claude) 使用桌面端，[DeepSeek](http://127.0.0.1:4177/#deepseek) 使用 Harness。以下命令资料于 2026-10-24 核对，环境为 Windows PowerShell；其中 DeepSeek 配置仅保留作历史参考。
 
 在 Claude Code 中连接本站 Claude 或 DeepSeek 模型。把同一段通知改写两次，学会描述要求、继续调整和检查结果。
 

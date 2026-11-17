@@ -128,8 +128,8 @@ html[data-theme=light] .route-agent { --route-color: #277b60; }
 .article p, .article li { font-size: 16px; line-height: 1.9; }
 .article section { min-width: 0; }
 .article section > h2 { border-top: 1px solid var(--line); padding-top: 32px; margin: 44px 0 18px; font-size: 23px; font-weight: 570; line-height: 1.6; scroll-margin-top: 20px; }
-.site-introduction section > h2 > span { border: 0; background: var(--active); border-radius: 7px; width: 31px; height: 31px; font-size: 12px; margin-right: 2px; }
-.article .gpt-lesson h2 > [data-gpt-open-title], .gpt-lesson section > h2 > [data-gpt-open-title] { width: auto; height: auto; font: inherit; background: transparent; }
+.site-introduction section > h2 > span:first-child:not([data-gpt-open-title]) { border: 0; background: var(--active); border-radius: 7px; width: 31px; height: 31px; font-size: 12px; margin-right: 2px; }
+.gpt-lesson h2 > [data-gpt-open-title] { width: auto; height: auto; font: inherit; background: transparent; }
 .article h3 { font-size: 19px; line-height: 1.65; margin-top: 28px; }
 .article h2, .article h3, .article h4, .article [id] { scroll-margin-top: 20px; }
 .article :is(h1, h2, h3, h4)[tabindex="-1"]:focus, #routes-title[tabindex="-1"]:focus { outline: none; }

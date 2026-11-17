@@ -21,7 +21,7 @@ const claudeCliGuide = {
     <section aria-labelledby="claude-cli-start">
       <h2 id="claude-cli-start"><span>01</span>先启动工具，再输入斜杠命令</h2>
       <p><strong>Claude Code</strong> 是这里的命令行工具。它可以按本站配置使用 Claude，也可以使用已适配的其他模型。本课沿用你的已有连接，不需要重新安装一份客户端。</p>
-      <div class="download-actions"><a class="button primary" href="#claude?section=cc-install">首次安装与本站配置</a><a class="button" href="#deepseek?section=cc-config">使用 DeepSeek 的配置</a><a class="button" href="#agent?section=agent-task">先做第一次文件任务</a></div>
+      <div class="download-actions"><a class="button primary" href="#tool/claude-code-setup?section=cc-install">首次安装与本站配置</a><a class="button" href="#deepseek">DeepSeek Harness 入门</a><a class="button" href="#agent?section=agent-task">先做第一次文件任务</a></div>
       ${agentFieldTable([
         ['PowerShell：PS C:\\…>', '输入 claude、claude --version 等启动命令。'],
         ['Claude Code 任务输入区', '输入中文要求，或 /model、/status 等会话指令。'],
@@ -38,8 +38,8 @@ const claudeCliGuide = {
       <p>第一次练习先等当前任务结束，再切换模型。这样更容易对应本轮任务使用了哪个模型。</p>
       ${gptStep('1', '打开模型选择器', gptCode('claude-cli-model-command', 'Claude Code 输入区 · 切换模型', '/model') + '<p>从菜单选择本站密钥分组支持的模型。需要自定义 ID 时，按本机菜单选择自定义项，或输入 <code>/model 完整模型ID</code>；完整 ID 从本站模型广场和密钥的使用说明中核对。</p><p>当前官方版本通常把选择保存为新会话的默认模型；选择器里按 <code>s</code> 可仅为当前会话切换。若版本没有这一操作，按实际菜单提示使用。</p>')}
       ${gptStep('2', '核对模型和接入来源', gptCode('claude-cli-status-command', 'Claude Code 输入区 · 查看状态', '/status') + '<p>检查当前模型、版本与连接信息。本站 CLI 准备课使用 <code>https://www.yydsapi.uno</code> 和 <code>ANTHROPIC_AUTH_TOKEN</code>；状态中可见的地址、认证来源应与这套配置一致。</p>')}
-      <div class="callout"><strong>模型菜单里的名称，还要和本站分组对上</strong><p>本站入门配置会把 Opus、Sonnet、Haiku 等别名映射到同一个模型。此时切换别名，实际请求可能仍是同一个 ID。想换实际模型，要核对完整 ID、分组权限与别名映射；从 Claude 换到 DeepSeek 时，还要按对应准备课更换配套密钥与辅助模型设置。</p></div>
-      <div class="download-actions">${officialLink('https://www.yydsapi.uno/model-plaza', '查看本站模型与分组', 'button')}<a class="button" href="#claude?section=cc-config">核对 settings.json 配置</a></div>
+      <div class="callout"><strong>模型菜单里的名称，还要和本站分组对上</strong><p>本站入门配置会把 Opus、Sonnet、Haiku 等别名映射到同一个模型。此时切换别名，实际请求可能仍是同一个 ID。想换实际模型，要核对完整 ID、分组权限与别名映射；DeepSeek 的新手路线已改用 Harness，按对应入门课在该工具中单独配置。</p></div>
+      <div class="download-actions">${officialLink('https://www.yydsapi.uno/model-plaza', '查看本站模型与分组', 'button')}<a class="button" href="#tool/claude-code-setup?section=cc-config">核对 settings.json 配置</a></div>
       <details class="gpt-details"><summary>为什么重新启动后，又变回原来的模型？</summary><p>启动参数、环境变量和配置文件有优先级。准备课设置的 <code>ANTHROPIC_MODEL</code> 也会参与选择；由 CC Switch 管理时还要检查当前供应商卡片。先用 <code>/status</code> 确认实际状态，再统一修改已有配置，避免把几套设置叠加。</p><p>部分模型支持用模型菜单的左右方向键调整 effort；只选择菜单提供、本站确实支持的档位。不要照搬 Codex 的推理参数。</p></details>
       ${gptCheck('模型、本站地址与认证来源相符。完成实际任务后，再在本站使用记录中核对请求模型与费用。')}
     </section>
@@ -184,5 +184,5 @@ const claudeCliGuide = {
     {url:'https://code.claude.com/docs/en/skills', label:'官方：技能与命令管理'},
     {url:'https://code.claude.com/docs/en/sub-agents', label:'官方：子代理、模型与文件隔离'}
   ],
-  verification: '2026.11.04 实际读取 Claude Code 官方命令、CLI、模型、权限、检查点、记忆、技能与子代理文档，接入沿用本站已有 Claude / DeepSeek 准备课。未安装或升级客户端、写入真实密钥、执行付费任务；命令与并行能力以本机版本、工具配置、本站分组和实际模型适配为准。'
+  verification: '2026.11.04 实际读取 Claude Code 官方命令、CLI、模型、权限、检查点、记忆、技能与子代理文档，Claude 接入沿用本站准备课，DeepSeek 新手入口现已转到 Harness。未安装或升级客户端、写入真实密钥、执行付费任务；命令与并行能力以本机版本、工具配置、本站分组和实际模型适配为准。'
 };

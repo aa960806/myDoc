@@ -13,7 +13,7 @@
 
 ## 1. 启动与输入位置
 
-先按 Claude 准备课 `#claude?section=cc-install` 安装 Claude Code，再按 `#claude?section=cc-config` 配置本站。使用 DeepSeek 时，走 `#deepseek?section=cc-config` 的对应配置。
+先按 Claude Code 配置课 `#tool/claude-code-setup?section=cc-install` 安装 Claude Code，再按 `#tool/claude-code-setup?section=cc-config` 配置本站。2026-11-17 起，DeepSeek 入门改用 Harness，见 [DeepSeek Harness 模型入门](16-DeepSeek-Harness模型入门.md)（`#deepseek`），两款工具分别配置。
 
 Claude Code CLI 和 Claude 桌面端使用独立的连接配置。CLI 能调用本站，不代表桌面端已经连通。
 
@@ -37,7 +37,7 @@ claude
 
 再运行 `/status`，检查当前模型、版本与连接。本站准备课使用根地址 `https://www.yydsapi.uno` 和 `ANTHROPIC_AUTH_TOKEN`。
 
-本站入门配置会把 Opus、Sonnet、Haiku 等别名映射到同一个实际模型，所以切换别名可能没有切换请求 ID。想换实际模型，需要同时检查完整 ID、分组、别名与辅助模型映射。从 Claude 切到 DeepSeek 时，按对应准备课更换配套密钥与设置。
+本站入门配置会把 Opus、Sonnet、Haiku 等别名映射到同一个实际模型，所以切换别名可能没有切换请求 ID。想换实际模型，需要同时检查完整 ID、分组、别名与辅助模型映射。想体验 DeepSeek，请在 Harness 中按对应入门课添加本站提供商；它与 Claude Code 的配置独立。
 
 启动参数、`ANTHROPIC_MODEL`、项目设置与 CC Switch 也可能影响下次启动的模型。以 `/status` 和任务后的本站记录核对。推理强度只选本机菜单和当前模型支持项，不套用 Codex 参数。
 

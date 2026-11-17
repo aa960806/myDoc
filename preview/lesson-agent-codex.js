@@ -86,11 +86,11 @@ const agentCodexGuides = {
   'claude-code': {
     title: '用 Claude Code 完成第一个文件任务',
     tag: 'Agent 实操 · 命令行',
-    lead: '从一个空练习文件夹开始，让 Claude Code 写一份计划，再修改指定标题。选用 Claude 或 DeepSeek，都先确认本站连接和当前模型，再检查磁盘上的成果。',
+    lead: '从一个空练习文件夹开始，让 Claude Code 写一份计划，再修改指定标题。先确认本站 Claude 连接和当前模型，再检查磁盘上的成果。',
     completion: ['从练习目录启动 Claude Code', '核对模型与文件权限', '创建文件并指定修改', '检查成果和本站用量'],
     toc: [
       ['agent-download', '安装与版本检查'],
-      ['agent-connect', '选择 Claude 或 DeepSeek'],
+      ['agent-connect', '配置 Claude'],
       ['agent-workspace', '打开目录与检查权限'],
       ['agent-task', '完成第一次文件任务'],
       ['agent-check', '核对成果和消费'],
@@ -107,12 +107,12 @@ const agentCodexGuides = {
       </section>
 
       <section aria-labelledby="agent-connect">
-        <h2 id="agent-connect"><span>02</span>先选 Claude 或 DeepSeek，完成本站配置</h2>
+        <h2 id="agent-connect"><span>02</span>使用 Claude，完成本站配置</h2>
         <p>同一个 Claude Code 可以通过本站连接不同模型。先完成对应准备课，本课沿用已经核对过的设置、分组密钥和完整模型 ID。</p>
-        <div class="download-actions"><a class="button primary" href="#claude?section=cc-config">用 Claude · 填写本站配置</a><a class="button" href="#deepseek?section=cc-config">用 DeepSeek · 填写本站配置</a></div>
+        <div class="download-actions"><a class="button primary" href="#tool/claude-code-setup?section=cc-config">用 Claude · 填写本站配置</a><a class="button" href="#deepseek?section=deepseek-connect">想用 DeepSeek？查看 Harness 教程</a></div>
         ${agentFieldTable([
           ['使用 Claude', '准备本站 Anthropic / Claude 文字分组的普通 API Key，按 Claude 准备课核对模型。'],
-          ['使用 DeepSeek', '准备本站 DeepSeek 文字分组的普通 API Key，并按准备课指定主模型、别名与辅助模型。'],
+          ['使用 DeepSeek', '请前往 DeepSeek Harness 入门，在 Harness 中独立添加本站提供商。'],
           ['本课目标', '连接本站后，使用当前模型完成一次本地文件任务，再核对实际调用记录。']
         ])}
         <p>修改配置后退出旧会话，再从练习目录重新启动。<strong>Claude Code 是工具名，当前模型以设置与本站记录为准</strong>。Claude Code CLI 的配置也不能直接当作 Claude 网页或桌面聊天的登录方式。</p>
@@ -151,8 +151,8 @@ const agentCodexGuides = {
           <details><summary>claude 无法识别，或安装命令没有成功</summary><p>先关闭并重新打开 PowerShell，再执行 <code>claude --version</code>。仍失败时查看官方 PATH 和安装排错说明；确认自己使用的是 PowerShell，不要混用 CMD 安装命令。</p><p>${officialLink('https://code.claude.com/docs/en/troubleshoot-install', '查看官方安装排错')}</p></details>
           <details><summary>有计划文字，磁盘却找不到文件</summary><p>先确认工作目录与写入权限，再补充这条任务：</p>${gptCode('agent-cc-save-followup', '补充任务 · 请实际保存文件', '请把这份计划实际保存到当前练习文件夹的 learning-plan.md，并检查文件确实存在。若缺少写入权限，请告诉我需要确认的具体路径。')}<p>请它返回完整保存路径，与资源管理器当前目录对照后再继续。</p></details>
           <details><summary>文件操作被拒绝，或者只有计划没有执行</summary><p>检查当前是否处于 Plan 模式，使用 <code>/permissions</code> 查看规则。先读清楚具体被拒绝的路径和动作，再按当前客户端选择适合这次练习的权限；公司或学校管理的环境依照其允许的设置处理。</p></details>
-          <details><summary>切换到 DeepSeek 后仍请求 Claude 模型</summary><p>回到 DeepSeek 准备课，核对主模型、模型别名和辅助模型是否已一起更新，并确认使用的是对应分组 Key。退出旧会话、重新启动，再用 <code>/status</code> 和 <code>/model</code> 检查。</p><p><a href="#deepseek?section=cc-config">打开 DeepSeek 完整配置步骤 →</a></p></details>
-          <details><summary>出现登录、401、模型权限或工具调用错误</summary><p>先回准备课核对地址、认证来源、当前模型和分组。能普通聊天还需要继续核对文件工具是否兼容；保留已脱敏的完整错误，再查常见问题。</p><div class="download-actions"><a class="button" href="#claude?section=cc-help">Claude 接入排错</a><a class="button" href="#deepseek?section=cc-help">DeepSeek 接入排错</a><a class="button" href="#track/help">常见问题</a></div></details>
+          <details><summary>想在 Harness 中使用 DeepSeek</summary><p>DeepSeek 首课使用 Harness，在其设置中添加本站提供商。两款工具配置独立。</p><p><a href="#deepseek?section=deepseek-connect">打开 Harness 配图步骤 →</a></p></details>
+          <details><summary>出现登录、401、模型权限或工具调用错误</summary><p>先回准备课核对地址、认证来源、当前模型和分组。能普通聊天还需要继续核对文件工具是否兼容；保留已脱敏的完整错误，再查常见问题。</p><div class="download-actions"><a class="button" href="#tool/claude-code-setup?section=cc-help">Claude 接入排错</a><a class="button" href="#deepseek?section=cc-help">DeepSeek 接入排错</a><a class="button" href="#track/help">常见问题</a></div></details>
         </div>
       </section>`,
     sources: [

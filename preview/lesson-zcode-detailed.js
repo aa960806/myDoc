@@ -3,7 +3,7 @@ const zcodeGuide = {
   tag: 'ZCode · 配置、文件与任务协作',
   lead: '从连接本站模型开始，学会选工作区、给材料、看计划和检查修改。再用辅助对话、分叉与子智能体，把一项任务有条理地做完。',
   updated: '2026.11.04',
-  prepare: '准备本站普通 Claude 分组 API Key，以及电脑上的一个空 agent-practice 文件夹。',
+  prepare: '准备有 Grok 调用权限的本站普通 API Key，以及电脑上的一个空 agent-practice 文件夹。',
   sequence: '安装与配置 → 选择工作区 → 创建学习计划 → 检查和修正 → 管理任务与复用流程。',
   completion: ['选中正确的本站模型通道', '创建并检查真实文件', '会管理任务、分叉和撤销', '理解技能、子智能体与自动化的用法'],
   toc: [
@@ -21,7 +21,7 @@ const zcodeGuide = {
   body: () => `
     <section aria-labelledby="agent-fit">
       <h2 id="agent-fit"><span>01</span>先认识工作台里的四件事</h2>
-      <p><strong>ZCode</strong> 是有图形界面的 Agent 工具。工作区决定文件在哪，模型决定调用哪项服务，任务保存讨论过程，文件树让你检查实际成果。本课先用<strong>本站 Claude 分组 + Anthropic 兼容接口</strong>练习。</p>
+      <p><strong>ZCode</strong> 是有图形界面的 Agent 工具。工作区决定文件在哪，模型决定调用哪项服务，任务保存讨论过程，文件树让你检查实际成果。本课先用<strong>本站 Grok 模型 + Responses 接口</strong>练习。</p>
       ${agentWorkflowMap('zcode', '从任务要求，到看得见的文件', [
         {label:'准备', title:'连接模型', description:'选中本站供应商，核对模型和分组。', href:'#tool/zcode?section=agent-connect'},
         {label:'定位', title:'打开文件夹', description:'确认工作区和本次可修改的范围。', href:'#tool/zcode?section=agent-workspace'},
@@ -37,7 +37,7 @@ const zcodeGuide = {
       ${agentSourceFigure('zcode', '官方下载入口 · 按当前页面选择系统与处理器，旧配图只用于辨认网站')}
       ${gptStep('1', '选择适合电脑的安装包', '<p>普通 Intel / AMD Windows 电脑选择 <strong>x64</strong>，ARM 设备选择 ARM64。macOS 选择 Apple Silicon 或 Intel；Linux 按发行版选择 AppImage、DEB 或 RPM。下载安装后按系统向导启动。</p>')}
       ${gptStep('2', '完成首次启动', '<p>点击 <strong>开始使用 ZCode</strong>。首次可以跳过数据迁移，先把这节课做通。没有配置模型时，点击左下角 <strong>连接使用 → 使用 API Key</strong>。</p>')}
-      ${gptStep('3', '以后从模型选择器返回设置', '<p>已经进入应用时，点击输入框附近的模型名称，在列表底部点 <strong>管理模型</strong>，进入 <strong>设置 → 模型设置</strong>。下一节添加本站供应商。</p>')}
+      ${gptStep('3', '从左下角齿轮进入模型设置', '<p>已经进入应用时，点击左下角的 <strong>设置齿轮 → 模型设置</strong>。也可以从输入框模型选择器里的 <strong>管理模型</strong>返回设置，下一节按实机图添加本站供应商。</p>')}
       ${agentReferenceFigure('zcode-model')}
       <details class="gpt-details"><summary>Windows 关窗口后为什么还在运行？</summary><p>当前版本默认可隐藏到系统托盘。需要完整重启时，在托盘图标右键菜单选择<strong>退出</strong>，再重新打开。可在“设置 → 常规 → 通知”调整“关闭窗口时隐藏到托盘”。</p></details>
       ${gptCheck('ZCode 已打开，并且你能找到“使用 API Key”或“模型设置”。')}
@@ -45,8 +45,15 @@ const zcodeGuide = {
 
     <section aria-labelledby="agent-connect">
       <h2 id="agent-connect"><span>03</span>添加本站供应商，再选择模型</h2>
+      <p>准备有 <strong>Grok</strong> 调用权限的本站普通 API Key，确认当前分组支持 <code>grok-4.7</code>。下面按五张实机图连接本站。</p>
+      ${grokConnectionSteps('zcode-grok')}
+      <h3>回工作区，选择本站的 Grok 模型</h3><p>点击 <strong>返回工作区</strong>，从输入框右下角模型选择器中，选择刚添加的供应商下的 <strong>grok-4.7</strong>。先保持默认思考设置，准备好练习目录后再发送短请求。</p>
+      ${gptCode('zcode-grok-connect-test', 'ZCode 输入框 · 第一次提问', '你好，请用一句话说明你可以怎样帮助我整理一份学习计划。')}
+      <p>想先做纯文字练习，可以读 <a href="#grok?section=grok-task">Grok 模型入门</a>。收到回复后，在本站记录里核对时间、模型和 Key，再继续下面的文件任务。</p>
+      ${gptCheck('当前任务已选中本站 grok-4.7；连接测试和简单提问能响应，本站记录可以核对。')}
+      <details class="gpt-details"><summary>可选：在 ZCode 中使用 Claude / Anthropic 接口</summary><p>下面保留原有 Claude 路线。使用另一套有 Claude 权限的 Key 和对应协议，单独添加供应商。</p>
       ${gptStep('1', '先核对本站密钥和模型', `<p>准备一把本站<strong>普通 Claude 分组 API Key</strong>。示例模型沿用 <code>claude-sonnet-4-6</code>，以这把 Key 当前可用的完整模型 ID 为准。</p><div class="download-actions">${officialLink('https://www.yydsapi.uno/keys', '打开本站 API 密钥', 'button')}${officialLink('https://www.yydsapi.uno/model-plaza', '查看可用模型', 'button')}</div>`)}
-      ${gptStep('2', '在模型设置中添加自定义供应商', `<p>点击供应商列表底部的 <strong>添加供应商</strong>，使用 <strong>Anthropic 兼容接口</strong>，按下表填写：</p>${agentFieldTable([
+      ${gptStep('2', '在模型设置中添加自定义供应商', `<p>点击 <strong>添加供应商 → 创建自定义供应商</strong>，使用 <strong>Anthropic 兼容接口</strong>，按下表填写：</p>${agentFieldTable([
         ['名称', '只因 API · Claude'],
         ['Anthropic 接口地址', 'https://www.yydsapi.uno'],
         ['API Key', '在 ZCode 本地粘贴自己的完整 Claude 分组 Key'],
@@ -56,6 +63,7 @@ const zcodeGuide = {
       ${gptStep('4', '发送一条短请求验证连接', gptCode('zcode-connect-test', 'ZCode 输入框 · 连接测试', '你好，请用一句话说明你可以怎样帮助我整理一份学习计划。') + '<p>收到回复后，在本站使用记录中核对该时间、模型和 Key。保存了供应商只说明配置已写入，实际回复与对应记录才是本次调用依据。</p>')}
       <details class="gpt-details"><summary>切换模型或思考强度，先检查什么？</summary><p>等当前任务结束，再从模型菜单切换。输入框模型名称旁的思考图标用于调整当前模型提供的档位；不同模型、第三方部署接受的参数可能不同。出现思考参数 400 报错时，先恢复已验证的默认档位。</p><p>换供应商时一起核对 <strong>Key 分组、协议、基础地址、模型 ID</strong>。ZCode 支持 OpenAI 和 Anthropic 兼容供应商，但不能把不同协议的 URL 统一追加或删除 <code>/v1</code>。本站 GPT、DeepSeek 的接入仍以对应通道说明为准。</p></details>
       ${gptCheck('任务当前模型来自自己的本站通道，短请求能回复，本站记录中能找到对应调用。')}
+      </details>
     </section>
 
     <section aria-labelledby="agent-workspace">
@@ -139,7 +147,7 @@ const zcodeGuide = {
       <h2 id="agent-help"><span>10</span>按眼前的现象找到下一步</h2>
       <div class="lesson-quiz">
         <details><summary>模型列表没有本站模型</summary><p>在模型设置确认供应商已启用，而且已“添加模型”并填写正确 ID。回到任务模型选择器重新选择；新增供应商不会自动替所有任务切模型。</p></details>
-        <details><summary>401、403、400 或 404</summary><p>先核对普通 Claude 分组 Key、基础地址、协议与完整模型 ID。当前主线为 Anthropic 兼容接口和本站根地址。思考参数报错先恢复默认设置，仍失败到 <a href="#track/help">常见问题</a>按错误码排查。</p></details>
+        <details><summary>401、403、400 或 404</summary><p>先核对有 Grok 权限的本站 Key、本站根地址、Responses 格式与完整模型 ID grok-4.7。使用可选 Claude 路线时，按该路线的独立配置检查。思考参数报错先恢复默认设置，仍失败到 <a href="#track/help">常见问题</a>按错误码排查。</p></details>
         <details><summary>任务只给计划，一直不写文件</summary><p>检查是否等待计划确认或权限审批。先核对工作区、文件路径和允许的动作；拒绝或未回答审批时，任务会等待或停止。明确要求保存成文件，完成后亲自打开检查。</p></details>
         <details><summary>没有 /side、分叉或编辑按钮</summary><p>/side 与 /btw 只在已有主会话的桌面输入框中提供。分叉只出现在稳定完成的助手回复上；编辑针对空闲状态下最后一轮用户消息。运行中、压缩中或不同端的入口可能不可用，按本机版本判断。</p></details>
         <details><summary>分叉后两边改到了同一个文件</summary><p>分叉共享工作区。先停止相互冲突的写入，检查当前磁盘内容，再决定保留哪份结果；后续使用不同输出文件或独立练习目录。不要用新建对话代替文件隔离。</p></details>
@@ -162,5 +170,5 @@ const zcodeGuide = {
     {url:'https://zcode.z.ai/cn/docs/memory', label:'官方：项目记忆的范围与费用'},
     {url:'https://zcode.z.ai/cn/docs/keyboard-shortcuts', label:'官方：Windows / Mac 快捷键'}
   ],
-  verification: '依据 2026-11-04 实际读取的 ZCode 官方中文文档整理；当次下载页标记 3.17.2，能力仍以安装版本和模型支持为准。保留本站原有 Claude 通道配置主线。流程图为教学示意，下载配图保留原来源日期。未安装客户端、写入真实 API Key、创建自动化或执行付费模型调用，本站接入兼容性需通过实际任务与记录核对。'
+  verification: '依据 2026-11-04 实际读取的 ZCode 官方中文文档整理；当次下载页标记 3.17.2，能力仍以安装版本和模型支持为准。2026.11.17 按用户五张实机图更新 Grok / Responses 主线，原有 Claude 路线折叠保留。项目名称与密钥区域已遮挡；图中“连接成功”是用户当时的测试结果。流程图为教学示意，下载配图保留原来源日期。本轮未代用户执行付费调用或创建自动化，实际任务与费用仍需自行核对。'
 };

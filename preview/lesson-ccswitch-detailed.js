@@ -87,7 +87,7 @@ const ccSwitchGuide = {
         ['模型与别名映射', 'claude-sonnet-4-6（沿用本站示例，实际权限按分组核对）']
       ])}
       <details class="gpt-details"><summary>Claude Code 自定义 JSON 示例</summary><p>以下沿用本站 Claude 准备课，把主模型与辅助模型统一到同一个已确认可用的 ID。真实 Key 只在你电脑的编辑器里替换。已经有供应商卡片时，优先编辑其对应字段并查看最终预览。</p>${gptCode('ccswitch-claude-json', 'CC Switch · Claude Code 自定义配置', JSON.stringify({env:{ANTHROPIC_BASE_URL:'https://www.yydsapi.uno',ANTHROPIC_AUTH_TOKEN:'在这里替换为你的本站API密钥',ANTHROPIC_MODEL:'claude-sonnet-4-6',ANTHROPIC_DEFAULT_OPUS_MODEL:'claude-sonnet-4-6',ANTHROPIC_DEFAULT_SONNET_MODEL:'claude-sonnet-4-6',ANTHROPIC_DEFAULT_HAIKU_MODEL:'claude-sonnet-4-6',ANTHROPIC_DEFAULT_FABLE_MODEL:'claude-sonnet-4-6',CLAUDE_CODE_SUBAGENT_MODEL:'claude-sonnet-4-6',CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC:'1'}},null,2))}<p>原配置里的另一种认证变量或系统环境变量可能覆盖当前设置。切换后用客户端状态核对认证来源；需要修改时只处理已确认冲突的项。</p></details>
-      <div class="download-actions"><a class="button" href="#gpt?section=gpt-config">查看 GPT 完整配置课</a><a class="button" href="#claude?section=cc-config">查看 Claude 完整配置课</a></div>
+      <div class="download-actions"><a class="button" href="#gpt?section=gpt-config">查看 GPT 完整配置课</a><a class="button" href="#tool/claude-code-setup?section=cc-config">查看 Claude 完整配置课</a></div>
       <p>保存后回到供应商列表，再点击 <strong>启用 / 切换</strong>。地址、Key、模型、协议要作为同一组核对；只换模型名不会自动切换分组权限。</p>
       ${gptCheck('卡片已保存并启用；所选客户端与上游协议匹配，预览中没有照抄的示例密钥。')}
     </section>

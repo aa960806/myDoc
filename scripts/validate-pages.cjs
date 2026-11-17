@@ -60,7 +60,7 @@ for (const match of scriptTags) {
 const legacyRoutes = [
   'home', 'tools', 'agent', 'tool/codex', 'tool/claude-code', 'tool/claude-desktop',
   'tool/zcode', 'tool/deepseek-harness', 'tool/ccswitch', 'gpt', 'claude',
-  'deepseek', 'track/chat', 'track/image', 'track/video', 'track/help', 'start',
+  'deepseek', 'grok', 'track/chat', 'track/image', 'track/video', 'track/help', 'start',
 ];
 const billingCases = [
   { route: 'track/billing', selected: 'api', kind: 'default' },
@@ -126,6 +126,12 @@ const targets = [
   ...codexCases,
   ...claudeCases,
   ...detailedToolCases,
+  ...['cc-prepare', 'cc-install', 'cc-config', 'cc-open', 'cc-task', 'cc-verify', 'cc-help'].map(section => ({ route: `deepseek?section=${section}`, kind: 'deepseek-legacy-section' })),
+  ...['cc-prepare', 'cc-install', 'cc-config', 'cc-open', 'cc-task', 'cc-verify', 'cc-help'].map(section => ({ route: `claude?section=${section}`, kind: 'claude-intro-legacy-section' })),
+  { route: 'claude?section=claude-connect', kind: 'claude-desktop-intro' },
+  { route: 'tool/claude-code-setup', kind: 'claude-cli-setup' },
+  { route: 'tool/claude-code-setup?section=cc-config', kind: 'claude-cli-setup' },
+  ...['prepare', 'install', 'connect', 'task', 'verify', 'help'].map(section => ({ route: `grok?section=grok-${section}`, kind: 'grok-intro-section' })),
 ];
 const pages = new Map();
 function render(route) {
@@ -152,6 +158,27 @@ const requiredBillingIds = [
 ];
 
 const report = [];
+// Quick-start links are generated after render; validate against the full lessons.
+const quickStartPlans = vm.runInContext('simpleLessonPlans', context);
+for (const [key, plan] of Object.entries(quickStartPlans)) {
+  const route = key.startsWith('tool/codex:') ? key.replace(':', '?part=') : key;
+  for (const [, , links] of plan.steps) {
+    for (const [section] of links) {
+      if (section.startsWith('configure.html?')) {
+        const client = new URLSearchParams(section.split('?')[1]).get('client');
+        if (!['codex', 'claude'].includes(client) || !fs.existsSync(path.join(root, 'configure.html'))) setupIssues.push(`Invalid configuration page link: ${section}`);
+        continue;
+      }
+      const destination = section.startsWith('#') ? section.slice(1) : route;
+      const html = render(destination);
+      if (section.startsWith('#')) {
+        if (html.includes('这个页面还没有准备好')) setupIssues.push(`Unknown quick-start route: ${section}`);
+      } else if (!idsIn(html).includes(resolvedSection(route.split('?')[0], section))) {
+        setupIssues.push(`Missing quick-start target: ${route} / ${section}`);
+      }
+    }
+  }
+}
 for (const target of targets) {
   const html = render(target.route);
   const ids = idsIn(html);
@@ -181,6 +208,51 @@ for (const target of targets) {
   if (!/<h1\b/i.test(html)) pageIssues.push('Missing main page heading.');
   if (html.includes('这个页面还没有准备好')) pageIssues.push('Route rendered the not-found page.');
   const detailedRoute = target.route.split('?')[0];
+  if (['grok', 'tool/zcode'].includes(detailedRoute)) {
+    const grokImages = images.filter(src => src.startsWith('assets/grok-zcode/'));
+    if (grokImages.length !== 5 || new Set(grokImages).size !== 5) pageIssues.push('Grok connection course must show five distinct setup images.');
+    for (const text of ['grok-4.7', 'Responses (/responses)', 'https://www.yydsapi.uno', '智能配置', '连接测试']) {
+      if (!html.includes(text)) pageIssues.push(`Missing Grok connection instruction: ${text}.`);
+    }
+    if (detailedRoute === 'grok') {
+      const section = new URLSearchParams(target.route.split('?')[1] || '').get('section');
+      if (section && !ids.includes(section)) pageIssues.push(`Missing Grok section: ${section}.`);
+      for (const model of ['gpt', 'claude', 'deepseek', 'grok']) {
+        if (!html.includes(`href="#${model}"`)) pageIssues.push(`Missing model navigation: ${model}.`);
+      }
+    } else if (!html.includes('可选：在 ZCode 中使用 Claude / Anthropic 接口')) {
+      pageIssues.push('ZCode must retain its earlier Claude connection instructions.');
+    }
+  }
+  if (detailedRoute === 'claude') {
+    if (!html.includes('data-claude-intro="desktop"')) pageIssues.push('Claude model introduction must use the desktop course.');
+    for (const instruction of ['启用开发者模式', '配置第三方推理', 'Gateway', 'Static API key', 'Bearer', 'Save &amp; Restart']) {
+      if (!html.includes(instruction)) pageIssues.push(`Missing Claude Desktop instruction: ${instruction}.`);
+    }
+    for (const cliOnly of ['settings.json', 'PowerShell', 'ANTHROPIC_AUTH_TOKEN', 'configure.html?client=claude']) {
+      if (html.includes(cliOnly)) pageIssues.push(`CLI setup leaked into desktop introduction: ${cliOnly}.`);
+    }
+    if (!images.includes('assets/claude-desktop/official-in-app-configuration.png')) pageIssues.push('Missing desktop configuration illustration.');
+    const section = new URLSearchParams(target.route.split('?')[1] || '').get('section');
+    if (section && !ids.includes(resolvedSection(detailedRoute, section))) pageIssues.push(`Claude introduction section does not resolve: ${section}.`);
+  }
+  if (detailedRoute === 'tool/claude-code-setup') {
+    for (const id of ['cc-prepare', 'cc-install', 'cc-config', 'cc-open', 'cc-task', 'cc-verify', 'cc-help']) {
+      if (!ids.includes(id)) pageIssues.push(`Missing preserved CLI setup section: ${id}.`);
+    }
+    if (!html.includes('configure.html?client=claude') || !html.includes('ANTHROPIC_AUTH_TOKEN')) pageIssues.push('CLI configuration and automatic setup must remain available in the tool lesson.');
+    if (!html.includes('href="#tool/claude-code-setup?section=cc-config"')) pageIssues.push('CLI setup TOC must stay in the tool course.');
+  }
+  if (['deepseek', 'tool/deepseek-harness'].includes(detailedRoute)) {
+    const setupImages = images.filter(src => src.startsWith('assets/deepseek-harness/'));
+    if (setupImages.length !== 5 || new Set(setupImages).size !== 5) pageIssues.push('Harness setup must show five distinct step images.');
+    for (const text of ['OpenAI Responses', 'https://www.yydsapi.uno', 'zhiyin', '获取可用模型', '创建提供商']) {
+      if (!html.includes(text)) pageIssues.push(`Missing Harness connection instruction: ${text}.`);
+    }
+    if (html.includes('configure.html?client=deepseek') || html.includes('ANTHROPIC_AUTH_TOKEN')) pageIssues.push('Harness must not configure Claude Code.');
+    const section = new URLSearchParams(target.route.split('?')[1] || '').get('section');
+    if (section && !ids.includes(resolvedSection(detailedRoute, section))) pageIssues.push(`Harness section does not resolve: ${section}.`);
+  }
   if (Object.hasOwn(detailedToolSections, detailedRoute)) {
     const missing = detailedToolSections[detailedRoute].filter(id => !ids.includes(id));
     if (missing.length) pageIssues.push(`Missing detailed tool sections: ${missing.join(', ')}.`);
