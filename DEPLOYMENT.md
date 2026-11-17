@@ -4,6 +4,18 @@
 
 线上入口：<https://docs.yydsapi.uno/>。网站是纯静态 HTML、CSS、JavaScript，无数据库、无后台服务，也不需要在服务器运行 Node.js。`preview/` 是唯一网页发布目录；仓库根目录和 `research/` 不作为网站目录。
 
+## 2026-11-17 更新记录
+
+北京时间 2026-11-17 18:44 发布网页版本 `fbbc2e68b3e44870b848eae7a6d598b4b12fbae9`。本次上线简洁阅读布局、网页授权配置、四款模型入门与品牌图标，以及 Claude 桌面端、DeepSeek Harness、Grok / ZCode 的实机配图教程；同步更新 Agent 工具课。
+
+- 本地 81 个页面场景、16 项配置测试通过；公网 130 个文件内容与 MIME 核验通过，两个 HTML 入口的 43 个脚本和样式版本引用一致。
+- 浏览器已确认四款品牌图标加载、模型入门新版与自动配置工具切换正常，无控制台错误。`configure.html` 仅加载本站配置脚本，没有 Cloudflare Analytics 或 Rocket Loader 注入。
+- 为教程域名的 `/configure.html` 新增 `no-store, no-transform`、CSP、Referrer-Policy 和 nosniff 响应头，`nginx -t` 通过后平滑重载。其他 Nginx 配置及全部 45 个容器运行状态与发布前一致。
+- `/srv/mydoc/current` 原子切换至本次版本，前版 `15e365fa15b15fe56d8d2128514cff4b9b0cb6a6` 与旧教程 Nginx 配置备份保留。主站健康与视频画布首页均返回 200，研究资料、Git 与部署说明不可公开访问。
+- 本地网页归档 SHA-256：`57b19aaffbc87186cb957c3036fc54899572b42ac5800e914ea48fc05c80be87`。服务器从相同提交的 GitHub 完整仓库归档提取 `preview/`，逐文件与发布清单一致。
+
+发布与验收记录保存在本地 `.deploy/release-20261117/` 和服务器 `/srv/mydoc/evidence/`。后续仅更新本说明不改变网页发布版本。
+
 ## 2026-11-08 更新记录
 
 北京时间 2026-11-08 12:48 发布网页版本 `15e365fa15b15fe56d8d2128514cff4b9b0cb6a6`。本次简化首页、工具目录与正文阅读布局，保留深浅色模式及现有知识库正文、配图、配置示例和课程入口。
