@@ -1,17 +1,18 @@
 <!doctype html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="dark light">
+  <meta name="color-scheme" content="light dark">
   <meta name="description" content="只因 API 新手指南：从第一次对话到图片、视频和 Agent 工具。">
   <title>新手指南 · 只因 API</title>
+  <script src="handbook-theme.js?v=282079a9086a" defer></script>
   <link rel="icon" href="assets/brand.jpg">
   <link rel="stylesheet" href="styles.css?v=fd9b58acdcec">
   <link rel="stylesheet" href="lesson-site.css?v=7c586db9b50d">
   <link rel="stylesheet" href="lesson-gpt.css?v=3085e7967897">
   <link rel="stylesheet" href="lesson-chat.css?v=19390198afbe">
-  <link rel="stylesheet" href="lesson-image.css?v=766f21fe1c6e">
+  <link rel="stylesheet" href="lesson-image.css?v=59ec810a874d">
   <link rel="stylesheet" href="lesson-video.css?v=39405f715f75">
   <link rel="stylesheet" href="lesson-help.css?v=26331fb31c9f">
   <link rel="stylesheet" href="lesson-agent.css?v=dc843fd0f214">
@@ -22,12 +23,14 @@
   <link rel="stylesheet" href="agent-workbench.css?v=8b91c4c5b53b">
   <link rel="stylesheet" href="refinement.css?v=b3329455cdaf">
   <link rel="stylesheet" href="simple-reading.css?v=8056a5bc00e6">
+  <link rel="stylesheet" href="handbook-theme.css?v=1866320dc028">
+  <link rel="stylesheet" href="handbook.css?v=353cf525e638">
   <script src="lesson-site.js?v=23376bc637f6" defer></script>
   <script src="lesson-gpt.js?v=e3bd643801de" defer></script>
   <script src="lesson-chat.js?v=feaab61f3bcb" defer></script>
   <script src="lesson-deepseek.js?v=aaa9ea811c88" defer></script>
   <script src="lesson-grok.js?v=a7fa23425308" defer></script>
-  <script src="lesson-image.js?v=da7d948f608d" defer></script>
+  <script src="lesson-image.js?v=448eefe4cdc2" defer></script>
   <script src="lesson-video.js?v=bfa823fd8e99" defer></script>
   <script src="lesson-help.js?v=71166ff9de43" defer></script>
   <script src="lesson-agent.js?v=88061442a6b0" defer></script>
@@ -44,10 +47,10 @@
   <script src="lesson-claude-desktop.js?v=ce163f38b9af" defer></script>
   <script src="lesson-claude-intro.js?v=a9e0e62edecc" defer></script>
   <script src="lesson-billing.js?v=0db305ac0551" defer></script>
-  <script src="lesson-home.js?v=070a3dd7694d" defer></script>
-  <script src="navigation.js?v=6574c5d896b9" defer></script>
-  <script src="simple-reading.js?v=4d8647cb06ea" defer></script>
-  <script src="app.js?v=9de7286f23fe" defer></script>
+  <script src="lesson-home.js?v=507e7c68bfba" defer></script>
+  <script src="navigation.js?v=bcfd86f7a190" defer></script>
+  <script src="simple-reading.js?v=8d5ebc483ed9" defer></script>
+  <script src="app.js?v=c4d7c6ffc97e" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">跳到正文</a>
@@ -57,7 +60,7 @@
       <div class="header-actions">
         <button class="header-search" type="button" data-open-search aria-label="搜索教程（Ctrl 或 Command + K）"><span data-icon="search"></span><span>搜索教程</span><kbd>Ctrl K</kbd></button>
         <a class="main-site" href="https://www.yydsapi.uno/home" target="_blank" rel="noopener noreferrer">返回主站 <span aria-hidden="true">↗</span></a>
-        <button class="icon-button" id="theme-toggle" aria-label="切换到浅色模式"></button>
+        <button class="icon-button" id="theme-toggle" aria-label="切换到深色模式"></button>
         <a class="console-link" href="https://www.yydsapi.uno/login" target="_blank" rel="noopener noreferrer">进入控制台 <span aria-hidden="true">↗</span></a>
         <button class="icon-button mobile-menu" id="menu-toggle" aria-label="打开教程导航" aria-controls="sidebar" aria-expanded="false"></button>
       </div>
@@ -68,7 +71,7 @@
           <div class="nav-label">开始学习</div>
           <a data-nav="home" href="#home"><span data-icon="grid"></span>教程首页</a>
           <a data-nav="start" href="#start"><span data-icon="compass"></span>认识网站</a>
-          <div class="nav-label spaced">选择你的方向</div>
+          <div class="nav-label spaced">教程目录</div>
           <a data-nav="chat" href="#track/chat"><span data-icon="chat"></span>模型入门</a>
           <a data-nav="image" href="#track/image"><span data-icon="image"></span>图片生成</a>
           <a data-nav="video" href="#track/video"><span data-icon="video"></span>视频生成</a>
@@ -81,7 +84,7 @@
       </aside>
       <main id="main" tabindex="-1"></main>
     </div>
-    <footer class="site-footer"><span>让第一次使用，简单一点。</span><span>只因 API 新手指南</span></footer>
+    <footer class="site-footer"><span>只因 API 新手指南</span><a href="#track/help">常见问题</a></footer>
   </div>
 </body>
 </html>

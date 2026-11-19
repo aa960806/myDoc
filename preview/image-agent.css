@@ -1,0 +1,24 @@
+main > section { padding: 20px 0; border-top: 1px solid var(--rule); }
+h2 { font-size: 20px; line-height: 1.5; margin: 0 0 8px; font-weight: 600; }
+section > p, .setup-list { margin: 6px 0; }
+.setup-list { padding-left: 1.35em; }
+.setup-list li + li { margin-top: 4px; }
+#skill-form { margin: 16px 0 12px; }
+.skill-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.skill-fields > div { min-width: 0; }
+#skill-form .skill-fields label { margin: 0 0 6px; }
+.skill-fields .field-help { margin: 4px 0 0; font-size: 13px; }
+.endpoint { color: var(--secondary); margin: 12px 0 4px; font-size: 14px; }
+.endpoint code { color: var(--ink); }
+#key-help { margin: 4px 0 12px; }
+#copy-status:empty { display: none; }
+#manual-copy textarea { margin-bottom: 8px; }
+pre, blockquote { margin: 12px 0; padding: 12px 16px; border-radius: 4px; background: var(--wash); color: var(--ink); white-space: pre-wrap; overflow-wrap: anywhere; }
+pre { font: 14px/1.8 ui-monospace, Consolas, monospace; }
+blockquote { border-left: 2px solid var(--field-border); }
+.more { margin: 6px 0 0; padding: 0; border: 0; }
+#copy-example, #clear-manual { border: 1px solid var(--field-border); border-radius: 4px; padding: 6px 12px; font-size: 14px; background: var(--paper); color: var(--link); }
+#example-status, #manual-copy label { font-size: 14px; color: var(--secondary); }
+footer { padding-top: 14px; border-top: 1px solid var(--rule); font-size: 14px; }
+@media (max-width: 600px) { .skill-fields { grid-template-columns: 1fr; gap: 12px; } }
+@media print { #skill-form, #copy-example, #example-status { display: none; } }

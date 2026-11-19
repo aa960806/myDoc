@@ -122,6 +122,8 @@ const detailedToolCases = [
 ];
 const targets = [
   ...legacyRoutes.map(route => ({ route, kind: 'legacy' })),
+  { route: 'image/canvas', kind: 'image-canvas' },
+  { route: 'track/image?section=image-connect', kind: 'legacy-image-section' },
   ...billingCases,
   ...codexCases,
   ...claudeCases,

@@ -1,0 +1,49 @@
+/* Shared by the guide and its two standalone forms. */
+:root {
+  color-scheme: light;
+  --paper: #fff;
+  --ink: #222831;
+  --secondary: #495464;
+  --caption: #616d7b;
+  --rule: #dce1e6;
+  --field-border: #929eac;
+  --wash: #f5f7f9;
+  --highlight: #edf3fb;
+  --link: #245b99;
+  --on-link: #fff;
+}
+
+:root[data-theme=dark] {
+  color-scheme: dark;
+  --paper: #1c2026;
+  --ink: #edf0f4;
+  --secondary: #c3cbd5;
+  --caption: #a9b4c2;
+  --rule: #3c4550;
+  --field-border: #758496;
+  --wash: #242a32;
+  --highlight: #29384c;
+  --link: #9ac4fd;
+  --on-link: #142136;
+}
+
+html[data-theme] body {
+  --bg: var(--paper);
+  --text: var(--ink);
+  --muted: var(--secondary);
+  --subtle: var(--caption);
+  --line: var(--rule);
+  --read: var(--paper);
+  --surface: var(--paper);
+  --card: var(--wash);
+  --hover: var(--wash);
+  --active: var(--highlight);
+  --teal: var(--link);
+  --cyan: var(--link);
+  --panel: var(--wash);
+  --accent: var(--link);
+  --input: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}

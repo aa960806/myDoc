@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>在 Codex 等 Agent 中生图 · 只因 API</title>
+  <link rel="icon" href="assets/brand.jpg">
+  <script src="handbook-theme.js?v=282079a9086a" defer></script>
+  <link rel="stylesheet" href="handbook-theme.css?v=1866320dc028">
+  <link rel="stylesheet" href="configure.css?v=5908525d2291">
+  <link rel="stylesheet" href="image-agent.css?v=e68738c66e58">
+  <script src="image-agent.js?v=0bb2259b3736" defer></script>
+</head>
+<body>
+  <header><a class="guide-brand" href="./#home"><img src="assets/brand.jpg" width="27" height="27" alt="">只因 API <span>新手指南</span></a><a href="./#track/image">返回图片生成</a></header>
+  <main>
+    <h1>在 Codex 等 Agent 中生图</h1>
+    <p class="intro">配置一次生图技能（Skill），以后在对话里描述画面，Agent 就能把图片保存到你的工作区。</p>
+    <section>
+      <h2>1. 准备模型和密钥</h2>
+      <ul class="setup-list"><li>在<a href="https://www.yydsapi.uno/model-plaza" target="_blank" rel="noopener noreferrer">模型广场</a>复制生图模型的完整 ID，记下它的分组。</li><li>在<a href="https://www.yydsapi.uno/keys" target="_blank" rel="noopener noreferrer">API 密钥页</a>选择同一分组，创建并复制 Key。已有该分组的普通 Key 可以直接用。</li></ul>
+    </section>
+    <section>
+      <h2>2. 创建生图技能</h2>
+      <p>在 Codex 或其他支持 Skill 的 Agent 中打开练习文件夹。填好下方两项，再把复制的提示词发给 Agent。</p>
+      <form id="skill-form" autocomplete="off">
+        <div class="skill-fields"><div><label for="image-model">模型名称（模型 ID）</label>
+        <input id="image-model" type="text" value="gpt-image-2" placeholder="粘贴模型广场中的完整模型 ID" autocomplete="off" spellcheck="false" autocapitalize="off" required>
+        <p class="field-help">可替换为分组支持的模型 ID。</p></div>
+        <div><label for="image-key">生图 API Key</label>
+        <input id="image-key" type="password" placeholder="粘贴生图分组的完整 Key" maxlength="512" autocomplete="off" spellcheck="false" autocapitalize="off" aria-describedby="key-help" required>
+        </div></div>
+        <p class="endpoint">生图地址 <code>https://image.yydsapi.uno</code>（固定）</p>
+        <p class="field-help" id="key-help">提示词在本页生成，包含完整 Key。只发给你信任的 Agent，对话历史可能保留密钥。</p>
+        <button type="submit" disabled>复制创建 Skill 的提示词</button>
+        <p id="copy-status" class="field-help" role="status" aria-live="polite"></p>
+        <div id="manual-copy" hidden><label for="manual-text">浏览器未允许自动复制。请手动复制已选中的文本（含 Key）。</label><textarea id="manual-text" readonly rows="4" spellcheck="false"></textarea><button type="button" id="clear-manual">用完清空</button></div>
+      </form>
+      <noscript>请启用 JavaScript，或复制下方模板，将 {{IMAGE_MODEL}} 和 {{IMAGE_API_KEY}} 分别替换为模型 ID 和 Key。</noscript>
+      <details class="more"><summary>查看完整提示词模板</summary>
+        <pre id="skill-template">请为当前 Agent 创建一个名为 zhiyin-image 的本地生图 Skill。完成后告诉我保存位置和调用方法。
+
+接入信息
+生图地址：https://image.yydsapi.uno
+接口：POST https://image.yydsapi.uno/v1/images/generations
+请求体示例：{"model":"{{IMAGE_MODEL}}","prompt":"用户的画面描述"}
+本次配置用的生图 API Key：{{IMAGE_API_KEY}}
+
+请按以下方式实现：
+1. 按当前 Agent 的 Skill 规范创建 SKILL.md 和可运行的生图脚本。Codex 使用当前项目的 .agents/skills/zhiyin-image/，在 SKILL.md 的 YAML 文件头填写 name: zhiyin-image，并用 description 说明何时调用。其他 Agent 使用其支持的技能目录。如果已存在同名技能，先告诉我再修改。
+2. 脚本从 ZHIYIN_IMAGE_API_KEY 环境变量或当前用户的系统凭据库读取 Key。将本次提供的 Key 配置在本机可安全保存的位置；如不能安全写入，请给我一个本机隐藏输入的方法。不要把真实 Key 写入技能文件、项目、命令行参数、日志或回复。
+3. 用户要求生图时，使用示例中的 model，把用户的画面描述填入 prompt。张数、尺寸等可选参数按该模型支持的取值设置。只向上述 HTTPS 生图接口发送 Authorization: Bearer &lt;运行时读取的 Key&gt; 和 Content-Type: application/json，不向其他地址转发凭据。
+4. 成功后从 data[0].b64_json 解码图片，或从 data[0].url 下载图片（下载不带鉴权头）。核对是有效图片，按实际格式、用新文件名保存到当前工作区的 outputs/，回复可打开的文件路径。
+5. 这次只创建 Skill，用模拟响应检查脚本。等我明确描述要生成的图后，再发一次生图请求。出错或超时时给出脱敏提示，不要自动重复提交。</pre>
+      </details>
+    </section>
+    <section>
+      <h2>3. 在对话里生成第一张图</h2>
+      <p>等 Agent 告诉你 Skill 已保存，在同一项目中发送下面这句话。如果当前会话没识别到新技能，重新打开该项目的对话再试。</p>
+      <blockquote id="image-example">使用 zhiyin-image，帮我画一只坐在雨天窗边的橘猫，暖色插画风，正方形，生成 1 张并保存到当前工作区。</blockquote>
+      <button type="button" id="copy-example">复制生图指令</button> <span id="example-status" role="status" aria-live="polite"></span>
+      <p>点击 Agent 返回的文件路径，确认图片能打开。实际生成按生图分组计费，可到<a href="https://www.yydsapi.uno/usage" target="_blank" rel="noopener noreferrer">本站使用记录</a>核对。超时先查记录，再决定是否重试。</p>
+    </section>
+    <footer><a href="./#image/canvas">查看无限画布图文教程 →</a></footer>
+  </main>
+</body>
+</html>

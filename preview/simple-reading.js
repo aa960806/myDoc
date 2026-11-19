@@ -18,8 +18,8 @@ const simpleLessonPlans = {
       ['发送消息，确认收到回复', '打开一个空练习文件夹，让它写一份学习计划，再追问一次。', [['gpt-open', '打开 Codex'], ['gpt-task', '复制练习要求'], ['gpt-verify', '检查回复与费用']]]
     ], done: '收到回复、能继续追问，并在本站找到本次使用记录。'
   },
-  'track/image': {
-    title: '生成第一张图片', intro: '使用 GPT Image 2，在画布中生成并保存图片。',
+  'image/canvas': {
+    title: '在无限画布中生图', intro: '使用 GPT Image 2，在画布中生成并保存图片。',
     prepare: '准备生图分组的普通 API Key 和可用额度。接口地址使用 https://image.yydsapi.uno。',
     steps: [
       ['连接画布', '打开 Modelary Canvas，在模型设置中填写生图地址和自己的 Key，选择 gpt-image-2。', [['image-prepare', '准备密钥'], ['image-connect', '查看配置图文']]],
@@ -172,6 +172,7 @@ for (const [route, name] of [['tool/zcode', 'ZCode']]) {
 
 function simpleLessonKey() {
   const [route = 'home', query = ''] = location.hash.slice(1).split('?');
+  if (route === 'track/image' && new URLSearchParams(query).has('section')) return 'image/canvas';
   if (route !== 'tool/codex') return route;
   if (new URLSearchParams(query).get('section')?.startsWith('gpt-')) return 'gpt';
   return `${route}:${codexGuidePart()}`;

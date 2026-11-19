@@ -4,7 +4,7 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 
 const root = path.resolve(__dirname, '../preview');
-for (const page of ['index.html', 'configure.html']) {
+for (const page of ['index.html', 'configure.html', 'image-agent.html']) {
 const indexPath = path.join(root, page);
 const html = fs.readFileSync(indexPath, 'utf8');
 let count = 0;

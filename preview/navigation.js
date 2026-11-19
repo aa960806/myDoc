@@ -10,6 +10,7 @@ const tutorialNavigation = (() => {
     ['Grok：在 ZCode 中使用', '模型入门', '按五张图添加 grok-4.7，使用 Responses 格式并测试连接。', '#grok', 'grok grok-4.7 xai zcode 桌面端 安装 配置 接入'],
     ['Grok：添加模型与测试连接', '模型入门', '设置 → 模型设置 → 自定义供应商，填写本站根地址和 Key。', '#grok?section=grok-connect', 'grok zcode responses /responses 自定义供应商 智能配置 测试 连接 图片 key'],
     ['第一张图片：连接 Canvas', '图片生成', '使用图片服务地址，在画布中配置 gpt-image-2。', '#track/image?section=image-connect', '图片 生图 gpt-image-2 canvas modelaryx image.yydsapi.uno api key 配置'],
+    ['在 Codex 等 Agent 中生图', '图片生成', '填入模型 ID 和生图分组 Key，复制提示词创建可重复使用的生图 Skill。', 'image-agent.html', '图片 生图 自定义模型 提示词 模板 复制 技能 skill agent codex claude code gpt-image-2'],
     ['视频站专用密钥怎么创建？', '视频生成', '在本站准备画布 Key，再到视频站登录。', '#track/video?section=video-key', '视频 画布 key 专用 密钥 canvas 登录 共用额度'],
     ['选择一款 Agent 工具', 'Agent 与工具', '按 GPT、Claude、DeepSeek Harness、ZCode 与 CC Switch 查找教程。', '#tools?section=agent-tool-library', 'agent 工具 下载 客户端 编程 桌面'],
     ['GPT：命令行安装', '模型入门', '选择 Codex CLI 路线，准备终端工具。', '#gpt?mode=cli&section=gpt-install', 'gpt codex cli 命令行 终端 powershell npm node 安装'],
@@ -118,6 +119,7 @@ const tutorialNavigation = (() => {
   }
 
   function identity(state) {
+    if (state.route === 'track/image' && state.params.has('section')) return 'image/canvas';
     if (state.route !== 'tool/codex') return state.route;
     // Old GPT links remain a separate lesson; new Codex courses share one route.
     if ((state.params.get('section') || '').startsWith('gpt-')) return 'tool/codex:gpt';

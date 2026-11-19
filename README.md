@@ -123,7 +123,7 @@ Agent 工具目录按 GPT、Claude、DeepSeek Harness、ZCode、CC Switch 五类
 - `content/05-常见问题与报错排查.md`：可编辑文稿。
 - `research/faq/`：本站源码核验、官方资料与页面检查记录。按最新授权修正原汇总中的固定解封时间、上游归因、Codex 协议切换及超时说明；未改动主站或生产代理配置。
 
-图片首课入口：`#track/image`，可用 `#track/image?section=image-connect` 直达配置。内容为准备生图分组普通 API Key → Canvas 本站渠道（Base URL：`https://image.yydsapi.uno`）→ 新建画布和图片节点 → 中文提示词 → 单张参数 → 生成检查 → 下载图片 / 导出画布 ZIP → 消费核对与排错。重点提示画布默认 3 张需改 1 张；登录、密钥管理与用量查询继续在主站进行。
+图片生成入口 `#track/image` 提供两种方式。`#image/canvas` 保留无限画布原有九节图文，旧配置链接 `#track/image?section=image-connect` 仍可直达。第二部分 `image-agent.html` 支持填写模型 ID 和生图 Key，在浏览器本地生成可复制的 Skill 提示词，供 Codex 等 Agent 使用。两篇使用同一生图域名 `https://image.yydsapi.uno`。
 
 - `preview/lesson-image.js`、`lesson-image.css`：图片首课、7 张真实界面图、放大与复制。
 - `preview/assets/image-canvas/`：原始 PNG 与供网页使用的 JPG；配置截图无真实密钥。

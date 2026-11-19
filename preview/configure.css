@@ -1,6 +1,49 @@
-:root { color-scheme:light dark; --bg:#fff; --text:#20372e; --muted:#64756d; --line:#dfe6e1; --panel:#f4f8f5; --accent:#287558; --input:#fff; --error:#ad3227; }
-@media(prefers-color-scheme:dark){:root{--bg:#171f1b;--text:#edf3ef;--muted:#a6b6ad;--line:#35443b;--panel:#202c25;--accent:#a0d2b6;--input:#1a251e;--error:#ffb3a8;}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.75 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}a{color:var(--accent);text-underline-offset:3px}header{max-width:900px;margin:auto;display:flex;justify-content:space-between;gap:16px;padding:22px 28px;border-bottom:1px solid var(--line)}header>a{text-decoration:none;font-weight:600}header span{font-weight:400;color:var(--muted);font-size:13px;margin-left:12px}main{max-width:660px;margin:36px auto 70px;padding:0 28px}h1{font-size:30px;line-height:1.4;margin:0 0 12px;font-weight:650}.intro{color:var(--muted);margin:0 0 30px}form>label{display:block;font-weight:600;font-size:14px;margin:20px 0 8px}select,input[type=text],input[type=password]{display:block;width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:6px;color:var(--text);background:var(--input);font:inherit;min-width:0}input:focus,select:focus,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.key-options{display:flex;justify-content:space-between;gap:12px;margin-top:8px;color:var(--muted);font-size:12px}.key-options label{white-space:nowrap}.key-options input{accent-color:var(--accent)}.field-help{font-size:13px;color:var(--muted);margin:8px 0 16px}.destination{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:17px 19px;margin-top:24px}.destination strong{font-weight:600;font-size:14px}.destination p{margin:6px 0;font-size:13px;color:var(--muted)}code{font:13px/1.8 ui-monospace,Consolas,monospace;overflow-wrap:anywhere}.destination>code{display:block;user-select:all;margin:10px 0;color:var(--text);font-size:15px}.destination small{font-size:12px;color:var(--muted)}.before-save{font-size:13px;color:var(--muted);margin:18px 0 10px}button[type=submit]{display:block;width:100%;padding:13px 14px;border:0;border-radius:6px;background:#287558;color:white;font:600 15px/1.6 inherit;cursor:pointer}button:disabled{cursor:default;opacity:.55}.status{white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid var(--line);border-radius:6px;padding:16px;margin:16px 0;font-size:14px;background:var(--panel)}.status[data-kind=success]{border-color:var(--accent)}.status[data-kind=error]{color:var(--error)}.notice{padding:16px;border:1px solid var(--line);background:var(--panel);font-size:14px}.more{margin-top:30px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}.more summary{cursor:pointer;padding:8px 0}.more p{margin:14px 0} [hidden]{display:none!important}
-@media(max-width:480px){header{padding:18px 20px}header span{display:none}main{margin-top:26px;padding:0 20px}h1{font-size:27px}.key-options{flex-wrap:wrap}.destination{padding:15px}.intro{font-size:14px}}
-@media print{#configure-form{display:none}}
-button[type=submit]{font:inherit;font-weight:600}
+/* Standalone forms share the typography and colors of the handbook. */
+* { box-sizing: border-box; }
+body { margin: 0; font-size: 16px; line-height: 1.75; }
+a { color: var(--link); text-underline-offset: 3px; }
+header {
+  min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px max(18px, calc((100% - 1060px) / 2)); border-bottom: 1px solid var(--rule);
+}
+header a { font-size: 14px; text-decoration: none; }
+header a:hover { text-decoration: underline; }
+.guide-brand { display: inline-flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 650; color: var(--ink); white-space: nowrap; }
+.guide-brand img { border-radius: 5px; }
+.guide-brand span { padding-left: 12px; margin-left: 4px; border-left: 1px solid var(--rule); font-size: 13px; font-weight: 400; color: var(--caption); }
+main { max-width: 780px; margin: 32px auto 60px; padding-inline: 24px; }
+h1 { font-size: clamp(26px, 3vw, 34px); margin: 0 0 8px; line-height: 1.35; font-weight: 650; }
+.intro { margin: 0 0 24px; color: var(--secondary); }
+form label:not(:has(input)) { display: block; font-weight: 600; font-size: 14px; margin: 18px 0 6px; }
+select, input[type=text], input[type=password], textarea {
+  display: block; width: 100%; min-width: 0; min-height: 42px; padding: 8px 11px;
+  border: 1px solid var(--field-border); border-radius: 4px; background: var(--input); color: var(--ink); font: inherit;
+}
+input::placeholder { color: var(--caption); }
+:where(input, select, button, a, summary, textarea):focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+.key-options { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; color: var(--secondary); font-size: 13px; }
+.key-options label { white-space: nowrap; }
+.key-options input { accent-color: var(--link); }
+.field-help, .before-save, .destination p, .destination small, .more { font-size: 14px; color: var(--secondary); }
+.field-help { margin: 6px 0 16px; }
+.destination, .status, .notice { background: var(--wash); border-left: 2px solid var(--rule); padding: 14px 16px; margin: 20px 0 14px; }
+.destination strong { font-size: 15px; }
+.destination p { margin: 4px 0; }
+code { font: .92em/1.6 ui-monospace, Consolas, monospace; overflow-wrap: anywhere; }
+.destination > code { display: block; user-select: all; margin: 7px 0; font-size: 15px; }
+.before-save { margin: 18px 0 10px; }
+button { font: inherit; cursor: pointer; }
+button[type=submit] { border: 0; border-radius: 5px; background: var(--link); color: var(--on-link); padding: 10px 18px; font-size: 15px; font-weight: 600; }
+button:disabled { opacity: .6; cursor: default; }
+.status { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14px; }
+.status[data-kind=success] { border-color: var(--link); }
+.status[data-kind=error] { border-color: #bc483f; }
+.more { margin-top: 22px; padding-top: 10px; border-top: 1px solid var(--rule); }
+.more summary { cursor: pointer; padding: 6px 0; color: var(--link); }
+[hidden] { display: none !important; }
+@media (max-width: 540px) {
+  main { padding-inline: 18px; margin-top: 24px; }
+  .guide-brand span { display: none; }
+  .key-options { flex-wrap: wrap; }
+}
+@media print { #configure-form { display: none; } }

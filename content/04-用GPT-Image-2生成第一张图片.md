@@ -1,6 +1,10 @@
-# 用 GPT Image 2，在无限画布里生成第一张图片
+# 用 GPT Image 2 生成第一张图片
 
-归属：图片生成。预览入口：`#track/image`。本课面向普通新手，推荐电脑浏览器；不用写代码或安装画布。模型 ID：`gpt-image-2`。网页：<https://canvas.modelaryx.com/>，界面核对版本 v0.4.0，日期 2026-10-24。
+图片生成入口为 `#track/image`。第一部分在[无限画布](../preview/index.html#image/canvas)里使用 `gpt-image-2`，第二部分在 [Codex 等 Agent](../preview/image-agent.html) 中为你选定的生图模型创建可复用的 Skill。两条路线都使用对应生图分组的普通 Key。
+
+## 第一部分　在无限画布中生图
+
+本课推荐电脑浏览器。画布地址为 <https://canvas.modelaryx.com/>，界面核对版本 v0.4.0，日期 2026-10-24。
 
 用中文描述一只雨天窗边的橘猫，在 Canvas 中生成一张图片，再下载到电脑。
 
@@ -131,7 +135,16 @@ GPT 文字分组不等于 GPT 生图分组；视频站画布专用 Key 不适用
 
 求助只提供时间、模型、渠道、Canvas 版本和已脱敏错误，不包含完整密钥。
 
-## 编写与验证记录（备课用）
+## 第二部分　在 Codex 等 Agent 中生图
+
+1. 在[模型广场](https://www.yydsapi.uno/model-plaza)复制想用的生图模型 ID，到[本站密钥页](https://www.yydsapi.uno/keys)创建对应生图分组的普通 API Key。
+2. 在支持自定义 Skill 的 Agent 中打开练习文件夹，再打开[生图 Skill 提示词模板](../preview/image-agent.html)。填写模型 ID 和生图 Key，点「复制创建 Skill 的提示词」，粘贴到你信任的 Agent 对话中。页面在本地拼接模板。复制的文本包含完整 Key，发出后所选 Agent 会收到它。
+3. 等 Agent 保存 `zhiyin-image` 技能后，发送「使用 zhiyin-image，画一只坐在雨天窗边的橘猫，暖色插画风，正方形，生成 1 张并保存到当前工作区」。如果新技能还未显示，可重新打开该项目的对话。
+4. 打开 Agent 返回的图片路径，并在[使用记录](https://www.yydsapi.uno/usage)按时间、Key 和模型核对。创建技能用模拟数据验证，首次真正生图才提交图片请求。
+
+生图地址固定为 `https://image.yydsapi.uno`。模板使用 `POST /v1/images/generations` 和 Bearer 鉴权，请求中的 `model` 使用你填写的模型 ID，默认示例为 `gpt-image-2`。脚本从环境变量或系统凭据库读取 Key，保存返回的图片，最后给出工作区内的文件路径。
+
+## 画布界面与验证记录（备课用）
 
 - 本站接口依据：`research/image-canvas/site-api-evidence.md`。
 - 2026-10-24 站方确认：生图 Base URL 使用 `https://image.yydsapi.uno`；管理页面继续使用主站域名。

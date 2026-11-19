@@ -66,9 +66,9 @@ npm start
 
 提交后可以导出只包含网页的发布包：
 
-发布前先运行 `npm run prepare:release`，构建独立自动配置页，并按脚本与样式内容更新 `index.html`、`configure.html` 的 `?v=` 版本号，完成页面及配置写入检查；将生成的静态文件一并提交。这样两个入口会请求对应版本的资源，避免 Cloudflare 或浏览器尚存的旧缓存造成页面混用。发布验证需使用入口实际引用的完整资源 URL。
+发布前先运行 `npm run prepare:release`，构建独立自动配置页，按脚本与样式内容更新 `index.html`、`configure.html`、`image-agent.html` 引用的资源版本，并完成页面及配置写入检查。将生成的静态文件一并提交，发布后使用各入口实际引用的完整资源 URL 验证。
 
-`configure.html` 含有专用 CSP：禁止网络连接、表单提交和第三方脚本，不加载统计代码。部署时须保留此策略并验证其生效；不要给自动配置页注入统计、会话回放或第三方脚本。文件写入要求 HTTPS 与浏览器用户授权。发布包仍只包含 `preview/`，无需部署 Node.js 或配置接收密钥的后端。
+`configure.html` 和 `image-agent.html` 在浏览器本地处理 API Key。部署时按 `deploy/nginx-https.conf` 为两页提供 `no-store, no-transform` 及专用 CSP，验证响应头，并确认 CDN 不注入统计或会话回放脚本。自动配置页写入文件需要 HTTPS 与浏览器用户授权。发布包只包含 `preview/`。
 
 ```powershell
 New-Item -ItemType Directory -Force .deploy
