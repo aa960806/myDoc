@@ -1,24 +1,99 @@
-main > section { padding: 20px 0; border-top: 1px solid var(--rule); }
-h2 { font-size: 20px; line-height: 1.5; margin: 0 0 8px; font-weight: 600; }
-section > p, .setup-list { margin: 6px 0; }
-.setup-list { padding-left: 1.35em; }
-.setup-list li + li { margin-top: 4px; }
-#skill-form { margin: 16px 0 12px; }
-.skill-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.skill-fields > div { min-width: 0; }
-#skill-form .skill-fields label { margin: 0 0 6px; }
-.skill-fields .field-help { margin: 4px 0 0; font-size: 13px; }
-.endpoint { color: var(--secondary); margin: 12px 0 4px; font-size: 14px; }
-.endpoint code { color: var(--ink); }
-#key-help { margin: 4px 0 12px; }
+.lesson-layout {
+  display: grid;
+  grid-template-columns: clamp(174px, 16vw, 212px) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 74px);
+  align-items: start;
+  border-top: 1px solid var(--rule);
+}
+.lesson-index { position: sticky; top: 80px; padding: 18px 0 0; }
+.lesson-index > p { margin: 0; color: var(--caption); font-size: 13px; }
+.lesson-index ol { margin: 8px 0 0; padding: 0; list-style: none; }
+.lesson-index li + li { border-top: 1px solid var(--rule); }
+.lesson-index a {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 2px;
+  color: var(--ink);
+  font-size: 15px;
+  text-decoration: none;
+}
+.lesson-index a:hover { color: var(--link); text-decoration: underline; }
+.lesson-index a > span { color: var(--caption); font: 13px/1.5 ui-monospace, Consolas, monospace; }
+.lesson-body { min-width: 0; }
+.lesson-body > section { padding: 20px 0; scroll-margin-top: 72px; }
+.lesson-body > section + section, .lesson-body footer { border-top: 1px solid var(--rule); }
+.lesson-body h2 { display: flex; align-items: baseline; gap: 12px; }
+.step-number {
+  color: var(--link);
+  font: italic 500 22px/1 Georgia, serif;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.lesson-body section > p, .setup-list { margin: 8px 0 0; }
+.setup-list { padding-inline-start: 1.25em; }
+.setup-list li + li { margin-top: 3px; }
+.setup-list li::marker { color: var(--caption); font-size: .8em; }
+#skill-form {
+  padding: clamp(16px, 1.75vw, 24px);
+  margin: 14px 0 0;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--sheet);
+}
+.skill-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.skill-fields .field-help { font-size: 13px; }
+.endpoint { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px 10px; margin: 13px 0 0; color: var(--caption); font-size: 14px; }
+.endpoint code { color: var(--ink); font-size: inherit; }
+#key-help { margin: 5px 0 13px; }
+#copy-status:not(:empty) { margin: 8px 0 0; color: var(--ink); }
 #copy-status:empty { display: none; }
-#manual-copy textarea { margin-bottom: 8px; }
-pre, blockquote { margin: 12px 0; padding: 12px 16px; border-radius: 4px; background: var(--wash); color: var(--ink); white-space: pre-wrap; overflow-wrap: anywhere; }
-pre { font: 14px/1.8 ui-monospace, Consolas, monospace; }
-blockquote { border-left: 2px solid var(--field-border); }
-.more { margin: 6px 0 0; padding: 0; border: 0; }
-#copy-example, #clear-manual { border: 1px solid var(--field-border); border-radius: 4px; padding: 6px 12px; font-size: 14px; background: var(--paper); color: var(--link); }
-#example-status, #manual-copy label { font-size: 14px; color: var(--secondary); }
-footer { padding-top: 14px; border-top: 1px solid var(--rule); font-size: 14px; }
-@media (max-width: 600px) { .skill-fields { grid-template-columns: 1fr; gap: 12px; } }
-@media print { #skill-form, #copy-example, #example-status { display: none; } }
+#manual-copy { margin-top: 12px; }
+#manual-copy textarea { margin-bottom: 8px; resize: vertical; }
+#manual-copy label { font-size: 14px; }
+.lesson-body .more { margin-top: 8px; border: 0; }
+.lesson-body .more > summary { justify-content: flex-start; gap: 12px; width: fit-content; min-height: 44px; color: var(--link); font-weight: 500; }
+.lesson-body .more pre {
+  margin: 0 0 12px;
+  padding: 16px;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  color: var(--ink);
+  background: var(--wash);
+  white-space: pre-wrap;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.example-panel { margin: 15px 0; padding: 16px 20px; border-left: 3px solid var(--link); background: var(--wash); }
+.example-panel blockquote { margin: 0 0 10px; font-family: var(--editorial-serif); font-size: 18px; line-height: 1.7; }
+#copy-example, #clear-manual { border: 1px solid var(--field-border); background: var(--sheet); color: var(--ink); font-size: 14px; }
+#copy-example:hover, #clear-manual:hover { color: var(--link); border-color: var(--link); }
+#example-status { font-size: 14px; color: var(--secondary); }
+.lesson-body footer { padding-top: 17px; font-size: 15px; }
+.lesson-body footer a { color: var(--link); }
+
+@media (min-width: 821px) and (max-height: 820px) {
+  .page-intro { padding-block: 25px 22px; }
+  h1 { font-size: clamp(38px, 3.8vw, 48px); }
+  .lesson-body > section { padding-block: 15px; }
+  #skill-form { padding: 16px 20px; }
+}
+@media (max-width: 820px) {
+  .lesson-layout { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .lesson-index { position: static; padding: 0; border-bottom: 1px solid var(--rule); }
+  .lesson-index > p { display: none; }
+  .lesson-index ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 0; }
+  .lesson-index li + li { border-top: 0; }
+  .lesson-index a { min-height: 44px; gap: 6px; font-size: 14px; }
+}
+@media (max-width: 540px) {
+  .lesson-body > section { padding-block: 18px; scroll-margin-top: 63px; }
+  .lesson-index a { flex-direction: column; gap: 2px; padding-block: 8px; font-size: 13px; }
+  .lesson-index a > span { font-size: 12px; }
+  .skill-fields { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .example-panel { padding-inline: 14px; }
+  .lesson-body h2 { gap: 8px; }
+}
+@media print {
+  .lesson-layout { display: block; }
+  .lesson-index, #skill-form, #copy-example, #example-status { display: none; }
+}

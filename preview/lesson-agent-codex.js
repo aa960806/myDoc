@@ -2,7 +2,7 @@ const agentCodexGuides = {
   codex: {
     title: '用 Codex 完成第一个 Agent 任务',
     tag: 'Agent 实操 · 桌面 / 命令行',
-    lead: '让 AI 在练习文件夹里写一份计划，找到保存的文件，再指定修改一个地方。先学会交代目标、确认范围和检查成果，不需要编程基础。',
+    lead: '让 Codex 在练习目录写一份计划，再改一处。打开文件检查结果，无需编程基础。',
     completion: ['打开自己的练习文件夹', '创建并找到 learning-plan.md', '完成一次指定修改', '核对本站使用记录'],
     toc: [
       ['agent-download', '选择桌面或命令行'],
@@ -86,7 +86,7 @@ const agentCodexGuides = {
   'claude-code': {
     title: '用 Claude Code 完成第一个文件任务',
     tag: 'Agent 实操 · 命令行',
-    lead: '从一个空练习文件夹开始，让 Claude Code 写一份计划，再修改指定标题。先确认本站 Claude 连接和当前模型，再检查磁盘上的成果。',
+    lead: '确认 Claude 已连接并选对模型，让 Claude Code 在空文件夹写一份计划，再改标题。打开文件核对。',
     completion: ['从练习目录启动 Claude Code', '核对模型与文件权限', '创建文件并指定修改', '检查成果和本站用量'],
     toc: [
       ['agent-download', '安装与版本检查'],

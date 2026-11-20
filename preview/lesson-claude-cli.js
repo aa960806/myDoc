@@ -2,7 +2,7 @@
 const claudeCliGuide = {
   title: '把 Claude Code CLI 用顺手',
   tag: 'Claude 实用技巧 · 命令行',
-  lead: '从 /model 切换模型开始，学会先做计划、引用文件、恢复会话和检查修改。再把一个小任务拆给子代理，让主对话收回结果。',
+  lead: '用 /model 换模型，练习规划、引用文件、恢复会话和检查修改，再由子代理分工、主对话汇总。',
   updated: '2026.11.04',
   prepare: '已安装 Claude Code 并按准备课连接本站；准备 agent-practice 文件夹。',
   sequence: '启动 → 核对模型 → 计划与执行 → 检查成果 → 保存并恢复会话。',
@@ -20,7 +20,7 @@ const claudeCliGuide = {
   body: () => `
     <section aria-labelledby="claude-cli-start">
       <h2 id="claude-cli-start"><span>01</span>先启动工具，再输入斜杠命令</h2>
-      <p><strong>Claude Code</strong> 是这里的命令行工具。它可以按本站配置使用 Claude，也可以使用已适配的其他模型。本课沿用你的已有连接，不需要重新安装一份客户端。</p>
+      <p><strong>Claude Code</strong> 可连接 Claude 或其他适配模型。沿用现有客户端和连接即可。</p>
       <div class="download-actions"><a class="button primary" href="#tool/claude-code-setup?section=cc-install">首次安装与本站配置</a><a class="button" href="#deepseek">DeepSeek Harness 入门</a><a class="button" href="#agent?section=agent-task">先做第一次文件任务</a></div>
       ${agentFieldTable([
         ['PowerShell：PS C:\\…>', '输入 claude、claude --version 等启动命令。'],
@@ -28,14 +28,14 @@ const claudeCliGuide = {
         ['Claude 桌面端', '有独立的第三方推理配置入口；CLI 的设置不等于桌面端已连接。']
       ])}
       ${gptStep('1', '从练习文件夹打开 PowerShell', '<p>在资源管理器进入 <code>agent-practice</code>，点击地址栏，输入 <code>powershell</code> 并回车。先检查路径：</p>' + gptCode('claude-cli-location', 'PowerShell · 核对练习目录', 'Get-Location'))}
-      ${gptStep('2', '检查版本，再启动 Claude Code', gptCode('claude-cli-version', 'PowerShell · 检查版本', 'claude --version') + gptCode('claude-cli-launch', 'PowerShell · 启动工具', 'claude') + '<p>初次进入时，按提示选择界面并核对文件夹信任请求。确认目录是本次练习位置，再继续。</p>')}
+      ${gptStep('2', '检查版本，再启动 Claude Code', gptCode('claude-cli-version', 'PowerShell · 检查版本', 'claude --version') + gptCode('claude-cli-launch', 'PowerShell · 启动工具', 'claude') + '<p>首次启动按提示选择界面。确认信任请求指向练习目录后继续。</p>')}
       ${gptStep('3', '打开本机实际可用的命令菜单', gptCode('claude-cli-help-command', 'Claude Code 输入区 · 查看帮助', '/help') + '<p>也可以只输入 <code>/</code> 查看菜单。以下指令依据 2026.11.04 官方文档整理；版本、插件和接入方式会影响实际可用项。</p>')}
       ${gptCheck('你能分清：claude 在 PowerShell 执行；/model 和中文任务发到 Claude Code 的输入区。')}
     </section>
 
     <section aria-labelledby="claude-cli-model">
       <h2 id="claude-cli-model"><span>02</span>用 /model 切换，再用 /status 核对</h2>
-      <p>第一次练习先等当前任务结束，再切换模型。这样更容易对应本轮任务使用了哪个模型。</p>
+      <p>等当前任务结束再换模型，便于核对每次任务使用的模型。</p>
       ${gptStep('1', '打开模型选择器', gptCode('claude-cli-model-command', 'Claude Code 输入区 · 切换模型', '/model') + '<p>从菜单选择本站密钥分组支持的模型。需要自定义 ID 时，按本机菜单选择自定义项，或输入 <code>/model 完整模型ID</code>；完整 ID 从本站模型广场和密钥的使用说明中核对。</p><p>当前官方版本通常把选择保存为新会话的默认模型；选择器里按 <code>s</code> 可仅为当前会话切换。若版本没有这一操作，按实际菜单提示使用。</p>')}
       ${gptStep('2', '核对模型和接入来源', gptCode('claude-cli-status-command', 'Claude Code 输入区 · 查看状态', '/status') + '<p>检查当前模型、版本与连接信息。本站 CLI 准备课使用 <code>https://www.yydsapi.uno</code> 和 <code>ANTHROPIC_AUTH_TOKEN</code>；状态中可见的地址、认证来源应与这套配置一致。</p>')}
       <div class="callout"><strong>模型菜单里的名称，还要和本站分组对上</strong><p>本站入门配置会把 Opus、Sonnet、Haiku 等别名映射到同一个模型。此时切换别名，实际请求可能仍是同一个 ID。想换实际模型，要核对完整 ID、分组权限与别名映射；DeepSeek 的新手路线已改用 Harness，按对应入门课在该工具中单独配置。</p></div>
@@ -46,7 +46,7 @@ const claudeCliGuide = {
 
     <section aria-labelledby="claude-cli-commands">
       <h2 id="claude-cli-commands"><span>03</span>按使用场景，查常用指令</h2>
-      <p>下面的内容都粘贴到 <strong>Claude Code 任务输入区</strong>。复制按钮只复制指令；需要参数的地方，再补充你自己的要求。</p>
+      <p>把指令粘贴到 <strong>Claude Code 任务输入区</strong>。复制按钮只复制指令，参数需自行补充。</p>
       ${codexCommandTable([
         {command:'/help', purpose:'查看帮助和当前可用命令', tip:'菜单和教程不同，先检查客户端版本与实际菜单。'},
         {command:'/model', purpose:'切换模型与支持的推理档位', tip:'模型别名可能映射到同一个实际 ID；切换后核对 /status。'},

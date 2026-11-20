@@ -1,7 +1,7 @@
 const claudeDesktopGuide = {
   title: '把 Claude 桌面端用顺手',
   tag: 'Claude Desktop · 从配置到成果',
-  lead: '先通过菜单连接只因 API，再学会选用 Chat、Cowork 和 Code。从一段会议记录到一份周报，从一个文件夹到一次可检查的修改，每一步都能跟着完成。',
+  lead: '在桌面端连接只因 API，再用 Chat 整理会议记录、Cowork 生成周报、Code 修改项目文件。',
   updated: '2026.11.04',
   prepare: '准备本站可用的 Claude 分组 API Key，以及电脑上的一个空练习文件夹。',
   sequence: '安装 → 菜单配置 → 验证连接 → 选择任务模式 → 打开成果并核对消费。',
@@ -19,7 +19,7 @@ const claudeDesktopGuide = {
   body: () => `
     <section aria-labelledby="claude-desktop-install">
       <h2 id="claude-desktop-install"><span>01</span>安装桌面端，准备自己的练习目录</h2>
-      <p>本课的“桌面端”指 <strong>Claude Desktop</strong>。它有图形界面，Code 功能可以在应用内使用；不需要为了这节课先学会终端命令。</p>
+      <p>在 <strong>Claude Desktop</strong> 的图形界面中即可使用 Code，无需打开终端。</p>
       ${gptStep('1', '从官网下载并安装', `<p>打开 ${officialLink('https://claude.com/download', 'Claude 官方下载页')}，按系统选择安装包。普通 Intel / AMD Windows 电脑选择 Windows，ARM 设备选择 ARM64。安装完成后打开应用；后面的菜单路径以 Windows 为例，macOS 从屏幕顶部菜单栏进入。</p>`)}
       <div class="download-actions">${officialLink('https://claude.com/download', '下载 Claude 桌面端', 'button primary')}<a class="button" href="#tool/claude-code">我要使用命令行 CLI</a></div>
       ${agentSourceFigure('claude-desktop', '官方下载入口 · 配图用于辨认网站，安装选项以当前下载页为准')}
@@ -30,16 +30,16 @@ const claudeDesktopGuide = {
 
     <section aria-labelledby="claude-desktop-connect">
       <h2 id="claude-desktop-connect"><span>02</span>按这条菜单路径，连接只因 API</h2>
-      <p>接下来都在 <strong>Claude 应用</strong>中操作。第三方推理配置用于接入本站；密钥填写在配置窗口中。</p>
+      <p>在 <strong>Claude 应用</strong>中打开第三方推理配置，填写本站 Key。</p>
       ${claudeDesktopConfiguration('claude-desktop')}
-      ${gptStep('5', '确认模型，发一条简单请求', `<p>在模型选择器中选择本站分组允许的 Claude 模型，发送下方测试。收到正常回复后，到本站记录确认这次调用的时间、模型和 Key。</p>${gptCode('claude-desktop-connect-test', 'Claude 输入框 · 第一次连通测试', '你好，请用一句话介绍你能怎样帮我整理学习资料。')}<p class="small-explanation">发送测试会调用模型并按本站规则计费。保存成功只说明配置已写入；收到回复且本站有对应记录，才能确认本次连接。</p>`)}
+      ${gptStep('5', '确认模型，发一条简单请求', `<p>在模型选择器中选择本站分组允许的 Claude 模型，发送下方测试。收到正常回复后，到本站记录确认这次调用的时间、模型和 Key。</p>${gptCode('claude-desktop-connect-test', 'Claude 输入框 · 第一次连通测试', '你好，请用一句话介绍你能怎样帮我整理学习资料。')}<p class="small-explanation">测试按本站规则计费。收到回复并查到对应记录，即可确认连接成功。</p>`)}
       <div class="callout"><strong>CLI 与桌面端分别配置；桌面内的 Code 继承这份配置</strong><p>在终端配置过 <code>ANTHROPIC_BASE_URL</code> 或 <code>~/.claude/settings.json</code>，仍需完成桌面端的上述步骤。通过桌面第三方模式启动的 Cowork / Code，会使用该配置的供应商、地址与凭据。</p></div>
       ${gptCheck('应用已用第三方配置打开；你收到了测试回复，并在本站使用记录里找到了对应调用。')}
     </section>
 
     <section aria-labelledby="claude-desktop-modes">
       <h2 id="claude-desktop-modes"><span>03</span>先看这次要交付什么，再选模式</h2>
-      <p>想聊清一个问题，先用 Chat；想把一批材料做成文件，选 Cowork；想读项目、修改文件并运行检查，选 Code。三个名称描述的是工作方式，不是三个不同的付费账户。</p>
+      <p>问答选 Chat，整理材料成文件选 Cowork，修改项目和运行检查选 Code。这是同一应用中的三种工作方式。</p>
       ${claudeModeMap()}
       <div class="callout"><strong>如果没有单独的 Chat / Cowork 按钮</strong><p>部分新版启用了 <strong>Unified Claude</strong>，把聊天与 Cowork 合在首页。支持运行 Cowork 的电脑会从首页开始 Cowork 会话，Code 仍是独立入口。按任务中是否已添加文件夹、可以使用哪些工具来辨认；无需为了找回旧按钮反复改 Key。</p></div>
       <p class="small-explanation">第三方模式的功能还取决于应用版本、设备条件和配置策略。下面先练本机任务；连接器、定时任务等扩展功能，在对应入口可用时再学。</p>

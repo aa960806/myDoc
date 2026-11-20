@@ -138,7 +138,7 @@ GPT 文字分组不等于 GPT 生图分组；视频站画布专用 Key 不适用
 ## 第二部分　在 Codex 等 Agent 中生图
 
 1. 在[模型广场](https://www.yydsapi.uno/model-plaza)复制想用的生图模型 ID，到[本站密钥页](https://www.yydsapi.uno/keys)创建对应生图分组的普通 API Key。
-2. 在支持自定义 Skill 的 Agent 中打开练习文件夹，再打开[生图 Skill 提示词模板](../preview/image-agent.html)。填写模型 ID 和生图 Key，点「复制创建 Skill 的提示词」，粘贴到你信任的 Agent 对话中。页面在本地拼接模板。复制的文本包含完整 Key，发出后所选 Agent 会收到它。
+2. 在支持自定义 Skill 的 Agent 中打开练习文件夹，再打开[生图 Skill 提示词模板](../preview/image-agent.html)。填写模型 ID 和生图 Key，点「复制技能提示词」，粘贴到你信任的 Agent 对话中。页面在本地拼接模板。复制的文本包含完整 Key，发出后所选 Agent 会收到它。
 3. 等 Agent 保存 `zhiyin-image` 技能后，发送「使用 zhiyin-image，画一只坐在雨天窗边的橘猫，暖色插画风，正方形，生成 1 张并保存到当前工作区」。如果新技能还未显示，可重新打开该项目的对话。
 4. 打开 Agent 返回的图片路径，并在[使用记录](https://www.yydsapi.uno/usage)按时间、Key 和模型核对。创建技能用模拟数据验证，首次真正生图才提交图片请求。
 

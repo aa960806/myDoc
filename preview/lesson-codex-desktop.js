@@ -1,9 +1,9 @@
 const codexDesktopGuide = {
   title: '把 Codex 桌面端用顺手',
   tag: 'Codex 进阶 · 桌面客户端',
-  lead: '从打开项目、检查文件开始，逐步学会分叉对话、保存对话链接，以及让多个对话各做一件事。用一份学习计划练习，最后由主对话收拢结果。',
+  lead: '用一份学习计划练习分叉、复制对话链接和分工。最后由主对话汇总，打开文件验收。',
   updated: '2026.11.04',
-  prepare: '已完成本站 Codex 接入；准备 agent-practice 文件夹和其中的 learning-plan.md。还没有文件，先完成「第一次任务」。',
+  prepare: '连接本站 Codex，准备 agent-practice 文件夹和 learning-plan.md。缺少文件时先做「第一次任务」。',
   sequence: '认清工作区 → 学会分叉和链接 → 按需使用子对话或子代理 → 核对协作成果。',
   completion: ['能选择合适的对话方式', '保存并重新打开对话链接', '明确各对话的工作范围', '找到统一整理后的真实文件'],
   toc: [
@@ -19,7 +19,7 @@ const codexDesktopGuide = {
   body: () => `
     <section aria-labelledby="codex-desktop-workspace">
       <h2 id="codex-desktop-workspace"><span>01</span>先认清：项目、对话、文件分别在哪里</h2>
-      <p>打开 Codex 后，先选择本地项目 <code>agent-practice</code>，再进入这次练习的对话。<strong>项目决定要处理哪一组文件，对话用来交代任务，文件区用来查看成果。</strong></p>
+      <p>在 Codex 打开本地项目 <code>agent-practice</code>。<strong>项目指定文件范围，对话安排任务，文件区查看成果。</strong></p>
       ${codexDesktopMap()}
       ${gptStep('1', '打开正确的文件夹', '<p>在项目入口选择练习文件夹；也可以按 Windows 的 <kbd>Ctrl + O</kbd> 或 macOS 的 <kbd>⌘ + O</kbd> 打开文件夹。核对工作位置为自己的电脑，并确认文件夹名称。项目可关联多个文件夹时，还要确认这次工作的主要目录。</p>')}
       ${gptStep('2', '核对模型和权限', '<p>在输入框输入 <code>/model</code>，从当前可用列表选择模型；需要调整思考强度时使用 <code>/reasoning</code>。这两项只按客户端与模型实际支持选择，本站密钥的模型权限仍由分组决定。</p><p>查看输入框附近的权限控件。第一次练习只需要在这个文件夹读写文件；按提示核对具体路径和动作。<code>/status</code> 可查看对话 ID、上下文用量等状态，本站实际消费仍去本站使用记录核对。</p>')}
@@ -36,7 +36,7 @@ const codexDesktopGuide = {
         ['新建对话 /new', '开始一件独立的事，用干净的对话交代新目标。当前环境支持时，在同一本地工作区开始。'],
         ['分叉对话 /fork', '已有背景还用得上，但想尝试另一种方案。复制当前本地对话，随后分别推进。']
       ])}
-      ${gptStep('1', '在原对话留下清楚的起点', '<p>例如已经讨论好“一周学习计划”的目标与约束，现在想比较“每天 15 分钟”和“每天 30 分钟”两版。先确认原对话里的要求清楚，最好等当前任务结束，再进行分叉，便于辨认两边的结果。</p>')}
+      ${gptStep('1', '在原对话留下清楚的起点', '<p>要比较每天 15 分钟和 30 分钟两版学习计划，先在原对话定好目标和要求。等当前任务结束后分叉，分别试两版。</p>')}
       ${gptStep('2', '在输入框选择 /fork', '<p>输入 <code>/fork</code>，从出现的命令列表选择它，按界面选择新的本地对话或工作树。普通文件练习可以在同一目录分叉；Git 项目要隔离文件修改时，再阅读第 7 节的工作树说明。</p><p>进入新对话后，用 <code>/rename</code> 起一个容易辨认的名称，例如“学习计划 · 15 分钟版”。原对话也可以重命名为“学习计划 · 原方案”。</p>')}
       ${gptStep('3', '在新对话里说明这条分支要做什么', gptCode('codex-desktop-fork-prompt', '发给分叉后的对话 · 比较另一种方案', '沿用前面的一周学习目标，另外拟一份每天 15 分钟的版本。\n先在聊天中展示方案，与原方案比较。\n此时不要修改 learning-plan.md，也不要改动其他文件。'))}
       <div class="callout"><strong>分叉对话不会自动隔离磁盘上的文件</strong><p>同目录的两条对话仍可能读写同一份文件。对话分叉也不等于创建 Git 分支、复制整个项目或撤销已发生的修改。需要保存两个方案时，明确使用不同文件名；需要隔离代码改动时再选工作树。</p></div>
@@ -45,7 +45,7 @@ const codexDesktopGuide = {
 
     <section aria-labelledby="codex-desktop-links">
       <h2 id="codex-desktop-links"><span>03</span>复制深度链接，随时回到一条对话</h2>
-      <p>深度链接相当于这条对话的定位地址。适合放在自己的任务清单里，也方便在协调对话中准确说明“请查看哪一条对话”。</p>
+      <p>深度链接能直接打开指定对话。把它存进任务清单，或发给负责协调的对话。</p>
       ${gptStep('1', '先打开要保存的那条对话', '<p>确认标题正确，再使用下面的快捷键。也可以打开命令菜单，查找 <strong>Copy chat deep link / 复制对话深度链接</strong>。</p>')}
       ${agentFieldTable([
         ['Windows / Linux 默认快捷键', 'Ctrl + Alt + L'],

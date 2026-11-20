@@ -12,7 +12,7 @@ let session = 0;
 const errors = {
   client: '请选择支持的工具。', model: '请填写该分组支持的完整模型 ID，不要填写 Key 或说明文字。',
   key: '请填写完整 API Key，不要使用带星号的示例、中文或中间带空格的内容。',
-  folder: '所选文件夹不正确。请按上方路径选择当前工具的配置文件夹，未写入配置。',
+  folder: '文件夹选错了。请按页面路径重新选择，原配置未改动。',
   'toml-invalid': '原 config.toml 无法解析，未改写。请先修复格式，或按教程手动配置。',
   'toml-shape': '原供应商配置结构不符合要求，未改写。请按教程手动配置。',
   'toml-special': '原 TOML 包含暂不支持自动合并的特殊类型，未改写。请按教程手动配置。',
@@ -22,7 +22,7 @@ const errors = {
   'json-env': '原 settings.json 的 env 不是对象，未改写。请先按教程修复。',
   'file-size': '配置文件超过 1 MB，已停止自动处理。请按教程手动配置。',
   encoding: '配置文件不是有效的 UTF-8 文本，未改写。请先转换编码或手动配置。',
-  backup: '未能完成并核对原文件备份，因此没有改写配置。请检查文件夹写入权限。',
+  backup: '备份失败或校验未通过。原配置未改动，请检查写入权限。',
   concurrent: '配置文件在操作期间被其他程序修改，已停止写入。请关闭客户端后重试。',
   write: '保存未完成。请检查写入权限、磁盘空间，并确认客户端已退出。',
   verify: '保存后的文件与预期不一致，暂不能确认成功。请关闭客户端并检查原文件与备份。'
@@ -77,19 +77,19 @@ form.addEventListener('submit', async event => {
   const current = ++session;
   form.querySelectorAll('input,select,button').forEach(node => { node.disabled = true; });
   submit.textContent = '请选择文件夹并允许写入…';
-  message('在弹出的窗口中，选择上方所示配置文件夹，并允许本站查看和保存。');
+  message('选择上方的配置文件夹，允许读取和写入。');
   try {
     // Keep the picker inside the click gesture; never cache handles or permissions.
     const directory = await window.showDirectoryPicker({ id: `zhiyin-${input.client === 'codex' ? 'codex' : 'claude'}`, mode: 'readwrite' });
     if (current !== session) return;
     submit.textContent = '正在备份并保存…';
-    message('正在检查原文件、备份并保存，请保持页面打开。');
+    message('正在检查、备份并保存。请保持页面打开。');
     const result = await saveConfiguration(directory, input);
     if (current !== session) return;
     key.value = '';
     key.type = 'password';
     document.getElementById('show-key').checked = false;
-    message(`${result.unchanged ? '配置已一致，无需重复写入。' : '配置已保存并核对。'}\n文件：${result.folder}/${result.file}${result.backup ? `\n原文件备份：${result.backup}` : ''}\n请完全退出并重新打开客户端，发送一条消息验证连接。`, 'success');
+    message(`${result.unchanged ? '配置已一致。' : '配置已保存并核对。'}\n文件：${result.folder}/${result.file}${result.backup ? `\n原文件备份：${result.backup}` : ''}\n重启客户端后，发一条消息测试连接。`, 'success');
   } catch (error) {
     if (current !== session) return;
     if (error.name === 'AbortError') message('已取消选择，没有改写配置。');

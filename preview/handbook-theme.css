@@ -1,30 +1,33 @@
 /* Shared by the guide and its two standalone forms. */
 :root {
   color-scheme: light;
-  --paper: #fff;
-  --ink: #222831;
-  --secondary: #495464;
-  --caption: #616d7b;
-  --rule: #dce1e6;
-  --field-border: #929eac;
-  --wash: #f5f7f9;
-  --highlight: #edf3fb;
-  --link: #245b99;
-  --on-link: #fff;
+  --paper: #f8f6ef;
+  --sheet: #fffdf8;
+  --ink: #272720;
+  --secondary: #514f43;
+  --caption: #716b5e;
+  --rule: #d7d2c3;
+  --field-border: #968d79;
+  --wash: #eeece2;
+  --highlight: #f3e4d9;
+  --link: #99452f;
+  --on-link: #fffaf3;
+  --editorial-serif: "STIX Two Text", "Iowan Old Style", "Palatino Linotype", Georgia, "Noto Serif SC", "Source Han Serif SC", "Songti SC", STSong, SimSun, serif;
 }
 
 :root[data-theme=dark] {
   color-scheme: dark;
-  --paper: #1c2026;
-  --ink: #edf0f4;
-  --secondary: #c3cbd5;
-  --caption: #a9b4c2;
-  --rule: #3c4550;
-  --field-border: #758496;
-  --wash: #242a32;
-  --highlight: #29384c;
-  --link: #9ac4fd;
-  --on-link: #142136;
+  --paper: #21221d;
+  --sheet: #292923;
+  --ink: #f5eedf;
+  --secondary: #d5cdbd;
+  --caption: #b8ad9c;
+  --rule: #49483c;
+  --field-border: #837c6e;
+  --wash: #2e2f27;
+  --highlight: #3f3027;
+  --link: #efa98d;
+  --on-link: #312018;
 }
 
 html[data-theme] body {
@@ -42,8 +45,9 @@ html[data-theme] body {
   --cyan: var(--link);
   --panel: var(--wash);
   --accent: var(--link);
-  --input: var(--paper);
+  --input: var(--sheet);
   background: var(--paper);
   color: var(--ink);
   font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
+::selection { background: var(--highlight); color: var(--ink); }

@@ -1,7 +1,7 @@
 const ccSwitchGuide = {
   title: '用 CC Switch 管好你的模型配置',
   tag: 'CC Switch · 导入、切换与恢复',
-  lead: '把地址、密钥和模型保存成容易辨认的供应商卡片。学会导入本站配置、切换后核对客户端，再把原配置找回来；需要时再学习桌面端映射与扩展工具。',
+  lead: '把地址、Key 和模型存成供应商卡片，练习导入、切换、验证和恢复。进阶部分讲桌面端映射与扩展。',
   updated: '2026.11.04',
   prepare: '已安装一款目标客户端；准备对应分组的本站普通 API Key，并知道原配置的用途。',
   sequence: '选客户端 → 留好原配置 → 导入或手动添加 → 启用 → 回客户端验证 → 练习切回。',
@@ -21,7 +21,7 @@ const ccSwitchGuide = {
   body: () => `
     <section aria-labelledby="agent-download">
       <h2 id="agent-download"><span>01</span>安装 CC Switch，先选对要管理的客户端</h2>
-      <p><strong>CC Switch 管配置；Codex、Claude Code 等客户端负责做任务。</strong>你在 CC Switch 里保存 API 地址、Key 和模型，启用后回到对应客户端提问、处理文件。它本身不会替你开通模型额度。</p>
+      <p>在 <strong>CC Switch</strong> 保存并启用地址、Key 和模型，回 Codex 或 Claude Code 提问、处理文件。模型额度须在服务商处开通。</p>
       <div class="download-actions">${officialLink('https://ccswitch.io/download', '打开官方下载页', 'button primary')}${officialLink('https://github.com/farion1231/cc-switch/releases', 'GitHub 官方发行版', 'button')}</div>
       ${agentSourceFigure('ccswitch', '官方 Releases 安装包入口 · 当前版本与文件名称以下载页为准')}
       ${agentFieldTable([
@@ -30,7 +30,7 @@ const ccSwitchGuide = {
         ['macOS', '选择 macOS.dmg，按安装页说明拖入“应用程序”。'],
         ['Linux', '按自己的发行版与处理器选择 .deb、.rpm 或 .AppImage。']
       ])}
-      ${gptStep('1', '安装后打开，找到左侧应用列表', '<p>第一次先只选一个要配置的客户端。给 Codex 用的卡片在 <strong>Codex</strong> 页；给终端 Claude Code 用的卡片在 <strong>Claude Code</strong> 页；Claude 桌面应用使用独立的 <strong>Claude Desktop</strong> 页。某些版本把 Claude Code 简写为 Claude。</p>')}
+      ${gptStep('1', '安装后打开，找到左侧应用列表', '<p>先选一个客户端。Codex、终端 Claude Code、桌面 Claude 分别在 <strong>Codex</strong>、<strong>Claude Code</strong>、<strong>Claude Desktop</strong> 页配置。部分版本把 Claude Code 简写为 Claude。</p>')}
       ${gptStep('2', '目标客户端也要安装', '<p>CC Switch 左侧的 <strong>应用</strong>页可以查看已支持 CLI 的安装情况、安装或升级，并设置哪些应用显示在侧栏。Claude Desktop 仍按自己的官方下载页安装。第一次只处理本课要用的客户端。</p>')}
       ${agentWorkflowMap('ccswitch', '从一张配置卡，到一次实际调用', [
         {label:'选客户端', title:'选客户端', description:'先分清 Codex、Claude Code 和 Claude Desktop。', href:'#tool/ccswitch?section=agent-download'},
@@ -43,10 +43,10 @@ const ccSwitchGuide = {
 
     <section aria-labelledby="ccswitch-baseline">
       <h2 id="ccswitch-baseline"><span>02</span>第一次切换前，给原配置留一个位置</h2>
-      <p>先知道“从哪里切过来”，之后才容易切回。正在运行的任务先结束，再做本课的配置练习。</p>
+      <p>等当前任务结束，记下正在使用的卡片，方便切回。</p>
       ${gptStep('1', '确认原供应商卡片', '<p>首次启动时，CC Switch 会尝试把已支持客户端的现有配置导入为 <strong>default</strong>，并添加相应的官方供应商。先查看卡片是否存在、当前使用的是哪一张；没有导入时，按页面的 <strong>导入当前配置</strong>入口保存。不要把空白的新卡片当成旧配置。</p>')}
       ${gptStep('2', '取一个能辨认的名称', '<p>例如把用途记为“原配置 · 日常使用”，新卡片命名为“只因 API · Codex”或“只因 API · Claude”。名称帮助你辨认，真正决定调用的是卡片里的地址、Key、协议和模型。</p>')}
-      ${gptStep('3', '创建一次备份', '<p>打开 <strong>设置 → 数据 → 备份与恢复 → 立即备份</strong>，确认列表出现新的时间记录。需要另存文件时，在数据管理中使用 <strong>导出 SQL 备份</strong>，保存到自己的备份目录。</p><p>备份包含供应商配置，可能包含密钥。把它当作私人配置文件保存；配置备份也不等于项目文件或聊天成果的备份。</p>')}
+      ${gptStep('3', '创建一次备份', '<p>打开 <strong>设置 → 数据 → 备份与恢复 → 立即备份</strong>，确认列表出现新的时间记录。需要另存文件时，在数据管理中使用 <strong>导出 SQL 备份</strong>，保存到自己的备份目录。</p><p>配置备份可能含密钥，请私下保存。项目文件和聊天成果需另行备份。</p>')}
       <details class="gpt-details"><summary>我用的是 WSL，应该先检查什么？</summary><p>Windows 原生 CLI 与 WSL 通常读取不同的配置目录。CC Switch 不会自动识别所有 WSL 配置；到 <strong>设置 → 应用配置</strong>核对目标工具的配置目录是否对应你实际运行的环境。新手先在同一个系统环境里完成直连，再学习 WSL 的目录与网络设置。</p></details>
       ${gptCheck('原卡片名称与当前状态已记清，备份列表中有本次操作前的记录。')}
     </section>

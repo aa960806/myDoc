@@ -1,0 +1,296 @@
+/* Reading pages share the paper, type, and ink of the handbook cover. */
+.simple-reader-layout, .simple-models,
+.agent-directory-heading, #agent-tool-library, .agent-directory-note {
+  width: 100%;
+  max-width: 820px;
+  margin-inline: auto;
+}
+
+.article .page-title, .simple-models .page-title, .agent-directory-heading .page-title {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font: 600 clamp(32px, 3.6vw, 51px)/1.25 var(--editorial-serif);
+  letter-spacing: -.035em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+.simple-reader .reader-intro, .simple-models .simple-home-heading p, .agent-directory-heading p {
+  max-width: 42em;
+  margin: 0;
+  color: var(--secondary);
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.85;
+}
+
+/* The numbered task and its links stay together in a single column. */
+.simple-reader .reader-intro { margin-bottom: 25px; }
+.simple-reader .reader-prepare {
+  margin: 0 0 5px;
+  padding: 14px 18px;
+  border: 0;
+  border-inline-start: 3px solid var(--link);
+  border-radius: 0;
+  background: var(--wash);
+  color: var(--secondary);
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+.simple-reader :is(.reader-prepare, .reader-done) > strong {
+  color: var(--link);
+  font-weight: 650;
+}
+.simple-reader .reader-steps > li {
+  grid-template-columns: 2.3rem minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding: 22px 2px;
+  border-color: var(--rule);
+}
+.simple-reader .reader-step-number {
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--link);
+  font: italic 400 34px/1.15 var(--editorial-serif);
+  font-variant-numeric: lining-nums tabular-nums;
+  text-align: center;
+}
+.simple-reader .reader-steps h2 {
+  margin: 0 0 6px;
+  font: 600 clamp(20px, 1.7vw, 24px)/1.45 var(--editorial-serif);
+  letter-spacing: -.025em;
+}
+.simple-reader .reader-steps p {
+  max-width: 45em;
+  color: var(--secondary);
+  line-height: 1.85;
+}
+.simple-reader .reader-step-links { gap: 4px 18px; padding-top: 6px; }
+.article .reader-step-links a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 3px 0;
+  color: var(--link);
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+.article .reader-step-links a:is(:hover, :focus-visible) { text-decoration: underline; }
+.simple-reader .reader-done {
+  margin: 0;
+  padding: 15px 18px;
+  border-block: 1px solid var(--rule);
+  background: var(--sheet);
+  color: var(--secondary);
+  line-height: 1.85;
+}
+.simple-reader .reader-notes { margin: 8px 0 28px; }
+.reader-notes > summary, .simple-model-notes > summary {
+  width: fit-content;
+  max-width: 100%;
+  padding-block: 10px;
+  color: var(--caption);
+}
+.reader-notes > summary::marker, .simple-model-notes > summary::marker { color: var(--link); }
+.reader-notes[open] > summary, .simple-model-notes[open] > summary { color: var(--ink); }
+.reader-notes .reader-notes-body { color: var(--secondary); }
+
+/* Retain the native details controls and an uninterrupted reading measure. */
+.reader-chapters-heading {
+  margin-top: 22px;
+  padding-block: 16px;
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+}
+.reader-chapters-heading > strong {
+  color: var(--ink);
+  font: 600 clamp(19px, 1.65vw, 23px)/1.45 var(--editorial-serif);
+}
+.reader-chapters-heading button {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  background: var(--sheet);
+  color: var(--link);
+  font-size: 12px;
+}
+.reader-chapters-heading button:hover { border-color: var(--link); }
+.simple-reader .reader-chapter > summary {
+  gap: 12px;
+  padding: 15px 6px;
+}
+.simple-reader .reader-chapter > summary > h2 {
+  gap: 16px;
+  color: var(--ink);
+  font: 600 clamp(16px, 1.45vw, 20px)/1.6 var(--editorial-serif);
+  overflow-wrap: anywhere;
+}
+.simple-reader .reader-chapter > summary h2 > span:first-child:not([data-gpt-open-title]) {
+  flex-shrink: 0;
+  color: var(--caption);
+  font: 400 13px/1.5 ui-monospace, Consolas, monospace;
+}
+.simple-reader .reader-chapter > summary::after {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin-block: auto;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  color: var(--caption);
+  font: 400 18px/1 system-ui, sans-serif;
+}
+.simple-reader .reader-chapter > summary:hover h2,
+.simple-reader .reader-chapter[open] > summary > h2 { color: var(--link); }
+.simple-reader .reader-chapter[open] > summary::after {
+  background: var(--highlight);
+  color: var(--link);
+}
+.simple-reader .reader-chapter > section { padding: 9px 4px 28px; }
+.article section > h2, .article .reader-chapter > section > h3 {
+  font-family: var(--editorial-serif);
+  color: var(--ink);
+}
+.simple-reader .site-figure .screenshot-button {
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+}
+.article .site-figure figcaption { color: var(--caption); line-height: 1.8; }
+.simple-reader .faq-search-box, .simple-reader .faq-item {
+  border-color: var(--rule);
+  border-radius: 8px;
+  background: var(--sheet);
+}
+.simple-reader .faq-search-box { background: var(--wash); }
+.simple-reader .faq-item[open] { border-color: var(--link); }
+
+/* The catalogue keeps the original brand artwork and leads with the title. */
+.simple-models .simple-home-heading { margin: 0 0 28px; }
+.simple-model-list {
+  margin: 0 0 22px;
+  border-top: 2px solid var(--ink);
+}
+.simple-model-list .simple-model-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 18px;
+  padding: 22px 12px;
+  background: transparent;
+  border-color: var(--rule);
+}
+.simple-model-row .tool-mark, .agent-category-head .tool-mark {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--sheet);
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.simple-model-row .model-brand-icon { width: 27px; height: 27px; }
+.simple-model-row .tool-mark:not(.model-brand-mark) { background: var(--wash); color: var(--link); }
+.simple-model-row strong {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font: 600 clamp(21px, 1.85vw, 27px)/1.35 var(--editorial-serif);
+  letter-spacing: -.02em;
+}
+.simple-model-row small { display: block; color: var(--secondary); line-height: 1.7; }
+.simple-model-list .simple-model-row > svg {
+  box-sizing: content-box;
+  width: 15px;
+  height: 15px;
+  padding: 7px;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  color: var(--link);
+}
+.simple-model-list .simple-model-row:is(:hover, :focus-visible) { background: var(--wash); }
+.simple-model-row:is(:hover, :focus-visible) strong { color: var(--link); }
+.simple-model-row:is(:hover, :focus-visible) > svg { border-color: var(--link); }
+.simple-model-hint, .agent-directory-note { font-size: 14px; color: var(--secondary); }
+.simple-model-hint a, .simple-model-notes a { text-decoration: underline; text-underline-offset: 4px; }
+.simple-model-notes {
+  border-top: 1px solid var(--rule);
+  padding-top: 3px;
+  color: var(--secondary);
+}
+.simple-model-notes > div { padding-block: 8px 14px; border-bottom: 1px solid var(--rule); }
+.simple-model-notes h2 { font: 600 22px/1.5 var(--editorial-serif); color: var(--ink); }
+.simple-model-notes > div p, .simple-model-notes > div ol { margin-block: 5px; }
+
+.agent-directory-heading { margin-block: 0 28px; }
+.agent-directory-heading .eyebrow { color: var(--link); letter-spacing: .08em; }
+.agent-directory-heading > a { max-width: 18em; }
+.agent-directory-grid { border-top: 2px solid var(--ink); }
+.agent-category-card {
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  column-gap: clamp(16px, 2vw, 32px);
+  padding: 24px 4px;
+  border-color: var(--rule);
+}
+.agent-category-head { gap: 14px; }
+.agent-category-head .tool-mark { width: 40px; height: 40px; border-radius: 10px; }
+.agent-category-head h2 {
+  color: var(--ink);
+  font: 600 clamp(20px, 1.8vw, 26px)/1.3 var(--editorial-serif);
+}
+.agent-category-description { color: var(--secondary); line-height: 1.9; }
+.agent-category-lessons { gap: 0; border-color: var(--rule); }
+.agent-category-lessons > a {
+  min-height: 60px;
+  padding: 10px 12px;
+  border-radius: 4px;
+}
+.agent-category-lessons > a + a { border-top: 1px dotted var(--rule); }
+.agent-category-lessons strong { font-size: 15px; color: var(--ink); }
+.agent-category-lessons small { font-size: 13px; color: var(--secondary); }
+.agent-category-lessons svg { color: var(--link); }
+.agent-category-lessons > a:is(:hover, :focus-visible) { background: var(--wash); }
+.agent-directory-note { margin-block: 20px; }
+.simple-reader summary:focus-visible, .simple-model-notes > summary:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: -2px;
+}
+
+@media (max-width: 760px) {
+  .simple-reader .reader-intro { margin-bottom: 20px; }
+  .simple-reader .reader-steps > li {
+    grid-template-columns: 26px minmax(0, 1fr);
+    gap: 11px;
+    padding: 18px 0;
+  }
+  .simple-reader .reader-step-number { font-size: 28px; }
+  .simple-reader .reader-prepare, .simple-reader .reader-done { padding: 12px; }
+  .reader-chapters-heading { gap: 10px; }
+  .simple-reader .reader-chapter > summary { padding: 13px 0; }
+  .simple-reader .reader-chapter > summary > h2 { gap: 10px; }
+  .simple-reader .reader-chapter > section { padding-inline: 0; }
+  .simple-model-list .simple-model-row { padding: 17px 2px; gap: 12px; }
+  .simple-model-row .tool-mark { width: 40px; height: 40px; border-radius: 10px; }
+  .simple-model-row .model-brand-icon { width: 23px; height: 23px; }
+  .simple-model-list .simple-model-row > svg { padding: 5px; }
+  .agent-directory-heading > a { max-width: none; }
+  .agent-category-card { padding: 21px 0; }
+  .agent-category-description { margin-block: 9px 16px; }
+  .agent-category-lessons > a {
+    min-height: 62px;
+    background: var(--sheet);
+    border-radius: 0;
+  }
+}
+
+@media print {
+  .simple-reader .reader-chapter > summary::after, .reader-chapters-heading button { display: none; }
+  .simple-reader-layout { max-width: none; }
+  .simple-reader .reader-steps > li { break-inside: avoid; }
+}

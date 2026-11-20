@@ -1,7 +1,7 @@
 const deepseekHarnessGuide = {
   title: '把 DeepSeek Harness 用顺手',
   tag: '桌面端 / 本机 Web UI · 从连接到协作',
-  lead: '先连上本站模型，在练习文件夹中完成一份学习计划；再学会审阅计划、分叉会话、让子代理协作，以及设置一次定时任务。',
+  lead: '连接模型，创建并审阅学习计划，再练习分叉会话、子代理协作和定时任务。',
   updated: '2026.11.17（接入流程）',
   prepare: '准备本站 DeepSeek 分组普通 API Key、一个空的 agent-practice 文件夹，并安装 Harness 桌面端或启动官方本机 Web UI。',
   sequence: '安装 → 配置模型 → 选工作区 → 先计划再执行 → 检查文件；会话、扩展和自动化按需继续。',
@@ -21,8 +21,8 @@ const deepseekHarnessGuide = {
   body: () => `
     <section aria-labelledby="agent-fit">
       <h2 id="agent-fit"><span>01</span>从一句要求，到一个可以打开的文件</h2>
-      <p>DeepSeek Harness 是 DeepSeek 开源的 Agent 工具，有桌面端，也能在自己电脑上启动网页界面。它把模型、文件夹和工具放在一起，可以读材料、提出计划、修改文件，再让你检查成果。</p>
-      <p>工具名包含 DeepSeek，也可以接入其他厂商模型。本课沿用 <strong>本站 DeepSeek 分组 API Key + OpenAI Responses</strong> 路线，先做出一份学习计划。</p>
+      <p>DeepSeek Harness 是开源 Agent，有桌面端和本机网页版。它能读取资料、拟计划、修改文件，供你检查。</p>
+      <p>Harness 也支持其他厂商。本课用<strong>本站 DeepSeek 分组 API Key + OpenAI Responses</strong> 创建学习计划。</p>
       <div class="gpt-concepts"><div><small>模型服务</small><strong>负责理解与生成</strong><p>配置供应商、协议、Key 和模型。</p></div><div><small>工作区</small><strong>文件存放的位置</strong><p>选择电脑上的练习文件夹。</p></div><div><small>会话</small><strong>一件事情的上下文</strong><p>保留要求、过程与后续修改。</p></div></div>
       ${agentWorkflowMap('harness', '本课先完成这四步', [
         {label:'连接', title:'选好模型', description:'保存本站供应商，再在会话里选中模型。', href:'#tool/deepseek-harness?section=agent-connect'},
@@ -30,7 +30,7 @@ const deepseekHarnessGuide = {
         {label:'执行', title:'创建并修改文件', description:'先看计划，再完成一个小任务。', href:'#tool/deepseek-harness?section=agent-task'},
         {label:'检查', title:'打开实际成果', description:'检查文件内容，再核对本站使用记录。', href:'#tool/deepseek-harness?section=agent-check'}
       ])}
-      <p class="small-explanation">先完成第 2–5 节，再跳到“检查文件、结果与消费”。会话协作、扩展和自动化可以在第一次成功后继续学习。</p>
+      <p class="small-explanation">首次使用先做第 2–5 节，再看“检查文件、结果与消费”。协作、扩展和自动化可稍后练习。</p>
     </section>
 
     <section aria-labelledby="agent-download">
@@ -44,7 +44,7 @@ const deepseekHarnessGuide = {
         <p>打开终端实际打印的地址，默认是 <code>http://127.0.0.1:3080</code>。使用期间保持这个终端进程运行。启动目录是默认文件位置，进入网页后仍请明确选中自己的练习工作区。</p>
         <div class="section-action">${officialLink('https://github.com/deepseek-ai/deepseek-harness/blob/master/README.zh.md', '查看官方 Web UI 启动说明', 'button')}</div>
       </details>
-      <p class="small-explanation">Harness 当前为预览版。下面操作依据官方指南与界面组件文档整理，按钮会随版本调整；桌面版与本机 Web UI 的可用功能也取决于当前配置。</p>
+      <p class="small-explanation">Harness 目前是预览版。按钮可能随版本变化，桌面端和本机 Web UI 的功能以当前配置为准。</p>
       ${gptCheck('应用或本机网页已打开，能找到设置里的模型页面。')}
     </section>
 

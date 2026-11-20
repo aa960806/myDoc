@@ -5,14 +5,14 @@ const agentReferenceFigures = {
     file:'zcode-model-menu.png', width:1600, height:1200,
     title:'对照 ZCode 官方模型菜单',
     alt:'ZCode 官方界面：输入框下方的模型选择器、管理模型入口、工作区和变更前确认菜单。',
-    caption:'官方界面示例，用于辨认模型选择器和“管理模型”入口。图中的 GLM 模型及订阅提示属于官方演示；本课请选择自己添加的本站供应商与模型。',
+    caption:'用图定位模型选择器和“管理模型”。GLM 与订阅是官方示例，练习时选自己的本站供应商和模型。',
     source:'https://zcode.z.ai/cn/docs/configuration'
   },
   'ccswitch-main': {
     file:'ccswitch-main.png', width:2144, height:1406,
     title:'对照 CC Switch 官方主界面',
     alt:'CC Switch 官方中文主界面：左侧客户端列表、直连路由聚合标签、添加供应商按钮和使用中卡片。',
-    caption:'官方 v4 中文主界面示例，用于辨认客户端、连接模式与供应商卡片。图中模型、余额和用量是官方演示内容，与你的本站账户无关。',
+    caption:'官方 v4 主界面展示客户端、连接模式和供应商卡片。图中模型、余额和用量均为示例。',
     source:'https://github.com/farion1231/cc-switch/blob/main/README_ZH.md'
   },
   'harness-provider': {

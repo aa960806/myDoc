@@ -12,9 +12,9 @@ function claudeSetupMap() {
 }
 
 const claudeSetupImages = [
-  { file:'01-help-troubleshooting.jpg', width:680, height:612, title:'帮助 → 故障排查', alt:'Claude 桌面端左上角菜单中的 Help 与 Troubleshooting 子菜单；本图未拍到 Enable Developer Mode 选项。', caption:'帮助与故障排查入口。图中未拍到“启用开发者模式”选项；已有 Developer 菜单时，可直接进入下一步。' },
+  { file:'01-help-troubleshooting.jpg', width:680, height:612, title:'帮助 → 故障排查', alt:'Claude 桌面端左上角菜单中的 Help 与 Troubleshooting 子菜单；本图未拍到 Enable Developer Mode 选项。', caption:'图中仅展示“帮助 → 故障排查”入口。已有 Developer 菜单可直接继续。' },
   { file:'02-third-party-menu.jpg', width:483, height:590, title:'开发者 → 配置第三方推理', alt:'Claude 桌面端 Developer 菜单，Configure Third-Party Inference 选项处于高亮状态。', caption:'点击 Developer → Configure Third-Party Inference，打开配置窗口。' },
-  { file:'03-gateway-settings.jpg', width:882, height:711, title:'填写本站 Gateway 配置', alt:'Claude 第三方推理窗口：Gateway、Static API key、https://www.yydsapi.uno、bearer 和 Apply Changes；密钥区域已遮挡。', caption:'按图填写本站地址、凭据类型与认证方式；API Key 区域已遮挡，右下角 Apply Changes 用于保存。' }
+  { file:'03-gateway-settings.jpg', width:882, height:711, title:'填写本站 Gateway 配置', alt:'Claude 第三方推理窗口：Gateway、Static API key、https://www.yydsapi.uno、bearer 和 Apply Changes；密钥区域已遮挡。', caption:'按图填写地址、凭据类型和认证方式，点右下角 Apply Changes 保存。图中 Key 已遮挡。' }
 ];
 function claudeSetupFigure(index) {
   const figure = claudeSetupImages[index];

@@ -1,5 +1,7 @@
 # 只因 API 教程网站
 
+首页封面使用本地裁切的[钢笔摄影（Unsplash）](https://images.unsplash.com/photo-1455390582262-044cdead277a)。素材位于 `preview/assets/design/field-notes.jpg`，使用条款见 [Unsplash License](https://unsplash.com/license)。
+
 线上网站：<https://docs.yydsapi.uno/>。仓库：<https://github.com/aa960806/myDoc>。`preview/` 是网页发布目录；部署方案与检查步骤见 [DEPLOYMENT.md](DEPLOYMENT.md)。本地可直接运行 `npm start` 预览；构建与测试前先执行 `npm ci`，再运行 `npm run prepare:release`。原始私人截图和网络采集保留在本地 `research/`，不上传仓库或网站。
 
 ## 2026-11-17 · Grok 模型入门与 ZCode 实机配图

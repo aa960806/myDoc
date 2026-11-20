@@ -2,9 +2,9 @@
 const codexCliGuide = {
   title: '把 Codex CLI 用顺手',
   tag: 'Codex 实用技巧 · 命令行',
-  lead: '从 /model 切换模型开始，学会查看状态、引用文件、恢复旧聊天和尝试另一条思路。先分清输入位置，再选你现在用得上的命令。',
+  lead: '用 /model 换模型，查看状态、引用文件、恢复或分叉对话。',
   updated: '2026.11.04',
-  prepare: '已按 GPT 准备课安装 CLI、填写本站配置；准备一个 agent-practice 练习文件夹。',
+  prepare: '按 GPT 入门课安装并配置 CLI，准备 agent-practice 文件夹。',
   sequence: '启动 → 核对模型与目录 → 完成小任务 → 检查成果 → 退出与恢复。',
   completion: ['能切换并核对当前模型', '知道斜杠命令输入在哪里', '能恢复或分叉一条聊天', '能检查文件改动与本站记录'],
   toc: [
@@ -27,16 +27,16 @@ const codexCliGuide = {
       ${gptStep('1', '从自己的练习文件夹打开终端', '<p>在资源管理器中进入 <code>agent-practice</code>，点击地址栏，输入 <code>powershell</code> 并回车。先确认当前路径：</p>' + gptCode('codex-cli-location', 'PowerShell · 检查当前目录', 'Get-Location'))}
       ${gptStep('2', '检查版本，再启动 Codex', gptCode('codex-cli-version', 'PowerShell · 检查 CLI 版本', 'codex.cmd --version') + gptCode('codex-cli-launch', 'PowerShell · 启动 Codex', 'codex.cmd') + '<p>本站安装课采用 Windows + npm 路线，所以这里写 <code>codex.cmd</code>。通过其他官方方式安装时，使用该方式实际提供的 <code>codex</code> 命令。</p>')}
       <div class="download-actions"><a class="button" href="#gpt?mode=cli&section=gpt-install">还没安装？打开 CLI 准备课</a><a class="button" href="#gpt?mode=cli&section=gpt-config">查看本站配置</a></div>
-      <p class="small-explanation">以下命令按本次官方文档整理。旧版本、账号、模型目录和权限策略可能影响菜单；输入 <code>/</code> 后出现的实际选项，是当前客户端的入口。</p>
+      <p class="small-explanation">输入 <code>/</code> 查看本机菜单。可用指令因版本、账号、模型目录和权限而异。</p>
       ${gptCheck('你能指出：启动命令在 PowerShell 执行，斜杠命令和中文任务发到 Codex 输入区。')}
     </section>
 
     <section aria-labelledby="codex-cli-model">
       <h2 id="codex-cli-model"><span>02</span>用 /model 切换模型，再核对状态</h2>
-      <p>想换一个模型继续同一项工作，不必重新安装 Codex。先等当前任务结束，再在 <strong>Codex 输入区</strong>操作。</p>
-      ${gptStep('1', '打开模型菜单', gptCode('codex-cli-model-command', 'Codex 输入区 · 打开模型选择', '/model') + '<p>回车后，从列表中选择你准备使用的模型；如果提供推理强度，再选择当前模型支持的档位。</p>')}
+      <p>等当前任务结束，在 <strong>Codex 输入区</strong>切换模型。</p>
+      ${gptStep('1', '打开模型菜单', gptCode('codex-cli-model-command', 'Codex 输入区 · 打开模型选择', '/model') + '<p>回车选择模型。若出现推理强度，选择所需档位。</p>')}
       ${gptStep('2', '确认切换确实生效', gptCode('codex-cli-status-command', 'Codex 输入区 · 查看当前状态', '/status') + '<p>查看当前模型、审批策略、可写目录和上下文情况。模型名应与刚才的选择一致，目录应是本次练习文件夹。</p>')}
-      <div class="callout"><strong>模型列表和本站调用权限，都要核对</strong><p>菜单展示什么取决于客户端、供应商配置和模型目录；本站能否调用，还取决于这把密钥的分组与模型权限。换名称不会自动获得权限。找不到目标模型时，回到本站模型广场和配置课核对，不要照抄别人的模型名。</p></div>
+      <div class="callout"><strong>模型列表和本站调用权限，都要核对</strong><p>客户端、供应商配置和模型目录决定列表内容。能否调用取决于 Key 的分组和模型权限。找不到模型时，到模型广场核对完整 ID，再对照配置课检查。</p></div>
       ${gptStep('3', '按任务需要查看文件权限', gptCode('codex-cli-permissions-command', 'Codex 输入区 · 查看权限', '/permissions') + '<p>只想解释文件，可以选择当前界面提供的只读模式；要创建计划，则需要允许练习目录内的写入。阅读菜单里的范围和审批方式后选择，再用 <code>/status</code> 查看实际结果。</p><p>权限控制访问范围；提示词里写“只改这一个文件”，则是在交代具体工作要求。两者都要说清楚。</p>')}
       <details class="gpt-details"><summary>进阶：只调整当前模型的推理强度</summary><p>支持直接参数的版本可以使用：</p>${gptCode('codex-cli-reasoning', 'Codex 输入区 · 当前模型支持时设为 high', '/model --reasoning=high')}<p>这会保留当前模型，并在该模型支持时使用 high。并非每个模型都有相同档位；更高强度也不代表固定速度或固定费用。初学时从菜单选择更容易确认。</p></details>
       ${gptCheck('/status 显示正确的模型和练习目录；你知道本次是否允许修改文件。实际接入与费用还要通过任务和本站记录核对。')}
@@ -44,7 +44,7 @@ const codexCliGuide = {
 
     <section aria-labelledby="codex-cli-commands">
       <h2 id="codex-cli-commands"><span>03</span>按你要做的事，查常用命令</h2>
-      <p>这些命令都输入到 <strong>Codex 任务输入区</strong>。复制后回车，按菜单选择下一步；不用一次记住全部。</p>
+      <p>把指令粘贴到 <strong>Codex 任务输入区</strong>，回车后按菜单选择。</p>
       ${codexCommandTable([
         {command:'/model', purpose:'切换当前模型与可用推理强度', tip:'切换后用 /status 核对；本站分组仍需支持该模型。'},
         {command:'/status', purpose:'查看模型、权限、目录与上下文', tip:'它显示会话状态；本站实扣费用到本站使用记录查看。'},

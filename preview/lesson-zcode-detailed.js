@@ -1,7 +1,7 @@
 const zcodeGuide = {
   title: '把 ZCode 用顺手',
   tag: 'ZCode · 配置、文件与任务协作',
-  lead: '从连接本站模型开始，学会选工作区、给材料、看计划和检查修改。再用辅助对话、分叉与子智能体，把一项任务有条理地做完。',
+  lead: '连接模型，在工作区放入材料、审阅计划和修改，再用辅助对话、分叉和子智能体分工。',
   updated: '2026.11.04',
   prepare: '准备有 Grok 调用权限的本站普通 API Key，以及电脑上的一个空 agent-practice 文件夹。',
   sequence: '安装与配置 → 选择工作区 → 创建学习计划 → 检查和修正 → 管理任务与复用流程。',
@@ -21,14 +21,14 @@ const zcodeGuide = {
   body: () => `
     <section aria-labelledby="agent-fit">
       <h2 id="agent-fit"><span>01</span>先认识工作台里的四件事</h2>
-      <p><strong>ZCode</strong> 是有图形界面的 Agent 工具。工作区决定文件在哪，模型决定调用哪项服务，任务保存讨论过程，文件树让你检查实际成果。本课先用<strong>本站 Grok 模型 + Responses 接口</strong>练习。</p>
+      <p>在 <strong>ZCode</strong> 里选工作区和模型，任务中保留对话，文件树中检查成果。本课使用<strong>本站 Grok 模型 + Responses 接口</strong>。</p>
       ${agentWorkflowMap('zcode', '从任务要求，到看得见的文件', [
         {label:'准备', title:'连接模型', description:'选中本站供应商，核对模型和分组。', href:'#tool/zcode?section=agent-connect'},
         {label:'定位', title:'打开文件夹', description:'确认工作区和本次可修改的范围。', href:'#tool/zcode?section=agent-workspace'},
         {label:'执行', title:'计划后动手', description:'先说明目标，再批准具体文件修改。', href:'#tool/zcode?section=agent-task'},
         {label:'验收', title:'检查成果', description:'打开文件，核对内容和本站记录。', href:'#tool/zcode?section=agent-check'}
       ])}
-      <p>工具叫 ZCode，并不意味着本课必须使用智谱官方套餐。供应商与 API Key 决定模型请求发到哪里；下面会单独添加只因 API 通道。</p>
+      <p>单独添加只因 API 供应商并填写本站 Key，即可使用本课通道，无需智谱官方套餐。</p>
     </section>
 
     <section aria-labelledby="agent-download">
@@ -36,7 +36,7 @@ const zcodeGuide = {
       <div class="download-actions">${officialLink('https://zcode.z.ai/cn/docs/install', '打开 ZCode 官方安装页', 'button primary')}</div>
       ${agentSourceFigure('zcode', '官方下载入口 · 按当前页面选择系统与处理器，旧配图只用于辨认网站')}
       ${gptStep('1', '选择适合电脑的安装包', '<p>普通 Intel / AMD Windows 电脑选择 <strong>x64</strong>，ARM 设备选择 ARM64。macOS 选择 Apple Silicon 或 Intel；Linux 按发行版选择 AppImage、DEB 或 RPM。下载安装后按系统向导启动。</p>')}
-      ${gptStep('2', '完成首次启动', '<p>点击 <strong>开始使用 ZCode</strong>。首次可以跳过数据迁移，先把这节课做通。没有配置模型时，点击左下角 <strong>连接使用 → 使用 API Key</strong>。</p>')}
+      ${gptStep('2', '完成首次启动', '<p>点 <strong>开始使用 ZCode</strong>，首次可跳过数据迁移。尚未配置模型时，点左下角 <strong>连接使用 → 使用 API Key</strong>。</p>')}
       ${gptStep('3', '从左下角齿轮进入模型设置', '<p>已经进入应用时，点击左下角的 <strong>设置齿轮 → 模型设置</strong>。也可以从输入框模型选择器里的 <strong>管理模型</strong>返回设置，下一节按实机图添加本站供应商。</p>')}
       ${agentReferenceFigure('zcode-model')}
       <details class="gpt-details"><summary>Windows 关窗口后为什么还在运行？</summary><p>当前版本默认可隐藏到系统托盘。需要完整重启时，在托盘图标右键菜单选择<strong>退出</strong>，再重新打开。可在“设置 → 常规 → 通知”调整“关闭窗口时隐藏到托盘”。</p></details>
@@ -51,7 +51,7 @@ const zcodeGuide = {
       ${gptCode('zcode-grok-connect-test', 'ZCode 输入框 · 第一次提问', '你好，请用一句话说明你可以怎样帮助我整理一份学习计划。')}
       <p>想先做纯文字练习，可以读 <a href="#grok?section=grok-task">Grok 模型入门</a>。收到回复后，在本站记录里核对时间、模型和 Key，再继续下面的文件任务。</p>
       ${gptCheck('当前任务已选中本站 grok-4.7；连接测试和简单提问能响应，本站记录可以核对。')}
-      <details class="gpt-details"><summary>可选：在 ZCode 中使用 Claude / Anthropic 接口</summary><p>下面保留原有 Claude 路线。使用另一套有 Claude 权限的 Key 和对应协议，单独添加供应商。</p>
+      <details class="gpt-details"><summary>可选：在 ZCode 中使用 Claude / Anthropic 接口</summary><p>要用 Claude，使用有 Claude 权限的 Key 和对应协议，单独添加供应商。</p>
       ${gptStep('1', '先核对本站密钥和模型', `<p>准备一把本站<strong>普通 Claude 分组 API Key</strong>。示例模型沿用 <code>claude-sonnet-4-6</code>，以这把 Key 当前可用的完整模型 ID 为准。</p><div class="download-actions">${officialLink('https://www.yydsapi.uno/keys', '打开本站 API 密钥', 'button')}${officialLink('https://www.yydsapi.uno/model-plaza', '查看可用模型', 'button')}</div>`)}
       ${gptStep('2', '在模型设置中添加自定义供应商', `<p>点击 <strong>添加供应商 → 创建自定义供应商</strong>，使用 <strong>Anthropic 兼容接口</strong>，按下表填写：</p>${agentFieldTable([
         ['名称', '只因 API · Claude'],

@@ -1,0 +1,200 @@
+.editorial-home {
+  container-type: inline-size;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.home-intro {
+  display: grid;
+  grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr);
+  gap: clamp(24px, 5cqi, 64px);
+  align-items: center;
+}
+.home-intro-copy { padding-block: 8px; }
+.home-intro-copy::before {
+  content: "";
+  display: block;
+  width: 36px;
+  border-top: 3px solid var(--link);
+  margin-bottom: clamp(19px, 2.5cqi, 32px);
+}
+.home-intro h1 {
+  margin: 0;
+  font-family: var(--editorial-serif);
+  font-size: clamp(40px, 6cqi, 68px);
+  line-height: 1.18;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -.045em;
+}
+.home-intro h1 em {
+  color: var(--link);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -.065em;
+}
+.home-intro-copy > p {
+  max-width: 25em;
+  margin: 17px 0 0;
+  color: var(--secondary);
+  font-size: clamp(15px, 1.6cqi, 17px);
+  line-height: 1.9;
+  text-wrap: pretty;
+}
+.home-intro-links {
+  display: flex;
+  align-items: center;
+  gap: 14px 24px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+.home-start, .home-browse {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.home-start {
+  gap: 15px;
+  padding: 8px 17px;
+  border-radius: 4px;
+  background: var(--link);
+  color: var(--on-link);
+}
+.home-start:hover { background: var(--ink); color: var(--paper); }
+.home-start svg { width: 17px; height: 17px; }
+.home-browse { color: var(--secondary); text-decoration: underline; text-underline-offset: .35em; }
+.home-browse:hover, .home-tool-links a:hover, .home-help-links a:hover { color: var(--link); }
+.home-cover {
+  overflow: hidden;
+  aspect-ratio: 1.55;
+  background: var(--wash);
+  border-radius: 3px;
+}
+.home-cover img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+
+.home-contents { margin-top: clamp(36px, 6cqi, 68px); }
+.editorial-home :is(h2, summary) {
+  margin: 0;
+  font-family: var(--editorial-serif);
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.45;
+}
+.home-contents h2 { font-size: clamp(24px, 3cqi, 33px); margin-bottom: 16px; }
+.home-route-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(20px, 4cqi, 48px);
+  border-top: 1px solid var(--ink);
+}
+.home-route {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: clamp(10px, 1.5cqi, 18px);
+  padding: clamp(16px, 2.3cqi, 26px) 4px;
+  border-bottom: 1px solid var(--rule);
+}
+.home-route-mark {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--rule);
+  background: var(--sheet, var(--paper));
+  color: var(--link);
+  border-radius: 50%;
+}
+.home-route-mark svg { width: 18px; height: 18px; }
+.home-route h3 {
+  margin: 2px 0 5px;
+  color: var(--ink);
+  font-family: var(--editorial-serif);
+  font-weight: 600;
+  font-size: clamp(20px, 2.3cqi, 25px);
+  line-height: 1.4;
+}
+.home-route-copy p { margin: 0; color: var(--secondary); font-size: 14px; line-height: 1.7; }
+.home-route-copy small { display: block; margin-top: 8px; color: var(--caption); font-size: 12px; line-height: 1.6; }
+.home-route-arrow { margin-top: 10px; color: var(--caption); }
+.home-route-arrow svg { width: 17px; height: 17px; }
+.home-route:is(:hover, :focus-visible) { background: var(--wash); }
+.home-route:is(:hover, :focus-visible) :is(h3, .home-route-arrow) { color: var(--link); }
+
+.home-reference {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 4cqi, 48px);
+  align-items: start;
+  margin-top: clamp(25px, 4cqi, 45px);
+}
+.home-tool-index, .home-help { padding-top: 10px; }
+.home-reference :is(h2, summary) { font-size: 20px; }
+.home-tool-index summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  min-height: 44px;
+  list-style: none;
+  border-bottom: 1px solid var(--rule);
+  padding: 0 4px 8px 0;
+}
+.home-tool-index summary::-webkit-details-marker { display: none; }
+.editorial-home :is(a, summary):focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+.home-tool-index summary:hover { color: var(--link); }
+.home-expand { position: relative; display: grid; place-items: center; width: 18px; height: 18px; color: var(--link); }
+.home-expand::before, .home-expand::after {
+  content: "";
+  position: absolute;
+  width: 13px;
+  height: 1.5px;
+  background: currentColor;
+}
+.home-expand::after { transform: rotate(90deg); }
+.home-tool-index[open] .home-expand::after { display: none; }
+.home-tool-links, .home-help-links { display: flex; flex-wrap: wrap; gap: 0 18px; }
+.home-tool-links { margin-top: 4px; }
+.home-tool-links a, .home-help-links a {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  font-size: 14px;
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: .35em;
+  color: var(--secondary);
+}
+.home-tool-index p { margin: 8px 0 0; color: var(--caption); font-size: 13px; line-height: 1.8; }
+.home-help h2 { padding-top: 3px; }
+.home-help-links { margin-top: 3px; }
+
+@container (max-width: 680px) {
+  .home-intro { gap: 22px; grid-template-columns: 1.05fr 1fr; }
+  .home-intro h1 { font-size: clamp(35px, 6.3cqi, 43px); }
+  .home-route-list { column-gap: 20px; }
+  .home-route { column-gap: 10px; }
+  .home-route-mark { width: 30px; height: 30px; }
+  .home-route-mark svg { width: 16px; height: 16px; }
+}
+@container (max-width: 580px) {
+  .home-intro { grid-template-columns: 1fr; gap: 22px; }
+  .home-intro-copy { padding: 0; }
+  .home-intro-copy::before { margin-bottom: 15px; }
+  .home-intro h1 { font-size: clamp(37px, 9cqi, 51px); }
+  .home-intro-copy > p { max-width: 30em; margin-top: 12px; }
+  .home-intro-links { margin-top: 16px; }
+  .home-cover { aspect-ratio: 2.22; }
+  .home-cover img { object-position: 50% 64%; }
+  .home-contents { margin-top: 29px; }
+  .home-contents h2 { margin-bottom: 12px; }
+  .home-route-list { grid-template-columns: 1fr; }
+  .home-route { padding: 16px 2px; column-gap: 13px; }
+  .home-route h3 { margin: 0 0 2px; }
+  .home-route-copy small { margin-top: 3px; }
+  .home-reference { grid-template-columns: 1fr; gap: 21px; margin-top: 22px; }
+  .home-tool-index, .home-help { padding-top: 0; }
+}

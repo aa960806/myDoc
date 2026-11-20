@@ -56,7 +56,7 @@ form.addEventListener('submit', async event => {
   }
   const key = keyField.value.trim();
   if (!key || /\s/.test(key)) {
-    keyField.setCustomValidity('请粘贴完整的一行生图 Key，检查中间是否有空格。');
+    keyField.setCustomValidity('请粘贴完整 Key，中间不要含空格。');
     keyField.reportValidity();
     return;
   }
@@ -65,14 +65,14 @@ form.addEventListener('submit', async event => {
   try {
     await navigator.clipboard.writeText(prompt);
     clearPrivateFields();
-    status.textContent = '已复制含 Key 的提示词。现在粘贴到你的 Agent 对话中。';
+    status.textContent = '已复制。请粘贴到可信的 Agent 对话中。';
   } catch {
     manualText.value = prompt;
     keyField.value = '';
     manualCopy.hidden = false;
     manualText.focus();
     manualText.select();
-    status.textContent = '请使用下方手动复制框。';
+    status.textContent = '自动复制失败。';
   } finally {
     copyButton.disabled = false;
   }
